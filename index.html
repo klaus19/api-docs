@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>API Reference</title>
+    <title>Beyonic API Reference</title>
 
     <link href="stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
     <link href="stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
@@ -13,7 +13,7 @@
 
       <script>
         $(function() {
-          setupLanguages(["shell","ruby","python"]);
+          setupLanguages(["shell","php","ruby","python"]);
         });
       </script>
   </head>
@@ -28,9 +28,10 @@
     <div class="tocify-wrapper">
       <img src="images/logo.png" />
         <div class="lang-selector">
-              <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="python">python</a>
+              <a href="#" data-language-name="shell">CURL</a>
+              <a href="#" data-language-name="php">PHP</a>
+              <a href="#" data-language-name="ruby">RUBY</a>
+              <a href="#" data-language-name="python">PYTHON</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -39,217 +40,843 @@
       <div id="toc">
       </div>
         <ul class="toc-footer">
-            <li><a href='#'>Sign Up for a Developer Key</a></li>
-            <li><a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a></li>
+            <li><a href='http://support.beyonic.com'>Beyonic Support</a></li>
+            <li><a href='http://beyonic.com'>Beyonic.com</a></li>
+            <li><a href='mailto:support@beyonic.com?subject="Error in your docs!"'>Found an error?</a></li>
         </ul>
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
+        <h1 id="introduction">Introduction</h1>
 
-<p>We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+<p>The Beyonic API is <a href="http://en.wikipedia.org/wiki/Representational_state_transfer">REST</a> based. We provide libraries for several languages, including PHP, Java, Ruby and Python. You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
 
-<p>This example API documentation page was created with <a href="http://github.com/tripit/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&rsquo;s documentation.</p>
-<h1 id='authentication'>Authentication</h1>
+<p>All responses shall be returned using <a href="http://www.json.org/">JSON</a>, however, if you are using the language libraries, the JSON responses will be converted into native, language specific objects.</p>
+
+<h2 id="quick-start">Quick Start</h2>
+
+<p>Can&rsquo;t wait to dive in? Follow the 6 steps below to get started.</p>
+
+<ol>
+<li><a href="https://app.beyonic.com/signup/">Sign Up</a> for a Beyonic account.</li>
+<li><a href="https://app.beyonic.com/">Login</a> and get your API Token by clicking the user icon on the top left corner, and selecting &lsquo;Profile&rsquo; from the dropdown menu. The API Token is shown at the bottom of the page.</li>
+<li>Download the appropriate client library from links in the &ldquo;Libraries&rdquo; section of this reference.</li>
+<li>Using your API token and the library, connect to the API endpoint: https://app.beyonic.com/api</li>
+<li>Identify the methods you need to use. See the &ldquo;Methods&rdquo; section of this reference.</li>
+<li>Profit!</li>
+</ol>
+
+          <h1 id="libraries">Libraries</h1>
+
+<p>Here are links to the various client libraries &amp; specific installation instructions:</p>
+
+<ul>
+<li>PHP - <a href="https://github.com/beyonic/beyonic-php">https://github.com/beyonic/beyonic-php</a></li>
+<li>Ruby - <a href="https://github.com/beyonic/beyonic-ruby">https://github.com/beyonic/beyonic-ruby</a></li>
+<li>Python - <a href="https://github.com/beyonic/beyonic-python">https://github.com/beyonic/beyonic-python</a></li>
+</ul>
+
+          <h1 id="api-endpoint">API Endpoint</h1>
+
+<p>You access Beyonic’s API at the following endpoint:</p>
+
+<ul>
+<li>https://app.beyonic.com/api</li>
+</ul>
+
+<p>This endpoint points to the latest version of our API. The latest version will change from time to time and may break your application. So If you’d like to make sure that your application always accesses the same version, you can specify a specific version in two ways, as shown below.</p>
+
+<h1 id="versioning">Versioning</h1>
+
 <blockquote>
-<p>To authorize, use this code:</p>
+<p>Example Request:</p>
 </blockquote>
-<pre><code class="highlight ruby"><span class="nb">require</span> <span class="s1">'kittn'</span>
+<pre><code class="highlight shell">curl -H <span class="s2">"Beyonic-Version: v1"</span> https://app.beyonic.com/api
+</code></pre>
+<pre><code class="highlight ruby"><span class="nb">require</span> <span class="s1">'beyonic'</span>
+<span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_version</span> <span class="o">=</span> <span class="s1">'v1'</span>
+</code></pre>
+<pre><code class="highlight php"><span class="cp">&lt;?php</span>
+<span class="k">require_once</span><span class="p">(</span><span class="s1">'./lib/Beyonic.php'</span><span class="p">);</span>
+<span class="nx">Beyonic</span><span class="o">::</span><span class="na">setApiVersion</span><span class="p">(</span><span class="s2">"v1"</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+</code></pre>
+<pre><code class="highlight python"><span class="kn">import</span> <span class="nn">beyonic</span>
+<span class="n">beyonic</span><span class="o">.</span><span class="n">api_version</span> <span class="o">=</span> <span class="s">'v1'</span>
+</code></pre>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre>
-<pre><code class="highlight python"><span class="kn">import</span> <span class="nn">kittn</span>
+<p>The current version is v1. The default API endpoint to this version.</p>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre>
-<pre><code class="highlight shell"><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre>
+<p>You can access a specific API version in 2 ways:</p>
+
+<ul>
+<li>Use version specific URLS like: https://app.beyonic.com/api/v1</li>
+<li>Include the Beyonic-Version header in your request as shown in the examples to the right.</li>
+</ul>
+
+          <h1 id="authentication">Authentication</h1>
 
 <blockquote>
-<p>Make sure to replace <code class="prettyprint">meowmeowmeow</code> with your API key.</p>
+<p>Example Request:</p>
 </blockquote>
-
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
-
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
-
-<p><code class="prettyprint">Authorization: meowmeowmeow</code></p>
-
-<p><aside class="notice">
-You must replace <code class="prettyprint">meowmeowmeow</code> with your personal API key.
-</aside></p>
-<h1 id='kittens'>Kittens</h1><h2 id='get-all-kittens'>Get All Kittens</h2><pre><code class="highlight ruby"><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
+<pre><code class="highlight shell">curl http://app.beyonic.com/api -H <span class="s2">"Authorization: Token my-api-key"</span>
 </code></pre>
-<pre><code class="highlight python"><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<pre><code class="highlight ruby"><span class="nb">require</span> <span class="s1">'beyonic'</span>
+<span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'my-api-key'</span>
 </code></pre>
-<pre><code class="highlight shell">curl <span class="s2">"http://example.com/api/kittens"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
+<pre><code class="highlight php"><span class="cp">&lt;?php</span>
+<span class="k">require_once</span><span class="p">(</span><span class="s1">'./lib/Beyonic.php'</span><span class="p">);</span>
+<span class="nx">Beyonic</span><span class="o">::</span><span class="na">setApiKey</span><span class="p">(</span><span class="s1">'my-api-key'</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+</code></pre>
+<pre><code class="highlight python"><span class="kn">import</span> <span class="nn">beyonic</span>
+<span class="n">beyonic</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="s">'my-api-key'</span>
+</code></pre>
+
+<p>All requests must use <a href="http://en.wikipedia.org/wiki/HTTP_Secure">https</a>.</p>
+
+<p>The Beyonic API uses Token Based Authentication, and requires an API key for authentication. You can generate or change your API key by logging into your account. Keep your API key secret to maintain the integrity of your account.</p>
+
+<p>You must supply your API key with all API requests using the “Authorization” header as shown in the examples. You should inculde your API key with all requests.</p>
+
+          <h1 id="methods">Methods</h1>
+
+          <h2 id="payments">Payments</h2>
+
+<p>To send payments to a mobile subscriber, you create a new payment object. You can also retrieve individual payments or list all payments.</p>
+
+<ul>
+<li>End Point: https://app.beyonic.com/api/payments</li>
+</ul>
+
+<h3 id="creating-a-new-payment">Creating a new payment</h3>
+
+<blockquote>
+<p>Example Request:</p>
+</blockquote>
+<pre><code class="highlight shell">curl https://app.beyonic.com/api/payments -H <span class="s2">"Authorization: Token my-authorization-token"</span> <span class="se">\</span>
+-d <span class="nv">phonenumber</span><span class="o">=</span>+256772781923 <span class="se">\</span>
+-d <span class="nv">currency</span><span class="o">=</span>UGX <span class="se">\</span>
+-d <span class="nv">amount</span><span class="o">=</span>30 <span class="se">\</span>
+-d <span class="nv">description</span><span class="o">=</span><span class="s2">"Per diem payment"</span> <span class="se">\</span>
+-d <span class="nv">callback_url</span><span class="o">=</span><span class="s2">"https://my.website/payments/callback"</span> <span class="se">\</span>
+-d <span class="nv">metadata</span><span class="o">=</span><span class="s2">"{'id':'1234','name':'Lucy'}"</span> <span class="se">\</span>
+-d <span class="nv">payment_type</span><span class="o">=</span>money
+</code></pre>
+<pre><code class="highlight ruby"><span class="nb">require</span> <span class="s1">'beyonic'</span>
+<span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'my-api-key'</span>
+
+<span class="n">payment</span> <span class="o">=</span> <span class="no">Beyonic</span><span class="o">::</span><span class="no">Payment</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span>
+    <span class="ss">phonenumber: </span><span class="s2">"+256773712831"</span><span class="p">,</span>
+    <span class="ss">amount: </span><span class="s2">"100.2"</span><span class="p">,</span>
+    <span class="ss">currency: </span><span class="s2">"UGX"</span><span class="p">,</span>
+    <span class="ss">description: </span><span class="s2">"Per diem payment"</span><span class="p">,</span>
+    <span class="ss">payment_type: </span><span class="s2">"money"</span><span class="p">,</span>
+    <span class="ss">callback_url: </span><span class="s2">"https://my.website/payments/callback"</span><span class="p">,</span>
+    <span class="ss">metadata: </span><span class="s2">"{'id': '1234', 'name': 'Lucy'}"</span>
+<span class="p">)</span>
+</code></pre>
+<pre><code class="highlight php"><span class="cp">&lt;?php</span>
+<span class="k">require_once</span><span class="p">(</span><span class="s1">'./lib/Beyonic.php'</span><span class="p">);</span>
+<span class="nx">Beyonic</span><span class="o">::</span><span class="na">setApiVersion</span><span class="p">(</span><span class="s2">"v1"</span><span class="p">);</span>
+
+<span class="nx">Beyonic_Payment</span><span class="o">::</span><span class="na">create</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+  <span class="s2">"phonenumber"</span> <span class="o">=&gt;</span> <span class="s2">"+256773712831"</span><span class="p">,</span>
+  <span class="s2">"amount"</span> <span class="o">=&gt;</span> <span class="s2">"100.2"</span><span class="p">,</span>
+  <span class="s2">"currency"</span> <span class="o">=&gt;</span> <span class="s2">"UGX"</span><span class="p">,</span>
+  <span class="s2">"description"</span> <span class="o">=&gt;</span> <span class="s2">"Per diem payment"</span><span class="p">,</span>
+  <span class="s2">"payment_type"</span> <span class="o">=&gt;</span> <span class="s2">"money"</span><span class="p">,</span>
+  <span class="s2">"callback_url"</span> <span class="o">=&gt;</span> <span class="s2">"https://my.website/payments/callback"</span><span class="p">,</span>
+  <span class="s2">"metadata"</span> <span class="o">=&gt;</span> <span class="s2">"{'id': '1234', 'name': 'Lucy'}"</span>
+<span class="p">));</span>
+<span class="cp">?&gt;</span>
+</code></pre>
+<pre><code class="highlight python"><span class="kn">import</span> <span class="nn">beyonic</span>
+<span class="n">beyonic</span><span class="o">.</span><span class="n">api_version</span> <span class="o">=</span> <span class="s">'v1'</span>
+
+<span class="n">beyonic</span><span class="o">.</span><span class="n">Payment</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">phonenumber</span><span class="o">=</span><span class="s">'+256773712831'</span><span class="p">,</span>
+                       <span class="n">amount</span><span class="o">=</span><span class="s">'1200'</span><span class="p">,</span> 
+                       <span class="n">currency</span><span class="o">=</span><span class="s">'UGX'</span><span class="p">,</span>
+                       <span class="n">description</span><span class="o">=</span><span class="s">'Per diem'</span><span class="p">,</span>
+                       <span class="n">callback_url</span><span class="o">=</span><span class="s">'https://my.website/payments/callback'</span>
+                       <span class="p">)</span>
 </code></pre>
 
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>Example JSON Response:</p>
+</blockquote>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3620</span><span class="p">,</span><span class="w"> 
+    </span><span class="s2">"organization"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> 
+    </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30"</span><span class="p">,</span><span class="w"> 
+    </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UGX"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"payment_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"money"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span><span class="w"> </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lucy"</span><span class="p">},</span><span class="w"> 
+    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Per diem payment"</span><span class="p">,</span><span class="w"> 
+    </span><span class="s2">"phone_nos"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"+256772781923"</span><span class="p">],</span><span class="w"> 
+    </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"new"</span><span class="p">,</span><span class="w"> 
+    </span><span class="s2">"last_error"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"rejected_reason"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"rejected_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"rejected_time"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"cancelled_reason"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"cancelled_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"cancelled_time"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> 
+    </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.017Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"author"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.018Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"updated_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.018Z"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>To create a new payment, make a POST to the endpoint above, with the attributes below.</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Notes</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>phonenumber</td>
+<td>Yes</td>
+<td>String</td>
+<td>+256773712831</td>
+<td>Must be in international format</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>Yes</td>
+<td>String, Integer or Decimal</td>
+<td>3000</td>
+<td>Do not include thousands separators</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>Yes</td>
+<td>String</td>
+<td>UGX</td>
+<td>3 letter ISO currency code. No currency conversion is done, so the currency must be valid for the selected phonenumber. You must have funded Beyonic an account in this currency. If your account for this currency has zero balance, your payment will fail.</td>
+</tr>
+<tr>
+<td>description</td>
+<td>Yes</td>
+<td>String</td>
+<td>Per diem payment</td>
+<td>This description will be sent to the recipient along with the payment, so it should be limited to about 140 characters.</td>
+</tr>
+<tr>
+<td>payment_type</td>
+<td>No</td>
+<td>String</td>
+<td>money</td>
+<td>Options: money (default), airtime - use &ldquo;airtime&rdquo; to send an airtime payment instead of a mobile money payment</td>
+</tr>
+<tr>
+<td>callback_url</td>
+<td>No</td>
+<td>String</td>
+<td>https://my.website/payments/callback</td>
+<td>See &ldquo;Callback URLs&rdquo; below for more info.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Callback URLs</strong></p>
+
+<p>Callback URLs are used to send notifications of changes in payment status. Not all payments will be completed immediately, especially if it is a payment to a new number that hasn’t been verified, or if your account has approval rules that require other users to approve payments before they are processed.</p>
+
+<ul>
+<li>Non-HTTPS URLs will be rejected.</li>
+<li>Data will be posted to the URL, and a 200 response is expected.</li>
+<li>In version 1, a non 200 response may result in deletion of the URL, and no further notifications will be sent.</li>
+<li>In version 1, the URL you submit isn’t specific to the payment you have created. Once submitted, it will receive notifications for all future payments made via your organization, whether they are made via the API or via the web-interface.</li>
+<li>Therefore, you are encouraged to use the same URL for all payments. Since URLs are stored at a per-organization level, using different URLs may result in duplicate notifications being sent to the different URLs.</li>
+<li>In version 1, previously submitted urls can be deleted via the web browser, or the Webhooks API methods described elsewhere in this reference.</li>
+</ul>
+
+<p><strong>Responses</strong></p>
+
+<ul>
+<li>If successful, a JSON representation of the new payment object will be returned. The state field will be &ldquo;new&rdquo;</li>
+<li>The payment object can be identified using it’s id field, or the metadata that you supplied.</li>
+<li>On subsequent notification callbacks to your callback URL, the same payment object (with the same id field) will be returned. Check the state field for the latest payment status.</li>
+<li>The state field values can be:
+
+<ul>
+<li>new – for new payments</li>
+<li>processed – for successfully completed payments</li>
+<li>processed_with_errors – for payments that didn’t complete successfully. The last_error field with have more information.</li>
+<li>rejected – for payments that were rejected during the approval process. The following fields will have more information: rejected_reason, rejected_by and rejected_time</li>
+<li>cancelled – for payments that were cancelled. The following fields will have more information: cancelled_reason, cancelled_by and cancelled_time</li>
+</ul></li>
+</ul>
+
+<h3 id="retrieving-a-single-payment">Retrieving a single payment</h3>
+
+<blockquote>
+<p>Retrieve Single Payment:</p>
+</blockquote>
+<pre><code class="highlight shell">curl https://app.beyonic.com/api/payments/2314 -H <span class="s2">"Authorization: Token my-authorization-token"</span>
+</code></pre>
+<pre><code class="highlight ruby"><span class="nb">require</span> <span class="s1">'beyonic'</span>
+<span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'my-api-key'</span>
+
+<span class="n">payment</span> <span class="o">=</span> <span class="no">Beyonic</span><span class="o">::</span><span class="no">Payment</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2314</span><span class="p">)</span>
+</code></pre>
+<pre><code class="highlight php"><span class="cp">&lt;?php</span>
+<span class="k">require_once</span><span class="p">(</span><span class="s1">'./lib/Beyonic.php'</span><span class="p">);</span>
+<span class="nx">Beyonic</span><span class="o">::</span><span class="na">setApiVersion</span><span class="p">(</span><span class="s2">"v1"</span><span class="p">);</span>
+
+<span class="nv">$payment</span> <span class="o">=</span> <span class="nx">Beyonic_Payment</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="mi">2314</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+</code></pre>
+<pre><code class="highlight python"><span class="kn">import</span> <span class="nn">beyonic</span>
+<span class="n">beyonic</span><span class="o">.</span><span class="n">api_version</span> <span class="o">=</span> <span class="s">'v1'</span>
+
+<span class="n">payment</span> <span class="o">=</span> <span class="n">beyonic</span><span class="o">.</span><span class="n">Payment</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2314</span><span class="p">)</span>
+
+</code></pre>
+
+<p>To retrieve a single payment object, provide the payment id and a payment object will be returned.</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Notes</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Yes</td>
+<td>Integer</td>
+<td>2314</td>
+<td>The id of the payment you want to retrieve</td>
+</tr>
+</tbody></table>
+
+<h3 id="listing-all-payments">Listing all payments</h3>
+
+<blockquote>
+<p>List Payments:</p>
+</blockquote>
+<pre><code class="highlight shell">curl https://app.beyonic.com/api/payments -H <span class="s2">"Authorization: Token my-authorization-token"</span>
+</code></pre>
+<pre><code class="highlight ruby"><span class="nb">require</span> <span class="s1">'beyonic'</span>
+<span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'my-api-key'</span>
+
+<span class="n">payments</span> <span class="o">=</span> <span class="no">Beyonic</span><span class="o">::</span><span class="no">Payment</span><span class="p">.</span><span class="nf">list</span>
+</code></pre>
+<pre><code class="highlight php"><span class="cp">&lt;?php</span>
+<span class="k">require_once</span><span class="p">(</span><span class="s1">'./lib/Beyonic.php'</span><span class="p">);</span>
+<span class="nx">Beyonic</span><span class="o">::</span><span class="na">setApiVersion</span><span class="p">(</span><span class="s2">"v1"</span><span class="p">);</span>
+
+<span class="nv">$payments</span> <span class="o">=</span> <span class="nx">Beyonic_Payment</span><span class="o">::</span><span class="na">getAll</span><span class="p">();</span>
+<span class="cp">?&gt;</span>
+</code></pre>
+<pre><code class="highlight python"><span class="kn">import</span> <span class="nn">beyonic</span>
+<span class="n">beyonic</span><span class="o">.</span><span class="n">api_version</span> <span class="o">=</span> <span class="s">'v1'</span>
+
+<span class="n">payments</span> <span class="o">=</span> <span class="n">beyonic</span><span class="o">.</span><span class="n">Payment</span><span class="o">.</span><span class="nb">list</span><span class="p">()</span>
+
+</code></pre>
+
+<blockquote>
+<p>List Payments JSON Response:</p>
 </blockquote>
 <pre><code class="highlight json"><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3620</span><span class="p">,</span><span class="w"> 
+      </span><span class="s2">"organization"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> 
+      </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30"</span><span class="p">,</span><span class="w"> 
+      </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UGX"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"payment_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"money"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span><span class="w"> </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lucy"</span><span class="p">},</span><span class="w"> 
+      </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Per diem payment"</span><span class="p">,</span><span class="w"> 
+      </span><span class="s2">"phone_nos"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"+256772781923"</span><span class="p">],</span><span class="w"> 
+      </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"new"</span><span class="p">,</span><span class="w"> 
+      </span><span class="s2">"last_error"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"rejected_reason"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"rejected_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"rejected_time"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"cancelled_reason"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"cancelled_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"cancelled_time"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> 
+      </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.017Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"author"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.018Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"updated_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.018Z"</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Isis"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3636</span><span class="p">,</span><span class="w"> 
+      </span><span class="s2">"organization"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> 
+      </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"50"</span><span class="p">,</span><span class="w"> 
+      </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UGX"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"payment_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"money"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3123</span><span class="p">,</span><span class="w"> </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lucy"</span><span class="p">},</span><span class="w"> 
+      </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Per diem payment"</span><span class="p">,</span><span class="w"> 
+      </span><span class="s2">"phone_nos"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"+256772788923"</span><span class="p">],</span><span class="w"> 
+      </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"new"</span><span class="p">,</span><span class="w"> 
+      </span><span class="s2">"last_error"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"rejected_reason"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"rejected_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"rejected_time"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"cancelled_reason"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"cancelled_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"cancelled_time"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> 
+      </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.017Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"author"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.018Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"updated_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.018Z"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
 
-<p>This endpoint retrieves all kittens.</p>
-<h3 id='http-request'>HTTP Request</h3>
-<p><code class="prettyprint">GET http://example.com/kittens</code></p>
-<h3 id='query-parameters'>Query Parameters</h3>
+<p>To return a list of all payments, make a GET request to the payments endpoint. This will return a list of payment objects.</p>
+
+          <h2 id="collections">Collections</h2>
+
+<p>Collections are payments sent to you from mobile subscribers. See [&lsquo;how collections work&rsquo;]](http://support.beyonic.com/how-collections-work/) for more information.</p>
+
+<p>When the user sends in a payment, it will create a collection object that you can access via the Collections API using the methods shown below.</p>
+
+<p>The collections api endpoint is https://app.beyonic.com/api/collections</p>
+
+<h3 id="retrieving-a-single-collection">Retrieving a single collection</h3>
+
+<blockquote>
+<p>Retrieve Individual Collections:</p>
+</blockquote>
+<pre><code class="highlight shell">curl https://app.beyonic.com/api/collections/230 -H <span class="s2">"Authorization: Token my-authorization-token"</span>
+</code></pre>
+<pre><code class="highlight ruby"><span class="nb">require</span> <span class="s1">'beyonic'</span>
+<span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'my-api-key'</span>
+
+<span class="n">collection</span> <span class="o">=</span> <span class="no">Beyonic</span><span class="o">::</span><span class="no">Collection</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">23</span><span class="p">)</span>
+</code></pre>
+<pre><code class="highlight php"><span class="cp">&lt;?php</span>
+<span class="k">require_once</span><span class="p">(</span><span class="s1">'./lib/Beyonic.php'</span><span class="p">);</span>
+<span class="nx">Beyonic</span><span class="o">::</span><span class="na">setApiVersion</span><span class="p">(</span><span class="s2">"v1"</span><span class="p">);</span>
+
+<span class="nv">$collection</span> <span class="o">=</span> <span class="nx">Beyonic_Collection</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="mi">23</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+</code></pre>
+<pre><code class="highlight python"><span class="kn">import</span> <span class="nn">beyonic</span>
+<span class="n">beyonic</span><span class="o">.</span><span class="n">api_version</span> <span class="o">=</span> <span class="s">'v1'</span>
+
+<span class="n">collection</span> <span class="o">=</span> <span class="n">beyonic</span><span class="o">.</span><span class="n">Collection</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">23</span><span class="p">)</span>
+
+</code></pre>
+
+<p>To retrieve a single collection object, provide the collection id and a collection object will be returned.</p>
+
 <table><thead>
 <tr>
 <th>Parameter</th>
-<th>Default</th>
-<th>Description</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Notes</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
-</tr>
-<tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
+<td>id</td>
+<td>Yes</td>
+<td>Integer</td>
+<td>23</td>
+<td>The id of the collection you want to retrieve</td>
 </tr>
 </tbody></table>
 
-<p><aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside></p>
-<h2 id='get-a-specific-kitten'>Get a Specific Kitten</h2><pre><code class="highlight ruby"><span class="nb">require</span> <span class="s1">'kittn'</span>
+<h3 id="listing-all-collections">Listing all collections</h3>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<blockquote>
+<p>List Collections:</p>
+</blockquote>
+<pre><code class="highlight shell">curl https://app.beyonic.com/api/collections -H <span class="s2">"Authorization: Token my-authorization-token"</span>
 </code></pre>
-<pre><code class="highlight python"><span class="kn">import</span> <span class="nn">kittn</span>
+<pre><code class="highlight ruby"><span class="nb">require</span> <span class="s1">'beyonic'</span>
+<span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'my-api-key'</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">collection</span> <span class="o">=</span> <span class="no">Beyonic</span><span class="o">::</span><span class="no">Collection</span><span class="p">.</span><span class="nf">list</span>
 </code></pre>
-<pre><code class="highlight shell">curl <span class="s2">"http://example.com/api/kittens/3"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
+<pre><code class="highlight php"><span class="cp">&lt;?php</span>
+<span class="k">require_once</span><span class="p">(</span><span class="s1">'./lib/Beyonic.php'</span><span class="p">);</span>
+<span class="nx">Beyonic</span><span class="o">::</span><span class="na">setApiVersion</span><span class="p">(</span><span class="s2">"v1"</span><span class="p">);</span>
+
+<span class="nv">$collection</span> <span class="o">=</span> <span class="nx">Beyonic_Collection</span><span class="o">::</span><span class="na">getAll</span><span class="p">();</span>
+<span class="cp">?&gt;</span>
+</code></pre>
+<pre><code class="highlight python"><span class="kn">import</span> <span class="nn">beyonic</span>
+<span class="n">beyonic</span><span class="o">.</span><span class="n">api_version</span> <span class="o">=</span> <span class="s">'v1'</span>
+
+<span class="n">collection</span> <span class="o">=</span> <span class="n">beyonic</span><span class="o">.</span><span class="n">Collection</span><span class="o">.</span><span class="nb">list</span><span class="p">()</span>
+
 </code></pre>
 
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>Response Object List</p>
 </blockquote>
-<pre><code class="highlight json"><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Isis"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-</span><span class="p">}</span><span class="w">
+<pre><code class="highlight json"><span class="p">[</span><span class="w">
+       </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">134</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"phonenumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+256XXXXXX"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"remote_transaction_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ASDCECASF"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"payment_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test Payment"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">3000.000</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UGX"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"successful"</span><span class="w">
+       </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
 </span></code></pre>
 
-<p>This endpoint retrieves a specific kitten.</p>
+<p>To retrieve a list of all collections, make a GET request to the collections endpoint. This will return a list of collection objects.</p>
 
-<p><aside class="warning">If you&rsquo;re not using an administrator API key, note that some kittens will return 403 Forbidden if they are hidden for admins only.</aside></p>
-<h3 id='http-request'>HTTP Request</h3>
-<p><code class="prettyprint">GET http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters'>URL Parameters</h3>
+<h3 id="searching-for-a-collection">Searching for a collection</h3>
+
+<blockquote>
+<p>Search For Collections:</p>
+</blockquote>
+<pre><code class="highlight shell">curl https://app.beyonic.com/api/collections?phonenumber<span class="o">=</span>+256772712893&amp;remote_transaction_id<span class="o">=</span>SS12312 -H <span class="s2">"Authorization: Token my-authorization-token"</span>
+</code></pre>
+<pre><code class="highlight ruby"><span class="nb">require</span> <span class="s1">'beyonic'</span>
+<span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'my-api-key'</span>
+
+<span class="n">collection</span> <span class="o">=</span> <span class="no">Beyonic</span><span class="o">::</span><span class="no">Collection</span><span class="p">.</span><span class="nf">list</span><span class="p">(</span>
+  <span class="ss">phonenumber: </span><span class="s2">"+256772712893"</span><span class="p">,</span>
+  <span class="ss">remote_transaction_id: </span><span class="s2">"SS12312"</span>
+<span class="p">)</span>
+</code></pre>
+<pre><code class="highlight php"><span class="cp">&lt;?php</span>
+<span class="k">require_once</span><span class="p">(</span><span class="s1">'./lib/Beyonic.php'</span><span class="p">);</span>
+<span class="nx">Beyonic</span><span class="o">::</span><span class="na">setApiVersion</span><span class="p">(</span><span class="s2">"v1"</span><span class="p">);</span>
+
+<span class="nv">$collection</span> <span class="o">=</span> <span class="nx">Beyonic_Collection</span><span class="o">::</span><span class="na">getAll</span><span class="p">(</span>
+  <span class="s2">"phonenumber"</span> <span class="o">=&gt;</span> <span class="s2">"+256772712893"</span><span class="p">,</span>
+  <span class="s2">"remote_transaction_id"</span> <span class="o">=&gt;</span> <span class="s2">"SS12312"</span>
+<span class="p">));</span>
+<span class="cp">?&gt;</span>
+</code></pre>
+<pre><code class="highlight python"><span class="kn">import</span> <span class="nn">beyonic</span>
+<span class="n">beyonic</span><span class="o">.</span><span class="n">api_version</span> <span class="o">=</span> <span class="s">'v1'</span>
+
+<span class="n">collection</span> <span class="o">=</span> <span class="n">beyonic</span><span class="o">.</span><span class="n">Collection</span><span class="o">.</span><span class="nb">list</span><span class="p">(</span><span class="n">phonenumber</span><span class="o">=</span><span class="s">'+256772712893'</span><span class="p">,</span>
+                                     <span class="n">remote_transaction_id</span><span class="o">=</span><span class="s">'SS12312'</span><span class="p">)</span>
+
+
+</code></pre>
+
+<blockquote>
+<p>Response Object From Search</p>
+</blockquote>
+<pre><code class="highlight json"><span class="p">[</span><span class="w">
+       </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">134</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"phonenumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+256XXXXXX"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"remote_transaction_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ASDCECASF"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"payment_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test Payment"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">3000.000</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UGX"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"successful"</span><span class="w">
+       </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>You can search for a specific payment by passing two parameters to the list() method. Both parameters are required</p>
+
 <table><thead>
 <tr>
 <th>Parameter</th>
-<th>Description</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Notes</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>ID</td>
-<td>The ID of the cat to retrieve</td>
+<td>phonenumber</td>
+<td>Yes</td>
+<td>String</td>
+<td>+25677271289</td>
+<td>The phone number that sent the payment you are searching for</td>
+</tr>
+<tr>
+<td>remote_transaction_id</td>
+<td>Yes</td>
+<td>String</td>
+<td>SS12312</td>
+<td>The transaction id that the subscriber received from the telecom company when they made that payment</td>
 </tr>
 </tbody></table>
 
-          <h1 id='errors'>Errors</h1>
-<p><aside class="notice">This error section is stored in a separate file in <code class="prettyprint">includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files&hellip;just save them to the <code class="prettyprint">includes</code> folder and add them to the top of your <code class="prettyprint">index.md</code>&rsquo;s frontmatter. Files are included in the order listed.</aside></p>
+<p><strong>Response</strong></p>
 
-<p>The Kittn API uses the following error codes:</p>
+<p>Note that the response will be a list of collections, not a single collection.</p>
+
+          <h2 id="wehbooks">Wehbooks</h2>
+
+<p>Webhooks or callback URLs allow you to define URLs on your server that notifications should be sent to. Notifications are sent for specific events, as defined in the “Supported Event” section below.</p>
+
+<p>You can be managed in two ways:</p>
+
+<ul>
+<li>By logging into your account via the web browser</li>
+<li>By using the Webhooks API</li>
+</ul>
+
+<p><em>Required permisions</em></p>
+
+<p>To manage webhooks, either with the API or the web browser, you must have “Manage Users and Organization Settings” permissions for your organization</p>
+
+<p><em>Supported events</em></p>
+
+<p>The following events are supported:</p>
+
+<ul>
+<li>payment.status.changed – Receive notification whenever the status of any payments in your organization changes. See the Payments API for more information.</li>
+<li>collection.received - Receive notifications whenever you receive a collection (an incoming payment) from a customer)</li>
+</ul>
+
+<p><em>Managing Webhooks from the web browser</em></p>
+
+<p>To manage webhooks using the web browser:
+1. Log into your account.
+2. Go to your organizations profile page. You can access this either from the organizations menu, or by clicking your organization name at the top left of the page.
+3. Click the Settings button (Cog wheel with an arrow pointing down)
+4. Click “Manage Webhooks” from the drop down menu that appears</p>
+
+<p><em>Managing Webhooks from the API</em></p>
+
+<p>You can use the Webhooks API described below to update or delete your callback URLs programatically.</p>
+
+<p>The webhooks api endpoint is https://app.beyonic.com/api/webhooks</p>
+
+<h3 id="creating-a-new-webhook">Creating a new webhook</h3>
+
+<blockquote>
+<p>Example Request:</p>
+</blockquote>
+<pre><code class="highlight shell">curl http://app.beyonic.com/api/webhooks -H <span class="s2">"Authorization: Token my-api-key"</span> <span class="se">\</span>
+-d <span class="s2">"payment.status.changed"</span> <span class="se">\</span>
+-d <span class="nv">target</span><span class="o">=</span><span class="s2">"https://my.callback.url/"</span>
+</code></pre>
+<pre><code class="highlight ruby"><span class="nb">require</span> <span class="s1">'beyonic'</span>
+<span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'my-api-key'</span>
+
+<span class="n">hook</span> <span class="o">=</span> <span class="no">Beyonic</span><span class="o">::</span><span class="no">Webhook</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span>
+    <span class="ss">event: </span><span class="s2">"payment.status.changed"</span><span class="p">,</span>
+    <span class="ss">target: </span><span class="s2">"https://my.callback.url/"</span>
+<span class="p">)</span>
+</code></pre>
+<pre><code class="highlight php"><span class="cp">&lt;?php</span>
+<span class="k">require_once</span><span class="p">(</span><span class="s1">'./lib/Beyonic.php'</span><span class="p">);</span>
+<span class="nx">Beyonic</span><span class="o">::</span><span class="na">setApiVersion</span><span class="p">(</span><span class="s2">"v1"</span><span class="p">);</span>
+
+<span class="nx">Beyonic_Webhook</span><span class="o">::</span><span class="na">create</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+  <span class="s2">"event"</span> <span class="o">=&gt;</span> <span class="s2">"payment.status.changed"</span><span class="p">,</span>
+  <span class="s2">"target"</span> <span class="o">=&gt;</span> <span class="s2">"https://my.callback.url/"</span>
+<span class="p">));</span>
+<span class="cp">?&gt;</span>
+</code></pre>
+<pre><code class="highlight python"><span class="kn">import</span> <span class="nn">beyonic</span>
+<span class="n">beyonic</span><span class="o">.</span><span class="n">api_version</span> <span class="o">=</span> <span class="s">'v1'</span>
+
+<span class="n">hook</span> <span class="o">=</span> <span class="n">beyonic</span><span class="o">.</span><span class="n">Webhook</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">event</span><span class="o">=</span><span class="s">'payment.status.changed'</span><span class="p">,</span>
+                              <span class="n">target</span><span class="o">=</span><span class="s">'https://my.callback.url/'</span>
+                              <span class="p">)</span>
+
+</code></pre>
+
+<p>To create a new webhook, make a POST to the endpoint above, with the attributes below.</p>
 
 <table><thead>
 <tr>
-<th>Error Code</th>
-<th>Meaning</th>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Notes</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>400</td>
-<td>Bad Request &ndash; Your request sucks</td>
+<td>event</td>
+<td>Yes</td>
+<td>String</td>
+<td>&lsquo;payment.status.changed&rsquo;</td>
+<td>Must be a supported event</td>
 </tr>
 <tr>
-<td>401</td>
-<td>Unauthorized &ndash; Your API key is wrong</td>
-</tr>
-<tr>
-<td>403</td>
-<td>Forbidden &ndash; The kitten requested is hidden for administrators only</td>
-</tr>
-<tr>
-<td>404</td>
-<td>Not Found &ndash; The specified kitten could not be found</td>
-</tr>
-<tr>
-<td>405</td>
-<td>Method Not Allowed &ndash; You tried to access a kitten with an invalid method</td>
-</tr>
-<tr>
-<td>406</td>
-<td>Not Acceptable &ndash; You requested a format that isn&rsquo;t json</td>
-</tr>
-<tr>
-<td>410</td>
-<td>Gone &ndash; The kitten requested has been removed from our servers</td>
-</tr>
-<tr>
-<td>418</td>
-<td>I&rsquo;m a teapot</td>
-</tr>
-<tr>
-<td>429</td>
-<td>Too Many Requests &ndash; You&rsquo;re requesting too many kittens! Slown down!</td>
-</tr>
-<tr>
-<td>500</td>
-<td>Internal Server Error &ndash; We had a problem with our server. Try again later.</td>
-</tr>
-<tr>
-<td>503</td>
-<td>Service Unavailable &ndash; We&rsquo;re temporarially offline for maintanance. Please try again later.</td>
+<td>target</td>
+<td>Yes</td>
+<td>String</td>
+<td>&#39;https://my.callback.url/&ldquo;&rsquo;</td>
+<td>Must be an https URL</td>
 </tr>
 </tbody></table>
+
+<p><strong>Responses</strong></p>
+
+<ul>
+<li>If successful, a JSON representation of the new webhook object will be returned.</li>
+</ul>
+
+<h3 id="retrieving-a-single-webhook">Retrieving a single webhook</h3>
+
+<blockquote>
+<p>Retrieve Individual Webhooks:</p>
+</blockquote>
+<pre><code class="highlight shell">curl https://app.beyonic.com/api/webhooks/23 -H <span class="s2">"Authorization: Token my-authorization-token"</span>
+</code></pre>
+<pre><code class="highlight ruby"><span class="nb">require</span> <span class="s1">'beyonic'</span>
+<span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'my-api-key'</span>
+
+<span class="n">hook</span> <span class="o">=</span> <span class="no">Beyonic</span><span class="o">::</span><span class="no">Webhook</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">23</span><span class="p">)</span>
+</code></pre>
+<pre><code class="highlight php"><span class="cp">&lt;?php</span>
+<span class="k">require_once</span><span class="p">(</span><span class="s1">'./lib/Beyonic.php'</span><span class="p">);</span>
+<span class="nx">Beyonic</span><span class="o">::</span><span class="na">setApiVersion</span><span class="p">(</span><span class="s2">"v1"</span><span class="p">);</span>
+
+<span class="nv">$hook</span> <span class="o">=</span> <span class="nx">Beyonic_Webhook</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="mi">23</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+</code></pre>
+<pre><code class="highlight python"><span class="kn">import</span> <span class="nn">beyonic</span>
+<span class="n">beyonic</span><span class="o">.</span><span class="n">api_version</span> <span class="o">=</span> <span class="s">'v1'</span>
+
+<span class="n">hook</span> <span class="o">=</span> <span class="n">beyonic</span><span class="o">.</span><span class="n">Webhook</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">23</span><span class="p">)</span>
+
+</code></pre>
+
+<p>To retrieve a single webhook object, provide the webhook id and a webhook object will be returned.</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Notes</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Yes</td>
+<td>Integer</td>
+<td>23</td>
+<td>The id of the webhook you want to retrieve</td>
+</tr>
+</tbody></table>
+
+<h3 id="listing-all-webhooks">Listing all webhooks</h3>
+
+<blockquote>
+<p>List Webhooks:</p>
+</blockquote>
+<pre><code class="highlight shell">curl https://app.beyonic.com/api/webhooks -H <span class="s2">"Authorization: Token my-authorization-token"</span>
+</code></pre>
+<pre><code class="highlight ruby"><span class="nb">require</span> <span class="s1">'beyonic'</span>
+<span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'my-api-key'</span>
+
+<span class="n">hooks</span> <span class="o">=</span> <span class="no">Beyonic</span><span class="o">::</span><span class="no">Webhook</span><span class="p">.</span><span class="nf">list</span>
+</code></pre>
+<pre><code class="highlight php"><span class="cp">&lt;?php</span>
+<span class="k">require_once</span><span class="p">(</span><span class="s1">'./lib/Beyonic.php'</span><span class="p">);</span>
+<span class="nx">Beyonic</span><span class="o">::</span><span class="na">setApiVersion</span><span class="p">(</span><span class="s2">"v1"</span><span class="p">);</span>
+
+<span class="nv">$hooks</span> <span class="o">=</span> <span class="nx">Beyonic_Webhook</span><span class="o">::</span><span class="na">getAll</span><span class="p">();</span>
+<span class="cp">?&gt;</span>
+</code></pre>
+<pre><code class="highlight python"><span class="kn">import</span> <span class="nn">beyonic</span>
+<span class="n">beyonic</span><span class="o">.</span><span class="n">api_version</span> <span class="o">=</span> <span class="s">'v1'</span>
+
+<span class="n">hooks</span> <span class="o">=</span> <span class="n">beyonic</span><span class="o">.</span><span class="n">Webhook</span><span class="o">.</span><span class="nb">list</span><span class="p">()</span>
+
+</code></pre>
+
+<p>To retrieve a list of all webhooks, make a GET request to the webhooks endpoint. This will return a list of webhooks objects.</p>
+
+<h3 id="updating-a-webhook">Updating a webhook</h3>
+
+<blockquote>
+<p>Updating a Webhook:</p>
+</blockquote>
+<pre><code class="highlight shell">ccurl http://app.beyonic.com/api/webhooks/1 -H <span class="s2">"Authorization: Token my-api-key"</span> <span class="se">\</span>
+-d <span class="nv">event</span><span class="o">=</span><span class="s2">"payment.status.changed"</span> <span class="se">\</span>
+-d <span class="nv">target</span><span class="o">=</span><span class="s2">"https://my.callback.url/"</span> <span class="se">\</span>
+-X PUT
+</code></pre>
+<pre><code class="highlight ruby"><span class="nb">require</span> <span class="s1">'beyonic'</span>
+<span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'my-api-key'</span>
+
+<span class="n">hook</span> <span class="o">=</span> <span class="no">Beyonic</span><span class="o">::</span><span class="no">Webhook</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">hook</span><span class="p">.</span><span class="nf">target</span> <span class="o">=</span> <span class="s1">'https://my.callback.url/'</span>
+<span class="n">hook</span><span class="p">.</span><span class="nf">save</span><span class="p">()</span>
+</code></pre>
+<pre><code class="highlight php"><span class="cp">&lt;?php</span>
+<span class="k">require_once</span><span class="p">(</span><span class="s1">'./lib/Beyonic.php'</span><span class="p">);</span>
+<span class="nx">Beyonic</span><span class="o">::</span><span class="na">setApiVersion</span><span class="p">(</span><span class="s2">"v1"</span><span class="p">);</span>
+
+<span class="nv">$hook</span> <span class="o">=</span> <span class="nx">Beyonic_Webhook</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="nv">$hook</span><span class="o">-&gt;</span><span class="na">target</span> <span class="o">=</span> <span class="s1">'https://my.callback.url/'</span><span class="p">;</span>
+<span class="nv">$hook</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">();</span>
+<span class="cp">?&gt;</span>
+</code></pre>
+<pre><code class="highlight python"><span class="kn">import</span> <span class="nn">beyonic</span>
+<span class="n">beyonic</span><span class="o">.</span><span class="n">api_version</span> <span class="o">=</span> <span class="s">'v1'</span>
+
+<span class="n">hook</span> <span class="o">=</span> <span class="n">beyonic</span><span class="o">.</span><span class="n">Webhook</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">hook</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="s">'https://my.callback.url/'</span>
+<span class="n">hook</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+</code></pre>
+
+<p>To update a webhook, make a PUT request to the specific webhook’s endpoint, identified by its Id.</p>
+
+<h3 id="deleting-a-webhook">Deleting a webhook</h3>
+
+<blockquote>
+<p>Deleting a Webhook:</p>
+</blockquote>
+<pre><code class="highlight shell">curl http://app.beyonic.com/api/webhooks/1 -H <span class="s2">"Authorization: Token my-api-key"</span> -X DELETE
+</code></pre>
+<pre><code class="highlight ruby"><span class="nb">require</span> <span class="s1">'beyonic'</span>
+<span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'my-api-key'</span>
+
+<span class="no">Beyonic</span><span class="o">::</span><span class="no">Webhook</span><span class="p">.</span><span class="nf">delete</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre>
+<pre><code class="highlight php"><span class="cp">&lt;?php</span>
+<span class="k">require_once</span><span class="p">(</span><span class="s1">'./lib/Beyonic.php'</span><span class="p">);</span>
+<span class="nx">Beyonic</span><span class="o">::</span><span class="na">setApiVersion</span><span class="p">(</span><span class="s2">"v1"</span><span class="p">);</span>
+
+<span class="nx">Beyonic_Webhook</span><span class="o">::</span><span class="na">delete</span><span class="p">(</span> <span class="mi">11</span> <span class="p">);</span>
+<span class="cp">?&gt;</span>
+</code></pre>
+<pre><code class="highlight python"><span class="kn">import</span> <span class="nn">beyonic</span>
+<span class="n">beyonic</span><span class="o">.</span><span class="n">api_version</span> <span class="o">=</span> <span class="s">'v1'</span>
+
+<span class="n">beyonic</span><span class="o">.</span><span class="n">Webhook</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span>
+
+</code></pre>
+
+<p>To delete a webhook, make a DELETE request to the specific webhook’s endpoint, identified by its Id.</p>
 
       </div>
       <div class="dark-box">
           <div class="lang-selector">
-                <a href="#" data-language-name="shell">shell</a>
-                <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="python">python</a>
+                <a href="#" data-language-name="shell">CURL</a>
+                <a href="#" data-language-name="php">PHP</a>
+                <a href="#" data-language-name="ruby">RUBY</a>
+                <a href="#" data-language-name="python">PYTHON</a>
           </div>
       </div>
     </div>
