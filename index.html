@@ -58,7 +58,7 @@
 
 <p>All responses shall be returned using <a href="http://www.json.org/">JSON</a>, however, if you are using the language libraries, the JSON responses will be converted into native, language specific objects.</p>
 
-<h2 id="quick-start">Quick Start</h2>
+<h1 id="quick-start">Quick Start</h1>
 
 <p>Can&rsquo;t wait to dive in? Follow the 6 steps below to get started.</p>
 
@@ -148,7 +148,9 @@
 
           <h1 id="methods">Methods</h1>
 
-          <h2 id="payments">Payments</h2>
+<p>These are the methods supported by Beyonic&rsquo;s API. Clicking on each method in the table of contents shall reveal the actions supported by each method.</p>
+
+          <h1 id="payments">Payments</h1>
 
 <p>To send payments to a mobile subscriber, you create a new payment object. You can also retrieve individual payments or list all payments.</p>
 
@@ -156,7 +158,7 @@
 <li>End Point: https://app.beyonic.com/api/payments</li>
 </ul>
 
-<h3 id="creating-a-new-payment">Creating a new payment</h3>
+<h2 id="creating-a-new-payment">Creating a new payment</h2>
 
 <blockquote>
 <p>Example Request:</p>
@@ -322,7 +324,7 @@
 </ul></li>
 </ul>
 
-<h3 id="retrieving-a-single-payment">Retrieving a single payment</h3>
+<h2 id="retrieving-a-single-payment">Retrieving a single payment</h2>
 
 <blockquote>
 <p>Retrieve Single Payment:</p>
@@ -368,7 +370,7 @@
 </tr>
 </tbody></table>
 
-<h3 id="listing-all-payments">Listing all payments</h3>
+<h2 id="listing-all-payments">Listing all payments</h2>
 
 <blockquote>
 <p>List Payments:</p>
@@ -449,7 +451,7 @@
 
 <p>To return a list of all payments, make a GET request to the payments endpoint. This will return a list of payment objects.</p>
 
-          <h2 id="collections">Collections</h2>
+          <h1 id="collections">Collections</h1>
 
 <p>Collections are payments sent to you from mobile subscribers. See [&lsquo;how collections work&rsquo;]](http://support.beyonic.com/how-collections-work/) for more information.</p>
 
@@ -457,7 +459,7 @@
 
 <p>The collections api endpoint is https://app.beyonic.com/api/collections</p>
 
-<h3 id="retrieving-a-single-collection">Retrieving a single collection</h3>
+<h2 id="retrieving-a-single-collection">Retrieving a single collection</h2>
 
 <blockquote>
 <p>Retrieve Individual Collections:</p>
@@ -503,7 +505,7 @@
 </tr>
 </tbody></table>
 
-<h3 id="listing-all-collections">Listing all collections</h3>
+<h2 id="listing-all-collections">Listing all collections</h2>
 
 <blockquote>
 <p>List Collections:</p>
@@ -548,7 +550,7 @@
 
 <p>To retrieve a list of all collections, make a GET request to the collections endpoint. This will return a list of collection objects.</p>
 
-<h3 id="searching-for-a-collection">Searching for a collection</h3>
+<h2 id="searching-for-a-collection">Searching for a collection</h2>
 
 <blockquote>
 <p>Search For Collections:</p>
@@ -630,7 +632,7 @@
 
 <p>Note that the response will be a list of collections, not a single collection.</p>
 
-<h3 id="claiming-an-ummatched-collection">Claiming an ummatched collection</h3>
+<h2 id="claiming-an-ummatched-collection">Claiming an ummatched collection</h2>
 
 <blockquote>
 <p>Claim a collection:</p>
@@ -722,7 +724,7 @@
 
 <p>Note that the response will be a list of collections, not a single collection.</p>
 
-          <h2 id="collection-requests">Collection Requests</h2>
+          <h1 id="collection-requests">Collection Requests</h1>
 
 <p>Collection Requests are a way to notify us that you are expecting a a specific subscriber to send money to you.</p>
 
@@ -732,7 +734,7 @@
 
 <p>The collection requests api endpoint is https://app.beyonic.com/api/collectionrequests</p>
 
-<h3 id="creating-a-new-collection-request">Creating a new collection request</h3>
+<h2 id="creating-a-new-collection-request">Creating a new collection request</h2>
 
 <blockquote>
 <p>Example Request:</p>
@@ -823,7 +825,7 @@
 </tr>
 </tbody></table>
 
-<h3 id="retrieving-a-single-collection-request">Retrieving a single collection request</h3>
+<h2 id="retrieving-a-single-collection-request">Retrieving a single collection request</h2>
 
 <blockquote>
 <p>Retrieve Individual Collections:</p>
@@ -869,7 +871,7 @@
 </tr>
 </tbody></table>
 
-<h3 id="listing-all-collection-requests">Listing all collection requests</h3>
+<h2 id="listing-all-collection-requests">Listing all collection requests</h2>
 
 <blockquote>
 <p>List Collection Requests:</p>
@@ -914,7 +916,7 @@
 
 <p>To retrieve a list of all collections, make a GET request to the collections endpoint. This will return a list of collection objects.</p>
 
-          <h2 id="wehbooks">Wehbooks</h2>
+          <h1 id="webhooks">Webhooks</h1>
 
 <p>Webhooks or callback URLs allow you to define URLs on your server that notifications should be sent to. Notifications are sent for specific events, as defined in the “Supported Event” section below.</p>
 
@@ -952,7 +954,7 @@
 
 <p>The webhooks api endpoint is https://app.beyonic.com/api/webhooks</p>
 
-<h3 id="creating-a-new-webhook">Creating a new webhook</h3>
+<h2 id="creating-a-new-webhook">Creating a new webhook</h2>
 
 <blockquote>
 <p>Example Request:</p>
@@ -1021,7 +1023,7 @@
 <li>If successful, a JSON representation of the new webhook object will be returned.</li>
 </ul>
 
-<h3 id="retrieving-a-single-webhook">Retrieving a single webhook</h3>
+<h2 id="retrieving-a-single-webhook">Retrieving a single webhook</h2>
 
 <blockquote>
 <p>Retrieve Individual Webhooks:</p>
@@ -1067,7 +1069,7 @@
 </tr>
 </tbody></table>
 
-<h3 id="listing-all-webhooks">Listing all webhooks</h3>
+<h2 id="listing-all-webhooks">Listing all webhooks</h2>
 
 <blockquote>
 <p>List Webhooks:</p>
@@ -1095,7 +1097,7 @@
 
 <p>To retrieve a list of all webhooks, make a GET request to the webhooks endpoint. This will return a list of webhooks objects.</p>
 
-<h3 id="updating-a-webhook">Updating a webhook</h3>
+<h2 id="updating-a-webhook">Updating a webhook</h2>
 
 <blockquote>
 <p>Updating a Webhook:</p>
@@ -1132,7 +1134,7 @@
 
 <p>To update a webhook, make a PUT request to the specific webhook’s endpoint, identified by its Id.</p>
 
-<h3 id="deleting-a-webhook">Deleting a webhook</h3>
+<h2 id="deleting-a-webhook">Deleting a webhook</h2>
 
 <blockquote>
 <p>Deleting a Webhook:</p>
