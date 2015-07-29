@@ -292,6 +292,13 @@
 <td>https://my.website/payments/callback</td>
 <td>See &ldquo;Callback URLs&rdquo; below for more info.</td>
 </tr>
+<tr>
+<td>metadata</td>
+<td>No</td>
+<td>JSON-formatted string or dictionary</td>
+<td>&ldquo;{&lsquo;id&rsquo;:&#39;1234&rsquo;,&#39;name&rsquo;:&#39;Lucy&rsquo;}&rdquo;</td>
+<td>Metadata allows you to add custom attributes to your payments. E.g. You can include a unique ID to identify each payment. Attributes must be key-value pairs. Both the keys and values must be strings. You can add up to 10 attributes. This data will be returned when you retrieve a payment.</td>
+</tr>
 </tbody></table>
 
 <p><strong>Callback URLs</strong></p>
