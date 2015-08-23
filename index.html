@@ -389,16 +389,20 @@
 <p>Sample Response (JSON):</p>
 </blockquote>
 <pre><code class="highlight json"><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3620</span><span class="p">,</span><span class="w"> 
-    </span><span class="s2">"organization"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> 
-    </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30"</span><span class="p">,</span><span class="w"> 
-    </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UGX"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"phone_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+256772781923"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.017Z"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"author"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.018Z"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"updated_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-</span><span class="err">}</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">26</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"organization"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Beyonic"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Suzanne"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Kwagala"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"suzanne@beyonic.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"phone_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+256784522611"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"employee"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2013-09-19T21:26:10Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"author"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-04-14T18:21:47Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"updated_by"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre>
 
 <p>To create a new contact, make a POST to the endpoint above, with the attributes below.</p>
@@ -474,6 +478,26 @@
 <span class="n">contact</span> <span class="o">=</span> <span class="n">beyonic</span><span class="o">.</span><span class="n">Contact</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">23</span><span class="p">)</span>
 
 </code></pre>
+
+<blockquote>
+<p>Sample Response (JSON):</p>
+</blockquote>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">23</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"organization"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Beyonic"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Suzanne"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Kwagala"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"suzanne@beyonic.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"phone_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+256784522611"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"employee"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2013-09-19T21:26:10Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"author"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-04-14T18:21:47Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"updated_by"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
 <p>To retrieve a single contact, provide the contact id and a contact object will be returned.</p>
 
@@ -791,6 +815,34 @@
 
 </code></pre>
 
+<blockquote>
+<p>Sample Response (JSON):</p>
+</blockquote>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2314</span><span class="p">,</span><span class="w"> 
+    </span><span class="s2">"organization"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> 
+    </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30"</span><span class="p">,</span><span class="w"> 
+    </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UGX"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"payment_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"money"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span><span class="w"> </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lucy"</span><span class="p">},</span><span class="w"> 
+    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Per diem payment"</span><span class="p">,</span><span class="w"> 
+    </span><span class="s2">"phone_nos"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"+256772781923"</span><span class="p">],</span><span class="w"> 
+    </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"new"</span><span class="p">,</span><span class="w"> 
+    </span><span class="s2">"last_error"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"rejected_reason"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"rejected_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"rejected_time"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"cancelled_reason"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"cancelled_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"cancelled_time"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> 
+    </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.017Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"author"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.018Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"updated_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.018Z"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
 <p>To retrieve a single payment object, provide the payment id and a payment object will be returned.</p>
 
 <table><thead>
@@ -932,6 +984,26 @@
 <span class="n">collection</span> <span class="o">=</span> <span class="n">beyonic</span><span class="o">.</span><span class="n">Collection</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">23</span><span class="p">)</span>
 
 </code></pre>
+
+<blockquote>
+<p>Sample Response (JSON):</p>
+</blockquote>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">230</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"remote_transaction_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12132"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"organization"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20.0000"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"phonenumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+2547227272723"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"payment_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-12-12T00:00:00Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"reference"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"successful"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-01T16:49:48Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"author"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-01T16:55:38Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"updated_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
 <p>To retrieve a single collection object, provide the collection id and a collection object will be returned.</p>
 
@@ -1350,6 +1422,22 @@
 
 </code></pre>
 
+<blockquote>
+<p>Sample Response (JSON):</p>
+</blockquote>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">230</span><span class="p">,</span><span class="w"> 
+    </span><span class="s2">"organization"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> 
+    </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30"</span><span class="p">,</span><span class="w"> 
+    </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UGX"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"phone_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+256772781923"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.017Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"author"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.018Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"updated_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+</span><span class="err">}</span><span class="w">
+</span></code></pre>
+
 <p>To retrieve a single collection request, provide the collection request id and a collection request object will be returned.</p>
 
 <table><thead>
@@ -1520,6 +1608,19 @@
 
 </code></pre>
 
+<blockquote>
+<p>Sample Response (JSON)</p>
+</blockquote>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">53</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-01T16:56:29Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"updated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-01T16:56:29Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"payment.status.changed"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"target"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://my.callback.url/"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"user"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
 <p>To create a new webhook, make a POST to the endpoint above, with the attributes below.</p>
 
 <table><thead>
@@ -1579,6 +1680,19 @@
 
 </code></pre>
 
+<blockquote>
+<p>Sample Response (JSON)</p>
+</blockquote>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">23</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-01T16:56:29Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"updated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-01T16:56:29Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"payment.status.changed"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"target"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://my.callback.url/"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"user"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
 <p>To retrieve a single webhook object, provide the webhook id and a webhook object will be returned.</p>
 
 <table><thead>
@@ -1625,6 +1739,50 @@
 
 </code></pre>
 
+<blockquote>
+<p>Sample Response (JSON)</p>
+</blockquote>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+    </span><span class="s2">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://localhost:8000/api/webhooks?offset=10"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"previous"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"results"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-01T16:43:43Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"updated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-01T17:05:38Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"payment.status.changed"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"target"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://mysite.com/callbacks/payment/saved/1"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"user"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">52</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-01T16:43:43Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"updated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-01T17:05:38Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"payment.status.changed"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"target"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://mysite.com/callbacks/payment/saved"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"user"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">53</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-01T16:56:29Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"updated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-01T16:56:29Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"payment.status.changed"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"target"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://my.callback.url/"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"user"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">55</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-01T16:56:29Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"updated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-01T16:56:29Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"payment.status.changed"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"target"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://google.com"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"user"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
 <p>To retrieve a list of all webhooks, make a GET request to the webhooks endpoint. This will return a list of webhooks objects.</p>
 
 <h2 id="updating-a-webhook">Updating a webhook</h2>
@@ -1661,6 +1819,19 @@
 <span class="n">hook</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
 
 </code></pre>
+
+<blockquote>
+<p>Sample Response (JSON)</p>
+</blockquote>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-01T16:56:29Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"updated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-01T16:56:29Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"payment.status.changed"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"target"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://my.callback.url/"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"user"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
 <p>To update a webhook, make a PUT request to the specific webhook’s endpoint, identified by its Id.</p>
 
