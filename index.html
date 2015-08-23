@@ -347,7 +347,8 @@
 -d <span class="nv">first_name</span><span class="o">=</span><span class="s1">'John'</span> <span class="se">\</span>
 -d <span class="nv">last_name</span><span class="o">=</span><span class="s1">'Doe'</span> <span class="se">\</span>
 -d <span class="nv">phone_number</span><span class="o">=</span><span class="s1">'+256712954253'</span> <span class="se">\</span>
--d <span class="nv">email</span><span class="o">=</span><span class="s1">'john.doe@beyonic.com'</span>
+-d <span class="nv">email</span><span class="o">=</span><span class="s1">'john.doe@beyonic.com'</span> <span class="se">\</span>
+-d <span class="nv">metadata</span><span class="o">=</span><span class="s2">"{'my_id': '123ASDAsd123'}"</span>
 </code></pre>
 <pre><code class="highlight ruby"><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
@@ -356,7 +357,8 @@
     <span class="ss">phonenumber: </span><span class="s2">"+256773712831"</span><span class="p">,</span>
     <span class="ss">first_name: </span><span class="s2">"John"</span><span class="p">,</span>
     <span class="ss">last_name: </span><span class="s2">"Doe"</span><span class="p">,</span>
-    <span class="ss">email: </span><span class="s2">"john.doe@beyonic.com"</span>
+    <span class="ss">email: </span><span class="s2">"john.doe@beyonic.com"</span><span class="p">,</span>
+    <span class="ss">metadata: </span><span class="s2">"{'my_id': '123ASDAsd123'}"</span>
 <span class="p">)</span>
 </code></pre>
 <pre><code class="highlight php"><span class="cp">&lt;?php</span>
@@ -367,7 +369,8 @@
   <span class="s2">"phonenumber"</span> <span class="o">=&gt;</span> <span class="s2">"+256773712831"</span><span class="p">,</span>
   <span class="s2">"first_name"</span> <span class="o">=&gt;</span> <span class="s2">"John"</span><span class="p">,</span>
   <span class="s2">"last_name"</span> <span class="o">=&gt;</span> <span class="s2">"Doe"</span><span class="p">,</span>
-  <span class="s2">"email"</span> <span class="o">=&gt;</span> <span class="s2">"john.doe@beyonic.com"</span>
+  <span class="s2">"email"</span> <span class="o">=&gt;</span> <span class="s2">"john.doe@beyonic.com"</span><span class="p">,</span>
+  <span class="s2">"metadata"</span> <span class="o">=&gt;</span> <span class="s2">"{'my_id': '123ASDAsd123'}"</span>
 <span class="p">));</span>
 <span class="cp">?&gt;</span>
 </code></pre>
@@ -378,6 +381,7 @@
                        <span class="n">first_name</span><span class="o">=</span><span class="s">'John'</span><span class="p">,</span> 
                        <span class="n">last_name</span><span class="o">=</span><span class="s">'Doe'</span><span class="p">,</span>
                        <span class="n">email</span><span class="o">=</span><span class="s">'john.doe@beyonic.com'</span>
+                       <span class="n">metadata</span><span class="o">=</span><span class="s">"{'my_id': '123ASDAsd123'}"</span>
                        <span class="p">)</span>
 </code></pre>
 
@@ -435,6 +439,13 @@
 <td>String</td>
 <td>john.doe@beyonic.com</td>
 <td>The contact&rsquo;s email address</td>
+</tr>
+<tr>
+<td>metadata</td>
+<td>No</td>
+<td>JSON String</td>
+<td>&ldquo;{&lsquo;my_id&rsquo;: &#39;123ASDAsd123&rsquo;}&rdquo;</td>
+<td>Custom attributes to store with this object. See the Metadata section for more information.</td>
 </tr>
 </tbody></table>
 
@@ -1219,7 +1230,8 @@
 <pre><code class="highlight shell">curl https://app.beyonic.com/api/collectionrequests -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span> <span class="se">\</span>
 -d <span class="nv">phonenumber</span><span class="o">=</span>+256772781923 <span class="se">\</span>
 -d <span class="nv">currency</span><span class="o">=</span>UGX <span class="se">\</span>
--d <span class="nv">amount</span><span class="o">=</span>3000
+-d <span class="nv">amount</span><span class="o">=</span>3000 <span class="se">\</span>
+-d <span class="nv">metadata</span><span class="o">=</span><span class="s2">"{'my_id': '123ASDAsd123'}"</span>
 </code></pre>
 <pre><code class="highlight ruby"><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
@@ -1227,7 +1239,8 @@
 <span class="n">payment</span> <span class="o">=</span> <span class="no">Beyonic</span><span class="o">::</span><span class="no">CollectionRequest</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span>
     <span class="ss">phonenumber: </span><span class="s2">"+256773712831"</span><span class="p">,</span>
     <span class="ss">amount: </span><span class="s2">"100.2"</span><span class="p">,</span>
-    <span class="ss">currency: </span><span class="s2">"UGX"</span>
+    <span class="ss">currency: </span><span class="s2">"UGX"</span><span class="p">,</span>
+    <span class="ss">metadata: </span><span class="s2">"{'my_id': '123ASDAsd123'}"</span>
 <span class="p">)</span>
 </code></pre>
 <pre><code class="highlight php"><span class="cp">&lt;?php</span>
@@ -1237,7 +1250,8 @@
 <span class="nx">Beyonic_CollectionRequest</span><span class="o">::</span><span class="na">create</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
   <span class="s2">"phonenumber"</span> <span class="o">=&gt;</span> <span class="s2">"+256773712831"</span><span class="p">,</span>
   <span class="s2">"amount"</span> <span class="o">=&gt;</span> <span class="s2">"100.2"</span><span class="p">,</span>
-  <span class="s2">"currency"</span> <span class="o">=&gt;</span> <span class="s2">"UGX"</span>
+  <span class="s2">"currency"</span> <span class="o">=&gt;</span> <span class="s2">"UGX"</span><span class="p">,</span>
+  <span class="s2">"metadata"</span> <span class="o">=&gt;</span> <span class="s2">"{'my_id': '123ASDAsd123'}"</span>
 <span class="p">));</span>
 <span class="cp">?&gt;</span>
 </code></pre>
@@ -1248,7 +1262,8 @@
                        <span class="n">amount</span><span class="o">=</span><span class="s">'1200'</span><span class="p">,</span> 
                        <span class="n">currency</span><span class="o">=</span><span class="s">'UGX'</span><span class="p">,</span>
                        <span class="n">description</span><span class="o">=</span><span class="s">'Per diem'</span><span class="p">,</span>
-                       <span class="n">callback_url</span><span class="o">=</span><span class="s">'https://my.website/payments/callback'</span>
+                       <span class="n">callback_url</span><span class="o">=</span><span class="s">'https://my.website/payments/callback'</span><span class="p">,</span>
+                       <span class="n">metadata</span><span class="o">=</span><span class="s">"{'my_id': '123ASDAsd123'}"</span>
                        <span class="p">)</span>
 </code></pre>
 
@@ -1299,6 +1314,13 @@
 <td>String</td>
 <td>UGX</td>
 <td>3 letter ISO currency code. No currency conversion is done, so the currency must be valid for the selected phonenumber. You must have funded Beyonic an account in this currency. If your account for this currency has zero balance, your payment will fail.</td>
+</tr>
+<tr>
+<td>metadata</td>
+<td>No</td>
+<td>JSON String</td>
+<td>&ldquo;{&lsquo;my_id&rsquo;: &#39;123ASDAsd123&rsquo;}&rdquo;</td>
+<td>Custom attributes to store with this object. See the Metadata section for more information.</td>
 </tr>
 </tbody></table>
 
