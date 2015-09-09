@@ -335,7 +335,7 @@
 
           <h1 id="contacts">Contacts</h1>
 
-<p>Contacts represent people whom you can send payments to, or receive payments from. The contacts api method allows you to add, retrieve, list and update contacts in your Beyonic account.</p>
+<p>Contacts represent people whom you can send payments to, or receive payments from. The contacts api method allows you to add, retrieve, list and update contacts in your Beyonic account. Contacts are also added automatically whenever you send a payment to a new phone number.</p>
 
 <p>The contacts api endpoint is https://app.beyonic.com/api/contacts</p>
 
@@ -684,7 +684,15 @@
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>To create a new payment, make a POST to the endpoint above, with the attributes below.</p>
+<p>To create a new payment, make a POST to the end point above, with the attributes below. </p>
+
+<p><strong>Note</strong>: </p>
+
+<ul>
+<li>A contact is created for each new phone number you send payments to. This gives you the benefits of the pre-verification checks that are done prior to payment processing. </li>
+<li>If the contact isn&rsquo;t registered for mobile money, then the payment will not be send to them.</li>
+<li><strong>Important</strong>: one of the pre-verification checks does a name match check to make sure that the contact name is right. This check can cause your payments to fail if the names that you are sending are not the same as the names in the telecom database. If you want to by-pass this check, go into your settings in your account and uncheck the checkbox that says &ldquo;Name match affects payment&rdquo;.</li>
+</ul>
 
 <table><thead>
 <tr>
@@ -749,14 +757,14 @@
 <td>No</td>
 <td>String</td>
 <td>John</td>
-<td>If this payment is to a new contact, you can include their first name. This name will only be used if the contact is new.</td>
+<td>If this payment is to a new contact, you can include their first name. This name will only be used if the phone number is new.</td>
 </tr>
 <tr>
 <td>last_name</td>
 <td>No</td>
 <td>String</td>
 <td>Doe</td>
-<td>If this payment is to a new contact, you can include their last name. This name will only be used if the contact is new.</td>
+<td>If this payment is to a new contact, you can include their last name. This name will only be used if the phone number is new.</td>
 </tr>
 </tbody></table>
 
