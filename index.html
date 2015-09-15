@@ -270,7 +270,8 @@
 -d <span class="nv">amount</span><span class="o">=</span>30 <span class="se">\</span>
 -d <span class="nv">description</span><span class="o">=</span><span class="s2">"Per diem payment"</span> <span class="se">\</span>
 -d <span class="nv">callback_url</span><span class="o">=</span><span class="s2">"https://my.website/payments/callback"</span> <span class="se">\</span>
--d <span class="nv">metadata</span><span class="o">=</span><span class="s2">"{'id':'1234','name':'Lucy'}"</span> <span class="se">\</span>
+-d metadata.id<span class="o">=</span>1234 <span class="se">\ </span>
+-d metadata.name<span class="o">=</span>Lucy <span class="se">\</span>
 -d <span class="nv">payment_type</span><span class="o">=</span>money
 </code></pre>
 <pre><code class="highlight ruby"><span class="nb">require</span> <span class="s1">'beyonic'</span>
@@ -283,7 +284,8 @@
     <span class="ss">description: </span><span class="s2">"Per diem payment"</span><span class="p">,</span>
     <span class="ss">payment_type: </span><span class="s2">"money"</span><span class="p">,</span>
     <span class="ss">callback_url: </span><span class="s2">"https://my.website/payments/callback"</span><span class="p">,</span>
-    <span class="ss">metadata: </span><span class="s2">"{'id': '1234', 'name': 'Lucy'}"</span>
+    <span class="s1">'metadata.id'</span><span class="o">=&gt;</span> <span class="mi">1234</span><span class="p">,</span>
+    <span class="s1">'metadata.name'</span><span class="o">=&gt;</span> <span class="s1">'Lucy'</span>
 <span class="p">)</span>
 </code></pre>
 <pre><code class="highlight php"><span class="cp">&lt;?php</span>
@@ -297,25 +299,26 @@
   <span class="s2">"description"</span> <span class="o">=&gt;</span> <span class="s2">"Per diem payment"</span><span class="p">,</span>
   <span class="s2">"payment_type"</span> <span class="o">=&gt;</span> <span class="s2">"money"</span><span class="p">,</span>
   <span class="s2">"callback_url"</span> <span class="o">=&gt;</span> <span class="s2">"https://my.website/payments/callback"</span><span class="p">,</span>
-  <span class="s2">"metadata"</span> <span class="o">=&gt;</span> <span class="s2">"{'id': '1234', 'name': 'Lucy'}"</span>
+  <span class="s2">"metadata.id"</span> <span class="o">=&gt;</span> <span class="s2">"1234"</span><span class="p">,</span> 
+  <span class="s2">"name.name"</span> <span class="o">=&gt;</span> <span class="s2">"Lucy"</span>
 <span class="p">));</span>
 <span class="cp">?&gt;</span>
 </code></pre>
 <pre><code class="highlight python"><span class="kn">import</span> <span class="nn">beyonic</span>
 <span class="n">beyonic</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="s">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
+<span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s">'metadata.id'</span><span class="p">:</span> <span class="mi">1234</span><span class="p">,</span> <span class="s">'metadata.name'</span><span class="p">:</span> <span class="s">'Lucy'</span><span class="p">}</span>
+
 <span class="n">beyonic</span><span class="o">.</span><span class="n">Payment</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">phonenumber</span><span class="o">=</span><span class="s">'+256773712831'</span><span class="p">,</span>
                        <span class="n">amount</span><span class="o">=</span><span class="s">'1200'</span><span class="p">,</span> 
                        <span class="n">currency</span><span class="o">=</span><span class="s">'UGX'</span><span class="p">,</span>
                        <span class="n">description</span><span class="o">=</span><span class="s">'Per diem'</span><span class="p">,</span>
                        <span class="n">callback_url</span><span class="o">=</span><span class="s">'https://my.website/payments/callback'</span><span class="p">,</span>
-                       <span class="n">metadata</span><span class="o">=</span><span class="s">"{'id': '1234', 'name': 'Lucy'}"</span>
+                       <span class="o">**</span><span class="n">kwargs</span>
                        <span class="p">)</span>
 </code></pre>
 
-<p>Beyonic supports Metadata in a similar way to the Stripe API. </p>
-
-<p>Metadata allows you to add custom attributes when creating objects. For example, you can include a unique ID to identify a payment, or add more information about a Contact. This data will be returned when you retrieve the record later, and can be used to identify the record.</p>
+<p>Beyonic supports Metadata, which allows you to add custom key-value attributes when creating objects. For example, you can include a unique ID to identify a payment, or add more information about a Contact. This data will be returned when you retrieve the record later, and can be used to identify the record.</p>
 
 <p>Metadata has the following constraints:</p>
 
@@ -325,7 +328,7 @@
 <li>For each record, you can have up to 10 custom attributes.</li>
 </ul>
 
-<p>Metadata is added to the object as a JSON string. For example, &ldquo;{&lsquo;id&rsquo;:&#39;1234&rsquo;,&#39;name&rsquo;:&#39;Lucy&rsquo;}&rdquo; </p>
+<p>Metadata is added to the object a set of key-value pairs, where the key is in the format metadata.key_name, for example: metadata.id or metadata.name or metadata.date, and so on.</p>
 
 <p>See the examples for more information.</p>
 
@@ -349,7 +352,7 @@
 -d <span class="nv">last_name</span><span class="o">=</span><span class="s1">'Doe'</span> <span class="se">\</span>
 -d <span class="nv">phone_number</span><span class="o">=</span><span class="s1">'+256712954253'</span> <span class="se">\</span>
 -d <span class="nv">email</span><span class="o">=</span><span class="s1">'john.doe@beyonic.com'</span> <span class="se">\</span>
--d <span class="nv">metadata</span><span class="o">=</span><span class="s2">"{'my_id': '123ASDAsd123'}"</span>
+-d metadata.my_id<span class="o">=</span><span class="s1">'123ASDAsd123'</span>
 </code></pre>
 <pre><code class="highlight ruby"><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
@@ -359,7 +362,7 @@
     <span class="ss">first_name: </span><span class="s2">"John"</span><span class="p">,</span>
     <span class="ss">last_name: </span><span class="s2">"Doe"</span><span class="p">,</span>
     <span class="ss">email: </span><span class="s2">"john.doe@beyonic.com"</span><span class="p">,</span>
-    <span class="ss">metadata: </span><span class="s2">"{'my_id': '123ASDAsd123'}"</span>
+    <span class="s1">'metadata.my_id'</span><span class="p">:</span> <span class="s2">"123ASDAsd123"</span>
 <span class="p">)</span>
 </code></pre>
 <pre><code class="highlight php"><span class="cp">&lt;?php</span>
@@ -371,18 +374,20 @@
   <span class="s2">"first_name"</span> <span class="o">=&gt;</span> <span class="s2">"John"</span><span class="p">,</span>
   <span class="s2">"last_name"</span> <span class="o">=&gt;</span> <span class="s2">"Doe"</span><span class="p">,</span>
   <span class="s2">"email"</span> <span class="o">=&gt;</span> <span class="s2">"john.doe@beyonic.com"</span><span class="p">,</span>
-  <span class="s2">"metadata"</span> <span class="o">=&gt;</span> <span class="s2">"{'my_id': '123ASDAsd123'}"</span>
+  <span class="s2">"metadata.my_id"</span> <span class="o">=&gt;</span> <span class="s2">"123ASDAsd123"</span>
 <span class="p">));</span>
 <span class="cp">?&gt;</span>
 </code></pre>
 <pre><code class="highlight python"><span class="kn">import</span> <span class="nn">beyonic</span>
 <span class="n">beyonic</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="s">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
+<span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s">'metadata.my_id'</span><span class="p">:</span> <span class="s">'123ASDAsd123'</span><span class="p">}</span>
+
 <span class="n">beyonic</span><span class="o">.</span><span class="n">Contact</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">phonenumber</span><span class="o">=</span><span class="s">'+256773712831'</span><span class="p">,</span>
                        <span class="n">first_name</span><span class="o">=</span><span class="s">'John'</span><span class="p">,</span> 
                        <span class="n">last_name</span><span class="o">=</span><span class="s">'Doe'</span><span class="p">,</span>
-                       <span class="n">email</span><span class="o">=</span><span class="s">'john.doe@beyonic.com'</span>
-                       <span class="n">metadata</span><span class="o">=</span><span class="s">"{'my_id': '123ASDAsd123'}"</span>
+                       <span class="n">email</span><span class="o">=</span><span class="s">'john.doe@beyonic.com'</span><span class="p">,</span>
+                       <span class="o">**</span><span class="n">kwargs</span>
                        <span class="p">)</span>
 </code></pre>
 
@@ -614,7 +619,6 @@
 -d <span class="nv">amount</span><span class="o">=</span>30 <span class="se">\</span>
 -d <span class="nv">description</span><span class="o">=</span><span class="s2">"Per diem payment"</span> <span class="se">\</span>
 -d <span class="nv">callback_url</span><span class="o">=</span><span class="s2">"https://my.website/payments/callback"</span> <span class="se">\</span>
--d <span class="nv">metadata</span><span class="o">=</span><span class="s2">"{'id':'1234','name':'Lucy'}"</span> <span class="se">\</span>
 -d <span class="nv">payment_type</span><span class="o">=</span>money
 </code></pre>
 <pre><code class="highlight ruby"><span class="nb">require</span> <span class="s1">'beyonic'</span>
@@ -627,7 +631,8 @@
     <span class="ss">description: </span><span class="s2">"Per diem payment"</span><span class="p">,</span>
     <span class="ss">payment_type: </span><span class="s2">"money"</span><span class="p">,</span>
     <span class="ss">callback_url: </span><span class="s2">"https://my.website/payments/callback"</span><span class="p">,</span>
-    <span class="ss">metadata: </span><span class="s2">"{'id': '1234', 'name': 'Lucy'}"</span>
+    <span class="s1">'metadata.id'</span><span class="o">=&gt;</span> <span class="mi">1234</span><span class="p">,</span>
+    <span class="s1">'metadata.name'</span><span class="o">=&gt;</span> <span class="s1">'Lucy'</span>
 <span class="p">)</span>
 </code></pre>
 <pre><code class="highlight php"><span class="cp">&lt;?php</span>
@@ -641,18 +646,22 @@
   <span class="s2">"description"</span> <span class="o">=&gt;</span> <span class="s2">"Per diem payment"</span><span class="p">,</span>
   <span class="s2">"payment_type"</span> <span class="o">=&gt;</span> <span class="s2">"money"</span><span class="p">,</span>
   <span class="s2">"callback_url"</span> <span class="o">=&gt;</span> <span class="s2">"https://my.website/payments/callback"</span><span class="p">,</span>
-  <span class="s2">"metadata"</span> <span class="o">=&gt;</span> <span class="s2">"{'id': '1234', 'name': 'Lucy'}"</span>
+  <span class="s2">"metadata.id"</span> <span class="o">=&gt;</span> <span class="s2">"1234"</span><span class="p">,</span> 
+  <span class="s2">"name.name"</span> <span class="o">=&gt;</span> <span class="s2">"Lucy"</span>
 <span class="p">));</span>
 <span class="cp">?&gt;</span>
 </code></pre>
 <pre><code class="highlight python"><span class="kn">import</span> <span class="nn">beyonic</span>
 <span class="n">beyonic</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="s">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
+<span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s">'metadata.id'</span><span class="p">:</span> <span class="mi">1234</span><span class="p">,</span> <span class="s">'metadata.name'</span><span class="p">:</span> <span class="s">'Lucy'</span><span class="p">}</span>
+
 <span class="n">beyonic</span><span class="o">.</span><span class="n">Payment</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">phonenumber</span><span class="o">=</span><span class="s">'+256773712831'</span><span class="p">,</span>
                        <span class="n">amount</span><span class="o">=</span><span class="s">'1200'</span><span class="p">,</span> 
                        <span class="n">currency</span><span class="o">=</span><span class="s">'UGX'</span><span class="p">,</span>
                        <span class="n">description</span><span class="o">=</span><span class="s">'Per diem'</span><span class="p">,</span>
-                       <span class="n">callback_url</span><span class="o">=</span><span class="s">'https://my.website/payments/callback'</span>
+                       <span class="n">callback_url</span><span class="o">=</span><span class="s">'https://my.website/payments/callback'</span><span class="p">,</span>
+                       <span class="o">**</span><span class="n">kwargs</span>
                        <span class="p">)</span>
 </code></pre>
 
@@ -1312,7 +1321,7 @@
 -d <span class="nv">phonenumber</span><span class="o">=</span>+256772781923 <span class="se">\</span>
 -d <span class="nv">currency</span><span class="o">=</span>UGX <span class="se">\</span>
 -d <span class="nv">amount</span><span class="o">=</span>3000 <span class="se">\</span>
--d <span class="nv">metadata</span><span class="o">=</span><span class="s2">"{'my_id': '123ASDAsd123'}"</span>
+-d metadata.my_id<span class="o">=</span><span class="s1">'123ASDAsd123'</span>
 </code></pre>
 <pre><code class="highlight ruby"><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
@@ -1321,7 +1330,7 @@
     <span class="ss">phonenumber: </span><span class="s2">"+256773712831"</span><span class="p">,</span>
     <span class="ss">amount: </span><span class="s2">"100.2"</span><span class="p">,</span>
     <span class="ss">currency: </span><span class="s2">"UGX"</span><span class="p">,</span>
-    <span class="ss">metadata: </span><span class="s2">"{'my_id': '123ASDAsd123'}"</span>
+    <span class="s1">'metadata.my_id'</span><span class="p">:</span> <span class="s2">"123ASDAsd123"</span>
 <span class="p">)</span>
 </code></pre>
 <pre><code class="highlight php"><span class="cp">&lt;?php</span>
@@ -1332,19 +1341,21 @@
   <span class="s2">"phonenumber"</span> <span class="o">=&gt;</span> <span class="s2">"+256773712831"</span><span class="p">,</span>
   <span class="s2">"amount"</span> <span class="o">=&gt;</span> <span class="s2">"100.2"</span><span class="p">,</span>
   <span class="s2">"currency"</span> <span class="o">=&gt;</span> <span class="s2">"UGX"</span><span class="p">,</span>
-  <span class="s2">"metadata"</span> <span class="o">=&gt;</span> <span class="s2">"{'my_id': '123ASDAsd123'}"</span>
+  <span class="s2">"metadata.my_id"</span> <span class="o">=&gt;</span> <span class="s2">"123ASDAsd123"</span>
 <span class="p">));</span>
 <span class="cp">?&gt;</span>
 </code></pre>
 <pre><code class="highlight python"><span class="kn">import</span> <span class="nn">beyonic</span>
 <span class="n">beyonic</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="s">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
+<span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s">'metadata.my_id'</span><span class="p">:</span> <span class="s">'123ASDAsd123'</span><span class="p">}</span>
+
 <span class="n">beyonic</span><span class="o">.</span><span class="n">CollectionRequest</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">phonenumber</span><span class="o">=</span><span class="s">'+256773712831'</span><span class="p">,</span>
                        <span class="n">amount</span><span class="o">=</span><span class="s">'1200'</span><span class="p">,</span> 
                        <span class="n">currency</span><span class="o">=</span><span class="s">'UGX'</span><span class="p">,</span>
                        <span class="n">description</span><span class="o">=</span><span class="s">'Per diem'</span><span class="p">,</span>
                        <span class="n">callback_url</span><span class="o">=</span><span class="s">'https://my.website/payments/callback'</span><span class="p">,</span>
-                       <span class="n">metadata</span><span class="o">=</span><span class="s">"{'my_id': '123ASDAsd123'}"</span>
+                       <span class="o">**</span><span class="n">kwargs</span>
                        <span class="p">)</span>
 </code></pre>
 
