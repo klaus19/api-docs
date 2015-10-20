@@ -1310,6 +1310,8 @@
 
           <h1 id="collection-requests">Collection Requests</h1>
 
+<h2 id="introduction">Introduction</h2>
+
 <p>Collection Requests are a way to notify us that you are expecting a a specific subscriber to send money to you.</p>
 
 <p>Creating a collection request prior to receiving an expected collection greatly improves the user experience for your subscribers by automatically matching transactions to your organization, even if the subscriber misses out some information or gets some of the information wrong, for example if they forget to include a reference code. Payments matching the amount, number and currency in the collection requests will be correctly assigned to you.</p>
@@ -1562,6 +1564,8 @@
 
           <h1 id="webhooks">Webhooks</h1>
 
+<h2 id="introduction">Introduction</h2>
+
 <p>Webhooks or callback URLs allow you to define URLs on your server that notifications should be sent to. Notifications are sent for specific events, as defined in the “Supported Event” section below.</p>
 
 <p>You can be managed in two ways:</p>
@@ -1574,15 +1578,6 @@
 <p><em>Required permisions</em></p>
 
 <p>To manage webhooks, either with the API or the web browser, you must have “Manage Users and Organization Settings” permissions for your organization</p>
-
-<p><em>Supported events</em></p>
-
-<p>The following events are supported:</p>
-
-<ul>
-<li>payment.status.changed – Receive notification whenever the status of any payments in your organization changes. See the Payments API for more information.</li>
-<li>collection.received - Receive notifications whenever you receive a collection (an incoming payment) from a customer)</li>
-</ul>
 
 <p><em>Managing Webhooks from the web browser</em></p>
 
@@ -1597,6 +1592,87 @@
 <p>You can use the Webhooks API described below to update or delete your callback URLs programatically.</p>
 
 <p>The webhooks api endpoint is https://app.beyonic.com/api/webhooks</p>
+
+<h2 id="supported-events">Supported events</h2>
+
+<p>The following events are supported</p>
+
+<table><thead>
+<tr>
+<th>Event</th>
+<th>Description</th>
+<th>Object returned in data</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>payment.status.changed</td>
+<td>Triggered any time a payment changes status.</td>
+<td>Payment object</td>
+</tr>
+<tr>
+<td>collection.received</td>
+<td>Triggered any time a collection (an incoming payment) is received from a customer</td>
+<td>Collection object</td>
+</tr>
+</tbody></table>
+
+<h2 id="notification-body-format">Notification body format</h2>
+
+<blockquote>
+<p>Sample Response (JSON):</p>
+</blockquote>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+    </span><span class="s2">"hook"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">53</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-01T16:56:29Z"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"updated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-01T16:56:29Z"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"payment.status.changed"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"target"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://my.callback.url/"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"user"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2314</span><span class="p">,</span><span class="w"> 
+                </span><span class="s2">"organization"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> 
+                </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30"</span><span class="p">,</span><span class="w"> 
+                </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UGX"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"payment_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"money"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span><span class="w"> </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lucy"</span><span class="p">},</span><span class="w"> 
+                </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Per diem payment"</span><span class="p">,</span><span class="w"> 
+                </span><span class="s2">"phone_nos"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"+256772781923"</span><span class="p">],</span><span class="w"> 
+                </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"completed"</span><span class="p">,</span><span class="w"> 
+                </span><span class="s2">"last_error"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"rejected_reason"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"rejected_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"rejected_time"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"cancelled_reason"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"cancelled_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"cancelled_time"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> 
+                </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.017Z"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"author"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.018Z"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"updated_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.018Z"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>When an event is triggered, a JSON post will be sent to the URL that subscribed to the webhook. The JSON post body will include the following information:</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>hook</td>
+<td>A JSON representation of a webhook object. See the see webhook section below.</td>
+</tr>
+<tr>
+<td>data</td>
+<td>A JSON representation of the object that triggered the event. This is different for each event. See the &lsquo;Supported events&rsquo; section above.</td>
+</tr>
+</tbody></table>
 
 <h2 id="creating-a-new-webhook">Creating a new webhook</h2>
 
@@ -1662,7 +1738,7 @@
 <td>event</td>
 <td>Yes</td>
 <td>String</td>
-<td>&lsquo;payment.status.changed&rsquo;</td>
+<td>&#39;payment.status.changed&rsquo;</td>
 <td>Must be a supported event</td>
 </tr>
 <tr>
