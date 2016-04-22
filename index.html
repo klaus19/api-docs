@@ -1719,6 +1719,8 @@
 </blockquote>
 <pre class="highlight shell"><code>curl https://app.beyonic.com/api/payments -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span> <span class="se">\</span>
 -d <span class="nv">phonenumber</span><span class="o">=</span>+256772781923 <span class="se">\</span>
+-d <span class="nv">first_name</span><span class="o">=</span>Kennedy<span class="se">\</span>
+-d <span class="nv">last_name</span><span class="o">=</span>Amani<span class="se">\</span>
 -d <span class="nv">currency</span><span class="o">=</span>UGX <span class="se">\</span>
 -d <span class="nv">amount</span><span class="o">=</span>30 <span class="se">\</span>
 -d <span class="nv">description</span><span class="o">=</span><span class="s2">"Per diem payment"</span> <span class="se">\</span>
@@ -1730,6 +1732,8 @@
 
 <span class="n">payment</span> <span class="o">=</span> <span class="no">Beyonic</span><span class="o">::</span><span class="no">Payment</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span>
     <span class="ss">phonenumber: </span><span class="s2">"+256773712831"</span><span class="p">,</span>
+    <span class="ss">first_name: </span><span class="s2">"Kennedy"</span><span class="p">,</span>
+    <span class="ss">last_name: </span><span class="s2">"Amani"</span><span class="p">,</span>
     <span class="ss">amount: </span><span class="s2">"100.2"</span><span class="p">,</span>
     <span class="ss">currency: </span><span class="s2">"UGX"</span><span class="p">,</span>
     <span class="ss">description: </span><span class="s2">"Per diem payment"</span><span class="p">,</span>
@@ -1745,12 +1749,14 @@
 
 <span class="nx">Beyonic_Payment</span><span class="o">::</span><span class="na">create</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
   <span class="s2">"phonenumber"</span> <span class="o">=&gt;</span> <span class="s2">"+256773712831"</span><span class="p">,</span>
+  <span class="s2">"first_name"</span> <span class="o">=&gt;</span> <span class="s2">"Kennedy"</span><span class="p">,</span>
+  <span class="s2">"last_name"</span> <span class="o">=&gt;</span> <span class="s2">"Kennedy"</span><span class="p">,</span>
   <span class="s2">"amount"</span> <span class="o">=&gt;</span> <span class="s2">"100.2"</span><span class="p">,</span>
   <span class="s2">"currency"</span> <span class="o">=&gt;</span> <span class="s2">"UGX"</span><span class="p">,</span>
   <span class="s2">"description"</span> <span class="o">=&gt;</span> <span class="s2">"Per diem payment"</span><span class="p">,</span>
   <span class="s2">"payment_type"</span> <span class="o">=&gt;</span> <span class="s2">"money"</span><span class="p">,</span>
   <span class="s2">"callback_url"</span> <span class="o">=&gt;</span> <span class="s2">"https://my.website/payments/callback"</span><span class="p">,</span>
-  <span class="s2">"metadata.id"</span> <span class="o">=&gt;</span> <span class="s2">"1234"</span><span class="p">,</span> 
+  <span class="s2">"metadata.id"</span> <span class="o">=&gt;</span> <span class="s2">"1234"</span><span class="p">,</span>
   <span class="s2">"name.name"</span> <span class="o">=&gt;</span> <span class="s2">"Lucy"</span>
 <span class="p">));</span>
 <span class="cp">?&gt;</span>
@@ -1761,7 +1767,9 @@
 <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s">'metadata.id'</span><span class="p">:</span> <span class="mi">1234</span><span class="p">,</span> <span class="s">'metadata.name'</span><span class="p">:</span> <span class="s">'Lucy'</span><span class="p">}</span>
 
 <span class="n">beyonic</span><span class="o">.</span><span class="n">Payment</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">phonenumber</span><span class="o">=</span><span class="s">'+256773712831'</span><span class="p">,</span>
-                       <span class="n">amount</span><span class="o">=</span><span class="s">'1200'</span><span class="p">,</span> 
+                       <span class="n">first_name</span><span class="o">=</span><span class="s">'Kennedy'</span><span class="p">,</span>
+                       <span class="n">last_name</span><span class="o">=</span><span class="s">'Amani'</span><span class="p">,</span>
+                       <span class="n">amount</span><span class="o">=</span><span class="s">'1200'</span><span class="p">,</span>
                        <span class="n">currency</span><span class="o">=</span><span class="s">'UGX'</span><span class="p">,</span>
                        <span class="n">description</span><span class="o">=</span><span class="s">'Per diem'</span><span class="p">,</span>
                        <span class="n">callback_url</span><span class="o">=</span><span class="s">'https://my.website/payments/callback'</span><span class="p">,</span>
@@ -1773,22 +1781,22 @@
 <p>Sample Response (JSON):</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3620</span><span class="p">,</span><span class="w"> 
-    </span><span class="nt">"organization"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> 
-    </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3620</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"organization"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UGX"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"payment_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"money"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lucy"</span><span class="p">},</span><span class="w"> 
-    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Per diem payment"</span><span class="p">,</span><span class="w"> 
-    </span><span class="nt">"phone_nos"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"+256772781923"</span><span class="p">],</span><span class="w"> 
-    </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"new"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lucy"</span><span class="p">},</span><span class="w">
+    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Per diem payment"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"phone_nos"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"+256772781923"</span><span class="p">],</span><span class="w">
+    </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"new"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"last_error"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="nt">"rejected_reason"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="nt">"rejected_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="nt">"rejected_time"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="nt">"cancelled_reason"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="nt">"cancelled_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"cancelled_time"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> 
+    </span><span class="nt">"cancelled_time"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.017Z"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
     </span><span class="nt">"modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.018Z"</span><span class="p">,</span><span class="w">
@@ -1797,12 +1805,12 @@
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>To create a new payment, make a POST to the end point above, with the attributes below. </p>
+<p>To create a new payment, make a POST to the end point above, with the attributes below.</p>
 
-<p><strong>Note</strong>: </p>
+<p><strong>Note</strong>:</p>
 
 <ul>
-<li>A contact is created for each new phone number you send payments to. This gives you the benefits of the pre-verification checks that are done prior to payment processing. </li>
+<li>A contact is created for each new phone number you send payments to. This gives you the benefits of the pre-verification checks that are done prior to payment processing.</li>
 <li>If the contact isn&rsquo;t registered for mobile money, then the payment will not be sent.</li>
 <li><strong>Important</strong>: One of the pre-verification checks does a name match check to make sure that the contact name is right. This check can cause your payments to fail if the names that you are sending are not the same as the names in the telecom database. If you want to by-pass this check, go into your settings in your account and uncheck the checkbox that says &ldquo;Name match affects payment&rdquo;.</li>
 </ul>
@@ -1941,22 +1949,22 @@
 <p>Sample Response (JSON):</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2314</span><span class="p">,</span><span class="w"> 
-    </span><span class="nt">"organization"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> 
-    </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2314</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"organization"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UGX"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"payment_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"money"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lucy"</span><span class="p">},</span><span class="w"> 
-    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Per diem payment"</span><span class="p">,</span><span class="w"> 
-    </span><span class="nt">"phone_nos"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"+256772781923"</span><span class="p">],</span><span class="w"> 
-    </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"new"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lucy"</span><span class="p">},</span><span class="w">
+    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Per diem payment"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"phone_nos"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"+256772781923"</span><span class="p">],</span><span class="w">
+    </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"new"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"last_error"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="nt">"rejected_reason"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="nt">"rejected_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="nt">"rejected_time"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="nt">"cancelled_reason"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="nt">"cancelled_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"cancelled_time"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> 
+    </span><span class="nt">"cancelled_time"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.017Z"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
     </span><span class="nt">"modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.018Z"</span><span class="p">,</span><span class="w">
