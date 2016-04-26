@@ -903,7 +903,7 @@
 <pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
-<span class="n">payment</span> <span class="o">=</span> <span class="no">Beyonic</span><span class="o">::</span><span class="no">CollectionRequest</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span>
+<span class="n">collection</span> <span class="o">=</span> <span class="no">Beyonic</span><span class="o">::</span><span class="no">CollectionRequest</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span>
     <span class="ss">phonenumber: </span><span class="s2">"+256773712831"</span><span class="p">,</span>
     <span class="ss">amount: </span><span class="s2">"100.2"</span><span class="p">,</span>
     <span class="ss">currency: </span><span class="s2">"UGX"</span><span class="p">,</span>
@@ -914,7 +914,7 @@
 <span class="k">require_once</span><span class="p">(</span><span class="s1">'./lib/Beyonic.php'</span><span class="p">);</span>
 <span class="nx">Beyonic</span><span class="o">::</span><span class="na">setApiKey</span><span class="p">(</span><span class="s2">"ab594c14986612f6167a975e1c369e71edab6900"</span><span class="p">);</span>
 
-<span class="nx">Beyonic_CollectionRequest</span><span class="o">::</span><span class="na">create</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+<span class="nx">Beyonic_Collection_Request</span><span class="o">::</span><span class="na">create</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
   <span class="s2">"phonenumber"</span> <span class="o">=&gt;</span> <span class="s2">"+256773712831"</span><span class="p">,</span>
   <span class="s2">"amount"</span> <span class="o">=&gt;</span> <span class="s2">"100.2"</span><span class="p">,</span>
   <span class="s2">"currency"</span> <span class="o">=&gt;</span> <span class="s2">"UGX"</span><span class="p">,</span>
@@ -928,7 +928,7 @@
 <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s">'metadata.my_id'</span><span class="p">:</span> <span class="s">'123ASDAsd123'</span><span class="p">}</span>
 
 <span class="n">beyonic</span><span class="o">.</span><span class="n">CollectionRequest</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">phonenumber</span><span class="o">=</span><span class="s">'+256773712831'</span><span class="p">,</span>
-                       <span class="n">amount</span><span class="o">=</span><span class="s">'1200'</span><span class="p">,</span> 
+                       <span class="n">amount</span><span class="o">=</span><span class="s">'1200'</span><span class="p">,</span>
                        <span class="n">currency</span><span class="o">=</span><span class="s">'UGX'</span><span class="p">,</span>
                        <span class="n">description</span><span class="o">=</span><span class="s">'Per diem'</span><span class="p">,</span>
                        <span class="n">callback_url</span><span class="o">=</span><span class="s">'https://my.website/payments/callback'</span><span class="p">,</span>
@@ -940,9 +940,9 @@
 <p>Sample Response (JSON):</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3620</span><span class="p">,</span><span class="w"> 
-    </span><span class="nt">"organization"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> 
-    </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3620</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"organization"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UGX"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"phone_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+256772781923"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.017Z"</span><span class="p">,</span><span class="w">
@@ -1051,13 +1051,13 @@
 <span class="k">require_once</span><span class="p">(</span><span class="s1">'./lib/Beyonic.php'</span><span class="p">);</span>
 <span class="nx">Beyonic</span><span class="o">::</span><span class="na">setApiKey</span><span class="p">(</span><span class="s2">"ab594c14986612f6167a975e1c369e71edab6900"</span><span class="p">);</span>
 
-<span class="nv">$collection</span> <span class="o">=</span> <span class="nx">Beyonic_CollectionRequest</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="mi">23</span><span class="p">);</span>
+<span class="nv">$collection</span> <span class="o">=</span> <span class="nx">Beyonic_Collection_Request</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="mi">23</span><span class="p">);</span>
 <span class="cp">?&gt;</span>
 </code></pre>
 <pre class="highlight python"><code><span class="kn">import</span> <span class="nn">beyonic</span>
 <span class="n">beyonic</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="s">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
-<span class="n">collection</span> <span class="o">=</span> <span class="n">beyonic</span><span class="o">.</span><span class="n">CollectionTRequest</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">23</span><span class="p">)</span>
+<span class="n">collection</span> <span class="o">=</span> <span class="n">beyonic</span><span class="o">.</span><span class="n">CollectionRequest</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">23</span><span class="p">)</span>
 
 </code></pre>
 
@@ -1065,9 +1065,9 @@
 <p>Sample Response (JSON):</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">230</span><span class="p">,</span><span class="w"> 
-    </span><span class="nt">"organization"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> 
-    </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">230</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"organization"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UGX"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"phone_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+256772781923"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.017Z"</span><span class="p">,</span><span class="w">
@@ -1113,7 +1113,7 @@
 <span class="k">require_once</span><span class="p">(</span><span class="s1">'./lib/Beyonic.php'</span><span class="p">);</span>
 <span class="nx">Beyonic</span><span class="o">::</span><span class="na">setApiKey</span><span class="p">(</span><span class="s2">"ab594c14986612f6167a975e1c369e71edab6900"</span><span class="p">);</span>
 
-<span class="nv">$collection</span> <span class="o">=</span> <span class="nx">Beyonic_CollectionRequest</span><span class="o">::</span><span class="na">getAll</span><span class="p">();</span>
+<span class="nv">$collection</span> <span class="o">=</span> <span class="nx">Beyonic_Collection_Request</span><span class="o">::</span><span class="na">getAll</span><span class="p">();</span>
 <span class="cp">?&gt;</span>
 </code></pre>
 <pre class="highlight python"><code><span class="kn">import</span> <span class="nn">beyonic</span>
@@ -1192,7 +1192,7 @@
 <span class="k">require_once</span><span class="p">(</span><span class="s1">'./lib/Beyonic.php'</span><span class="p">);</span>
 <span class="nx">Beyonic</span><span class="o">::</span><span class="na">setApiKey</span><span class="p">(</span><span class="s2">"ab594c14986612f6167a975e1c369e71edab6900"</span><span class="p">);</span>
 
-<span class="nv">$collection</span> <span class="o">=</span> <span class="nx">Beyonic_CollectionRequest</span><span class="o">::</span><span class="na">getAll</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+<span class="nv">$collection</span> <span class="o">=</span> <span class="nx">Beyonic_Collection_Request</span><span class="o">::</span><span class="na">getAll</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
   <span class="s2">"remote_transaction_id"</span> <span class="o">=&gt;</span> <span class="s2">"12345"</span><span class="p">,</span>
   <span class="s2">"amount"</span> <span class="o">=&gt;</span> <span class="mi">500</span>
 <span class="p">));</span>
@@ -1210,7 +1210,7 @@
 <ul>
 <li>amount - the transaction amount</li>
 <li>currency - the currency code</li>
-<li>collection - the ID of the collection that fulfilled or matched this collection request </li>
+<li>collection - the ID of the collection that fulfilled or matched this collection request</li>
 <li>phonenumber - the phonenumber that the collection request was intended for. Note that the phonenumber will be matched in international format, starting with a &rsquo;+&rsquo; sign. If the &rsquo;+&rsquo; sign isn&rsquo;t included in your request, it will be appended before attempting to match your request.</li>
 <li>remote_transaction_id - the transation id or transaction reference of the collection on the mobile network operator&rsquo;s side</li>
 </ul>
@@ -1314,8 +1314,8 @@
 <pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
-<span class="n">payment</span> <span class="o">=</span> <span class="no">Beyonic</span><span class="o">::</span><span class="no">Contact</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span>
-    <span class="ss">phonenumber: </span><span class="s2">"+256773712831"</span><span class="p">,</span>
+<span class="n">contact</span> <span class="o">=</span> <span class="no">Beyonic</span><span class="o">::</span><span class="no">Contact</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span>
+    <span class="ss">phone_number: </span><span class="s2">"+256773712831"</span><span class="p">,</span>
     <span class="ss">first_name: </span><span class="s2">"John"</span><span class="p">,</span>
     <span class="ss">last_name: </span><span class="s2">"Doe"</span><span class="p">,</span>
     <span class="ss">email: </span><span class="s2">"john.doe@beyonic.com"</span><span class="p">,</span>
@@ -1327,7 +1327,7 @@
 <span class="nx">Beyonic</span><span class="o">::</span><span class="na">setApiKey</span><span class="p">(</span><span class="s2">"ab594c14986612f6167a975e1c369e71edab6900"</span><span class="p">);</span>
 
 <span class="nx">Beyonic_Contact</span><span class="o">::</span><span class="na">create</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
-  <span class="s2">"phonenumber"</span> <span class="o">=&gt;</span> <span class="s2">"+256773712831"</span><span class="p">,</span>
+  <span class="s2">"phone_number"</span> <span class="o">=&gt;</span> <span class="s2">"+256773712831"</span><span class="p">,</span>
   <span class="s2">"first_name"</span> <span class="o">=&gt;</span> <span class="s2">"John"</span><span class="p">,</span>
   <span class="s2">"last_name"</span> <span class="o">=&gt;</span> <span class="s2">"Doe"</span><span class="p">,</span>
   <span class="s2">"email"</span> <span class="o">=&gt;</span> <span class="s2">"john.doe@beyonic.com"</span><span class="p">,</span>
@@ -1340,8 +1340,8 @@
 
 <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s">'metadata.my_id'</span><span class="p">:</span> <span class="s">'123ASDAsd123'</span><span class="p">}</span>
 
-<span class="n">beyonic</span><span class="o">.</span><span class="n">Contact</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">phonenumber</span><span class="o">=</span><span class="s">'+256773712831'</span><span class="p">,</span>
-                       <span class="n">first_name</span><span class="o">=</span><span class="s">'John'</span><span class="p">,</span> 
+<span class="n">beyonic</span><span class="o">.</span><span class="n">Contact</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">phone_number</span><span class="o">=</span><span class="s">'+256773712831'</span><span class="p">,</span>
+                       <span class="n">first_name</span><span class="o">=</span><span class="s">'John'</span><span class="p">,</span>
                        <span class="n">last_name</span><span class="o">=</span><span class="s">'Doe'</span><span class="p">,</span>
                        <span class="n">email</span><span class="o">=</span><span class="s">'john.doe@beyonic.com'</span><span class="p">,</span>
                        <span class="o">**</span><span class="n">kwargs</span>
@@ -1550,7 +1550,7 @@
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>To retrieve a list of all contacts, make a GET request to the contact end point. This will return a list of contacts. </p>
+<p>To retrieve a list of all contacts, make a GET request to the contact end point. This will return a list of contacts.</p>
 
 <h2 id="filtering-contacts">Filtering contacts</h2>
 
@@ -1587,7 +1587,7 @@
 <ul>
 <li>first_name - the contact&rsquo;s first name</li>
 <li>last_name - the contact&rsquo;s last name</li>
-<li>email - the contact&rsquo;s email </li>
+<li>email - the contact&rsquo;s email</li>
 <li>phone_number - the contact&rsquo;s phone number. Note that the phonenumber will be matched in international format, starting with a &rsquo;+&rsquo; sign. If the &rsquo;+&rsquo; sign isn&rsquo;t included in your request, it will be appended before attempting to match your request.</li>
 </ul>
 
