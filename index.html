@@ -2272,6 +2272,38 @@
 </tr>
 </tbody></table>
 
+<h2 id="tips-for-testing-your-notification-urls">Tips for testing your notification URLs</h2>
+
+<ol>
+<li>Https with invalid certificates</li>
+</ol>
+
+<p>Beyonic only supports notification urls that start with &ldquo;https://&rdquo;, even when testing. So, you should set up URL to a dedicated page on your server with a server-side https certificate. </p>
+
+<p>Beyonic will usually validate the https certificate, and if validation fails, the notification will not be sent to your URL. To skip validation while testing, add ?skip-cert-verify to your URL, for example: https://my.callback.url.com?skip-cert-verify.</p>
+
+<p>Note that skip-cert-verify only prevents certificate verification. It doesn&rsquo;t eliminate the &ldquo;https://&rdquo; requirement</p>
+
+<p>While you can use skip-cert-verify on your production URLs, we advise you to use valid server side certificates to maximize security on your production systems</p>
+
+<ol>
+<li>Setting up a temporary callback URL and verifying the format of the notifications</li>
+</ol>
+
+<p>If you are not able to set up a dedicated &ldquo;https://&rdquo; url while testing, we recommend using a service like <a href="https://requestb.in/">RequestBin</a></p>
+
+<p>RequestBin gives you a URL that will collect requests made to it and let you inspect them in a human-friendly way. Use RequestBin to inspect and debug the webhook notifications.</p>
+
+<p>Once you get a RequestBin URL, it uses http by default. Since Beyonic only supports https, remember to use &ldquo;https://&rdquo; and &ldquo;skip-cert-verify&rdquo;</p>
+
+<p>For example, if your RequestBin URL is </p>
+
+<p>http://requestb.in/xzdqe313,</p>
+
+<p>Then use this for your callback URLs:</p>
+
+<p>https://requestb.in/xzdqe313?skip-cert-verify</p>
+
 <h2 id="creating-a-new-webhook">Creating a new webhook</h2>
 
 <blockquote>
