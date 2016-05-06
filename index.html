@@ -793,11 +793,11 @@
 
 <h2 id="introduction">Introduction</h2>
 
-<p>Collection Requests are a way to notify us that you are expecting a a specific subscriber to send money to you.</p>
+<p>Collection Requests allow you to notify a customer to send funds to you. When you create a collection request, we send a notification to the customer, with insructions on how to fulfill the request. When they send the funds, a collection object shall be created, and matched with the collection request.</p>
 
 <p>Creating a collection request prior to receiving an expected collection greatly improves the user experience for your subscribers by automatically matching transactions to your organization, even if the subscriber misses out some information or gets some of the information wrong, for example if they forget to include a reference code. Payments matching the amount, number and currency in the collection requests will be correctly assigned to you.</p>
 
-<p>Note: Currently, collection requests <strong>do not</strong> initiate any interaction with the subscriber. In the future, they will be used to &ldquo;pull&rdquo; payments from subscribers by sending payment instructions to the subscriber on supported networks.</p>
+<p>On some supported networks, collection requests actually &ldquo;pull&rdquo; the funds from the recipient&rsquo;s mobile money wallet, and all they have to do is enter their PIN code to approve the transaction. This greatly improves the customer experience.</p>
 
 <p>The collection requests api endpoint is:
     <aside class="notice">https://app.beyonic.com/api/collectionrequests</aside></p>
