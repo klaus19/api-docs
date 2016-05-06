@@ -2132,11 +2132,11 @@
 <li>By using the Webhooks API</li>
 </ul>
 
-<p><em>Required permisions</em></p>
+<p><strong>Required permissions</strong></p>
 
 <p>To manage webhooks, either with the API or the web browser, you must have “Manage Users and Organization Settings” permissions for your organization</p>
 
-<p><em>Managing Webhooks from the web browser</em></p>
+<p><strong>Managing Webhooks from the web browser</strong></p>
 
 <p>To manage webhooks using the web browser:
 1. Log into your account.
@@ -2144,11 +2144,13 @@
 3. Click the Settings button (Cog wheel with an arrow pointing down)
 4. Click “Manage Webhooks” from the drop down menu that appears</p>
 
-<p><em>Managing Webhooks from the API</em></p>
+<p><strong>Managing Webhooks from the API</strong></p>
 
 <p>You can use the Webhooks API described below to update or delete your callback URLs programatically.</p>
 
-<p>The webhooks api endpoint is https://app.beyonic.com/api/webhooks</p>
+<p>The webhooks api endpoint is:</p>
+
+<p><aside class="notice">https://app.beyonic.com/api/webhooks</aside></p>
 
 <h2 id="the-webhook-object">The webhook object</h2>
 
@@ -2278,7 +2280,8 @@
 
 <p>Beyonic only supports notification urls that start with &ldquo;https://&rdquo;, even when testing. So, you should set up URL to a dedicated page on your server with a server-side https certificate. </p>
 
-<p>Beyonic will usually validate the https certificate, and if validation fails, the notification will not be sent to your URL. To skip validation while testing, add ?skip-cert-verify to your URL, for example: https://my.callback.url.com?skip-cert-verify.</p>
+<p>Beyonic will usually validate the https certificate, and if validation fails, the notification will not be sent to your URL. To skip validation while testing, add ?skip-cert-verify to your URL, for example: 
+    <aside class="notice">https://my.callback.url.com?skip-cert-verify.</aside></p>
 
 <p>Note that skip-cert-verify only prevents certificate verification. It doesn&rsquo;t eliminate the &ldquo;https://&rdquo; requirement</p>
 
@@ -2286,7 +2289,7 @@
 
 <p><strong>2. Setting up a temporary callback URL and verifying the format of the notifications</strong></p>
 
-<p>If you are not able to set up a dedicated &ldquo;https://&rdquo; url while testing, we recommend using a service like <a href="https://requestb.in/">RequestBin</a></p>
+<p>If you are not able to set up a dedicated &ldquo;https://&rdquo; url while testing, we recommend using a service like <a href="https://requestb.in/">RequestBin</a>.</p>
 
 <p>RequestBin gives you a URL that will collect requests made to it and let you inspect them in a human-friendly way. Use RequestBin to inspect and debug the webhook notifications.</p>
 
