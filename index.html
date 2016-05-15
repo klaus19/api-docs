@@ -381,6 +381,30 @@
 
 <p>See the examples for more information.</p>
 
+<h2 id="custom-fields">Custom Fields</h2>
+
+<p>Custom Fields are similar to Metadata - they allow you to add custom data to some objects. There are a couple of differences between custom fields and other metadata:</p>
+
+<ol>
+<li>Custom fields are available through the web interface as well, while metadata fields are only available through the API</li>
+<li>Metadata keys and values can be created and edited through the API, while custom fields can only be created through the web interface (currently, you need to request addition of a custom field by <a href="http://beyonic.com/contact">contacting us</a>). However, once custom fields have been created through the web interface, they can be updated or edited through the API as well.</li>
+<li>Metadata consists of string-based keys and string-based values. Custom field keys are strings (starting with &ldquo;s_&rdquo;), but the values may be of different types, including strings, numbers, boolean values or enum values (restricted to a predefined set of values)</li>
+</ol>
+
+<h3 id="adding-or-updating-custom-field-data">Adding or updating custom field data</h3>
+
+<p>All internal custom field labels or keys start with &ldquo;s_&rdquo;. To see the available custom fields, and their actual key names, you can read or list the related object records, as detailed in the respective APIs. </p>
+
+<p>For example, to see custom fields that have been added to your payment object, list your payments. You can identify the custom fields by their keys, which all start with &ldquo;s_&rdquo;.</p>
+
+<p>Once you know the custom field key, you can update it&rsquo;s value just like any other metadata value.</p>
+
+<h3 id="objects-that-support-custom-fields">Objects that support custom fields.</h3>
+
+<p>Not all API methods support custom fields. Only API methods for  Currently, the following API methods support custom fields.
+1. The payment 
+2. The </p>
+
           <h1 id="changelog">Changelog</h1>
 
 <p>This section lists new versions and the changes made in those versions. Review these changes to decide whether you need to upgrade to the new version. Note that only backward incompatible changes are shown. See the <a href="#versioning">Versioning</a> section for more information on how to upgrade to a new version.</p>
