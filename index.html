@@ -3266,75 +3266,11 @@
 
 <h2 id="introduction">Introduction</h2>
 
-<p>Webhooks or callback URLs allow you to define URLs on your server that notifications should be sent to. Notifications are sent for specific events, as defined in the “Supported Event” section below.</p>
-
-<p>You can be managed in two ways:</p>
-
-<ul>
-<li>By logging into your account via the web browser</li>
-<li>By using the Webhooks API</li>
-</ul>
-
-<p><strong>Required permissions</strong></p>
-
-<p>To manage webhooks, either with the API or the web browser, you must have “Manage Users and Organization Settings” permissions for your organization</p>
-
-<p><strong>Managing Webhooks from the web browser</strong></p>
-
-<p>To manage webhooks using the web browser:
-1. Log into your account.
-2. Go to your organizations profile page. You can access this either from the organizations menu, or by clicking your organization name at the top left of the page.
-3. Click the Settings button (Cog wheel with an arrow pointing down)
-4. Click “Manage Webhooks” from the drop down menu that appears</p>
-
-<p><strong>Managing Webhooks from the API</strong></p>
-
-<p>You can use the Webhooks API described below to update or delete your callback URLs programatically.</p>
+<p>Webhooks or callback URLs allow you to define URLs on your server that notifications should be sent to when specific events occur in your Beyonic account.</p>
 
 <p>The webhooks api endpoint is:</p>
 
 <p><aside class="notice">https://app.beyonic.com/api/webhooks</aside></p>
-
-<h2 id="the-webhook-object">The webhook object</h2>
-
-<table><thead>
-<tr>
-<th>Field</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>id</td>
-<td>long integer</td>
-<td>Unique object identifier</td>
-</tr>
-<tr>
-<td>user</td>
-<td>long integer</td>
-<td>The ID of the user who created the webhook</td>
-</tr>
-<tr>
-<td>event</td>
-<td>string</td>
-<td>The webhook event. See supported events below</td>
-</tr>
-<tr>
-<td>created</td>
-<td>string</td>
-<td>The date that the webhook was created, in the UTC timezone. Format: &ldquo;YYYY-MM-DDTHH:MM:SSZ&rdquo;</td>
-</tr>
-<tr>
-<td>updated</td>
-<td>string</td>
-<td>The date that the webhook was last modified, in the UTC timezone. Format: &ldquo;YYYY-MM-DDTHH:MM:SSZ&rdquo;</td>
-</tr>
-<tr>
-<td>target</td>
-<td>string</td>
-<td>The URL that triggered events will be sent to</td>
-</tr>
-</tbody></table>
 
 <h2 id="supported-events">Supported events</h2>
 
@@ -3356,6 +3292,72 @@
 <td>collection.received</td>
 <td>Triggered any time a collection (an incoming payment) is received from a customer</td>
 <td>Collection object</td>
+</tr>
+</tbody></table>
+
+<h2 id="managing-webhooks">Managing Webhooks</h2>
+
+<p>You can create and manage webhooks in two ways:</p>
+
+<ul>
+<li>By logging into your Beyonic account via the web browser as described below</li>
+<li>By using the Webhooks API described below</li>
+</ul>
+
+<p><strong>Managing Webhooks from the web browser</strong></p>
+
+<p>To manage webhooks using the web browser:
+1. Log into your account.
+2. Go to your organizations profile page. You can access this either from the organizations menu, or by clicking your organization name at the top left of the page.
+3. Click the Settings button (Cog wheel with an arrow pointing down)
+4. Click “Manage Webhooks” from the drop down menu that appears</p>
+
+<p><strong>Managing Webhooks from the API</strong></p>
+
+<p>You can use the Webhooks API described below to update or delete your callback URLs programatically.</p>
+
+<p><strong>Required permissions</strong></p>
+
+<p>To manage webhooks, either with the API or the web browser, you must have “Manage Users and Organization Settings” permissions for your organization.</p>
+
+<h2 id="the-webhook-object">The Webhook object</h2>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>long integer</td>
+<td>Unique object identifier</td>
+</tr>
+<tr>
+<td>user</td>
+<td>long integer</td>
+<td>The ID of the user who created the webhook</td>
+</tr>
+<tr>
+<td>event</td>
+<td>string</td>
+<td>The webhook event. See the supported events section</td>
+</tr>
+<tr>
+<td>created</td>
+<td>string</td>
+<td>The date that the webhook was created, in the UTC timezone. Format: &ldquo;YYYY-MM-DDTHH:MM:SSZ&rdquo;</td>
+</tr>
+<tr>
+<td>updated</td>
+<td>string</td>
+<td>The date that the webhook was last modified, in the UTC timezone. Format: &ldquo;YYYY-MM-DDTHH:MM:SSZ&rdquo;</td>
+</tr>
+<tr>
+<td>target</td>
+<td>string</td>
+<td>The URL that triggered events will be sent to</td>
 </tr>
 </tbody></table>
 
