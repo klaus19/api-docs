@@ -408,6 +408,85 @@
 <li>The contacts API</li>
 </ol>
 
+          <h1 id="testing">Testing</h1>
+
+<p>Beyonic provides a few features to ease API testing. These features are described below.</p>
+
+<h2 id="test-api-token">Test API token</h2>
+
+<p>All the examples include a test API token that actually works. They can be run directly, which enables you to try them out as you read the documentation</p>
+
+<h2 id="test-currency">Test Currency</h2>
+
+<p>Beyonic provides a test currency, with the following parameters:
+* Country Code: +401
+* Currency Code: BXC</p>
+
+<p>The BXC currency is used throughout the examples and you can also use it in your own testing. Payments made in the BXC currency will not affect your live currency accounts. Additionally, depending on the number you are paying, you can test various success and failure scenarios. See &ldquo;Test Numbers&rdquo; below</p>
+
+<p><strong>Note</strong>: Currently, this test currency works only for outgoing payments.</p>
+
+<p><strong>Enabling or disabling the test currency</strong></p>
+
+<p>To enable or disable the test currency, once you&rsquo;re logged into Beyonic, go to this URL: </p>
+
+<aside class="notice">https://app.beyonic.com/testing/</aside>
+
+<p>Or go to &ldquo;Home&rdquo; &gt; &ldquo;Company Settings&rdquo; &gt; (Cogwheel) &gt; Test Tools.</p>
+
+<p>From that URL, you can enable the test currency, and also update the available test credit.</p>
+
+<h2 id="test-numbers">Test Numbers</h2>
+
+<p>Beyonic provides test numbers that should be used in conjunction with the test currency. The following numbers are treated in special ways when used with the BXC currency:</p>
+
+<ul>
+<li>+401000000000 - this number will always fail the mobile money registration checks, and therefore will not allow payment.</li>
+<li>All numbers in the format +401XXXXXXXXX will pass the name checks only if the contact name is &ldquo;John Doe&rdquo;.</li>
+<li>Subsequently, all BXC payments to numbers with format +401XXXXXXXXX and name &ldquo;John Doe&rdquo;, (except 401000000000) will succeed, if the amount is greater than or equal to 10 and less than or equal to 5,000,000 BXC.</li>
+</ul>
+
+<p><strong>Note</strong>: Make sure you have enough BXC credit on your account. Use <a href="https://app.beyonic.com/testing/">https://app.beyonic.com/testing/</a> to update your BXC credit.</p>
+
+<h2 id="testing-webhooks">Testing Webhooks</h2>
+
+<p><strong>1. Https with invalid certificates</strong></p>
+
+<p>Beyonic only supports notification urls (also called webhooks or callback urls) that start with &ldquo;https://&rdquo;, even when testing. See the &ldquo;Webhooks&rdquo; section for more infromation. So, you should set up URL to a dedicated page on your server with a server-side https certificate.</p>
+
+<p>Beyonic will usually validate the https certificate, and if validation fails, the notification will not be sent to your URL. To skip validation while testing, add ?skip-cert-verify to your URL, for example:
+    <aside class="notice">https://my.callback.url.com?skip-cert-verify</aside></p>
+
+<p>Note that skip-cert-verify only prevents certificate verification. It doesn&rsquo;t eliminate the &ldquo;https://&rdquo; requirement</p>
+
+<p>While you can use skip-cert-verify on your production URLs, we advise you to use valid server side certificates to maximize security on your production systems</p>
+
+<p><strong>2. Setting up a temporary callback URL and verifying the format of the notifications</strong></p>
+
+<p>If you are not able to set up a dedicated &ldquo;https://&rdquo; url while testing, we recommend using a service like <a href="https://requestb.in/">RequestBin</a>.</p>
+
+<p>RequestBin gives you a URL that will collect requests made to it and let you inspect them in a human-friendly way. Use RequestBin to inspect and debug the webhook notifications.</p>
+
+<p>Once you get a RequestBin URL, it uses http by default. Since Beyonic only supports https, remember to use &ldquo;https://&rdquo; and &ldquo;skip-cert-verify&rdquo;</p>
+
+<p>For example, if your RequestBin URL is</p>
+
+<p><aside class="notice">http://requestb.in/xzdqe313</aside></p>
+
+<p>Then use this for your callback URLs:</p>
+
+<p><aside class="notice">https://requestb.in/xzdqe313?skip-cert-verify</aside></p>
+
+<p><strong>3. Logging all callback requests and responses</strong></p>
+
+<p>RequestBin will only show you the request format, but will not send the request to your final callback URL, and will not show you the response that Beyonic is receiving from your callback URL.</p>
+
+<p>A number of third party services can be used to provide request proxying and logging. For example, <a href="https://www.runscope.com/">Runscope</a> provides full traffic inspection and debugging via its Gateway URLs service. This service will provide a custom URL for you, that will proxy the callbacks to your real callback URL, and log both the requests and responses. Runscope provides free plans as well as paid plans.</p>
+
+<p>Once you have your gateway URL from Runscope, use that as your callback URL in Beyonic.</p>
+
+<p><a href="https://www.runscope.com/docs/debugging">See this article for more information.</a></p>
+
           <h1 id="changelog">Changelog</h1>
 
 <p>This section lists new versions and the changes made in those versions. Review these changes to decide whether you need to upgrade to the new version. Note that only backward incompatible changes are shown. See the <a href="#versioning">Versioning</a> section for more information on how to upgrade to a new version.</p>
@@ -687,7 +766,7 @@
 <li>status - the accounts&rsquo;s status</li>
 </ul>
 
-          <h1 id="collections">Collections</h1>
+          <h1 id="collections-incoming">Collections (Incoming)</h1>
 
 <h2 id="introduction">Introduction</h2>
 
@@ -730,7 +809,7 @@
 <tr>
 <td>currency</td>
 <td>string</td>
-<td>The 3 letter ISO currency code for the collection</td>
+<td>The 3 letter ISO currency code for the collection. <strong>Note:</strong>: BXC is the Beyonic Test Currency code. See the &ldquo;Testing&rdquo; section for more information. Supported currency codes are BXC (Testing), UGX (Uganda), KES (Kenya)</td>
 </tr>
 <tr>
 <td>phonenumber</td>
@@ -862,7 +941,7 @@
     </span><span class="nt">"organization"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
     </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20.0000"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"phonenumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+256778122118"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"phonenumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+401000000001"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"payment_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-12-12T00:00:00Z"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"reference"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"successful"</span><span class="p">,</span><span class="w">
@@ -980,7 +1059,7 @@
             </span><span class="nt">"organization"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
             </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2000.0000"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"phonenumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+256778122118"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"phonenumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+401000000001"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"payment_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-07-14T09:57:44Z"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"beyonic"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"successful"</span><span class="p">,</span><span class="w">
@@ -995,7 +1074,7 @@
             </span><span class="nt">"organization"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
             </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2000.0000"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"phonenumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+256752466772"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"phonenumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+401000000001"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"payment_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-07-14T10:26:32Z"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Payment Ian M"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"successful"</span><span class="p">,</span><span class="w">
@@ -1010,7 +1089,7 @@
             </span><span class="nt">"organization"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
             </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"500.0000"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"phonenumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+256778122118"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"phonenumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+401000000001"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"payment_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-06-25T08:16:26Z"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"payment 10"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"successful"</span><span class="p">,</span><span class="w">
@@ -1030,13 +1109,13 @@
 <blockquote>
 <p>Sample Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/collections?phonenumber<span class="o">=</span>+256778122118&amp;remote_transaction_id<span class="o">=</span>SS12312 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+<pre class="highlight shell"><code>curl https://app.beyonic.com/api/collections?phonenumber<span class="o">=</span>+401000000001&amp;remote_transaction_id<span class="o">=</span>SS12312 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
 </code></pre>
 <pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
 <span class="n">collection</span> <span class="o">=</span> <span class="no">Beyonic</span><span class="o">::</span><span class="no">Collection</span><span class="p">.</span><span class="nf">list</span><span class="p">(</span>
-  <span class="ss">phonenumber: </span><span class="s2">"+256778122118"</span><span class="p">,</span>
+  <span class="ss">phonenumber: </span><span class="s2">"+401000000001"</span><span class="p">,</span>
   <span class="ss">remote_transaction_id: </span><span class="s2">"SS12312"</span>
 <span class="p">)</span>
 </code></pre>
@@ -1045,7 +1124,7 @@
 <span class="nx">Beyonic</span><span class="o">::</span><span class="na">setApiKey</span><span class="p">(</span><span class="s2">"ab594c14986612f6167a975e1c369e71edab6900"</span><span class="p">);</span>
 
 <span class="nv">$collection</span> <span class="o">=</span> <span class="nx">Beyonic_Collection</span><span class="o">::</span><span class="na">getAll</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
-  <span class="s2">"phonenumber"</span> <span class="o">=&gt;</span> <span class="s2">"+256778122118"</span><span class="p">,</span>
+  <span class="s2">"phonenumber"</span> <span class="o">=&gt;</span> <span class="s2">"+401000000001"</span><span class="p">,</span>
   <span class="s2">"remote_transaction_id"</span> <span class="o">=&gt;</span> <span class="s2">"SS12312"</span>
 <span class="p">));</span>
 <span class="cp">?&gt;</span>
@@ -1053,7 +1132,7 @@
 <pre class="highlight python"><code><span class="kn">import</span> <span class="nn">beyonic</span>
 <span class="n">beyonic</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="s">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
-<span class="n">collection</span> <span class="o">=</span> <span class="n">beyonic</span><span class="o">.</span><span class="n">Collection</span><span class="o">.</span><span class="nb">list</span><span class="p">(</span><span class="n">phonenumber</span><span class="o">=</span><span class="s">'+256778122118'</span><span class="p">,</span>
+<span class="n">collection</span> <span class="o">=</span> <span class="n">beyonic</span><span class="o">.</span><span class="n">Collection</span><span class="o">.</span><span class="nb">list</span><span class="p">(</span><span class="n">phonenumber</span><span class="o">=</span><span class="s">'+401000000001'</span><span class="p">,</span>
                                      <span class="n">remote_transaction_id</span><span class="o">=</span><span class="s">'SS12312'</span><span class="p">)</span>
 
 
@@ -1117,7 +1196,7 @@
         </span><span class="nt">"payment_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04Z"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test Payment"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">3000.000</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UGX"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BXC"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"successful"</span><span class="w">
        </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
@@ -1143,13 +1222,13 @@
 <blockquote>
 <p>Sample Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/collections?phonenumber<span class="o">=</span>+256778122118&amp;remote_transaction_id<span class="o">=</span>SS12312&amp;claim<span class="o">=</span>True&amp;amount<span class="o">=</span>200 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+<pre class="highlight shell"><code>curl https://app.beyonic.com/api/collections?phonenumber<span class="o">=</span>+401000000001&amp;remote_transaction_id<span class="o">=</span>SS12312&amp;claim<span class="o">=</span>True&amp;amount<span class="o">=</span>200 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
 </code></pre>
 <pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
 <span class="n">collection</span> <span class="o">=</span> <span class="no">Beyonic</span><span class="o">::</span><span class="no">Collection</span><span class="p">.</span><span class="nf">list</span><span class="p">(</span>
-  <span class="ss">phonenumber: </span><span class="s2">"+256778122118"</span><span class="p">,</span>
+  <span class="ss">phonenumber: </span><span class="s2">"+401000000001"</span><span class="p">,</span>
   <span class="ss">remote_transaction_id: </span><span class="s2">"SS12312"</span><span class="p">,</span>
   <span class="ss">claim: </span><span class="kp">true</span><span class="p">,</span>
   <span class="ss">amount: </span><span class="mi">200</span>
@@ -1160,7 +1239,7 @@
 <span class="nx">Beyonic</span><span class="o">::</span><span class="na">setApiKey</span><span class="p">(</span><span class="s2">"ab594c14986612f6167a975e1c369e71edab6900"</span><span class="p">);</span>
 
 <span class="nv">$collection</span> <span class="o">=</span> <span class="nx">Beyonic_Collection</span><span class="o">::</span><span class="na">getAll</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
-  <span class="s2">"phonenumber"</span> <span class="o">=&gt;</span> <span class="s2">"+256778122118"</span><span class="p">,</span>
+  <span class="s2">"phonenumber"</span> <span class="o">=&gt;</span> <span class="s2">"+401000000001"</span><span class="p">,</span>
   <span class="s2">"remote_transaction_id"</span> <span class="o">=&gt;</span> <span class="s2">"SS12312"</span><span class="p">,</span>
   <span class="s2">"claim"</span> <span class="o">=&gt;</span> <span class="s2">"True"</span><span class="p">,</span>
   <span class="s2">"amount"</span> <span class="o">=&gt;</span> <span class="s2">"200"</span><span class="p">,</span>
@@ -1170,7 +1249,7 @@
 <pre class="highlight python"><code><span class="kn">import</span> <span class="nn">beyonic</span>
 <span class="n">beyonic</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="s">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
-<span class="n">collection</span> <span class="o">=</span> <span class="n">beyonic</span><span class="o">.</span><span class="n">Collection</span><span class="o">.</span><span class="nb">list</span><span class="p">(</span><span class="n">phonenumber</span><span class="o">=</span><span class="s">'+256778122118'</span><span class="p">,</span>
+<span class="n">collection</span> <span class="o">=</span> <span class="n">beyonic</span><span class="o">.</span><span class="n">Collection</span><span class="o">.</span><span class="nb">list</span><span class="p">(</span><span class="n">phonenumber</span><span class="o">=</span><span class="s">'+401000000001'</span><span class="p">,</span>
                                      <span class="n">remote_transaction_id</span><span class="o">=</span><span class="s">'SS12312'</span><span class="p">,</span>
                                      <span class="n">claim</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
                                      <span class="n">amount</span><span class="o">=</span><span class="s">'200'</span><span class="p">)</span>
@@ -1194,7 +1273,7 @@
     <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
         <span class="n">URL</span> <span class="n">url</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
         <span class="k">try</span> <span class="o">{</span>
-            <span class="n">url</span> <span class="o">=</span> <span class="k">new</span> <span class="n">URL</span><span class="o">(</span><span class="n">API_ENDPOINT</span> <span class="o">+</span> <span class="s">"?phonenumber=+256778122118&amp;remote_transaction_id=SS12312&amp;amount=200&amp;claim=True"</span><span class="o">);</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="k">new</span> <span class="n">URL</span><span class="o">(</span><span class="n">API_ENDPOINT</span> <span class="o">+</span> <span class="s">"?phonenumber=+401000000001&amp;remote_transaction_id=SS12312&amp;amount=200&amp;claim=True"</span><span class="o">);</span>
             <span class="n">HttpURLConnection</span> <span class="n">conn</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpURLConnection</span><span class="o">)</span> <span class="n">url</span><span class="o">.</span><span class="na">openConnection</span><span class="o">();</span>
 
             <span class="n">conn</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">"Content-Type"</span><span class="o">,</span> <span class="s">"application/json"</span><span class="o">);</span>
@@ -1236,7 +1315,7 @@
         </span><span class="nt">"payment_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04Z"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test Payment"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">3000.000</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UGX"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BXC"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"successful"</span><span class="w">
        </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
@@ -1272,7 +1351,7 @@
 
 <p>Note that the response will be a list of collections, not a single collection.</p>
 
-          <h1 id="collection-requests">Collection Requests</h1>
+          <h1 id="collection-requests-billing">Collection Requests (Billing)</h1>
 
 <h2 id="introduction">Introduction</h2>
 
@@ -1312,7 +1391,7 @@
 <tr>
 <td>currency</td>
 <td>string</td>
-<td>The 3 letter ISO currency code for the collection request</td>
+<td>The 3 letter ISO currency code for the collection request. <strong>Note:</strong>: BXC is the Beyonic Test Currency code. See the &ldquo;Testing&rdquo; section for more information. Supported currency codes are BXC (Testing), UGX (Uganda), KES (Kenya)</td>
 </tr>
 <tr>
 <td>phonenumber</td>
@@ -1377,8 +1456,8 @@
 <p>Sample Request:</p>
 </blockquote>
 <pre class="highlight shell"><code>curl https://app.beyonic.com/api/collectionrequests -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span> <span class="se">\</span>
--d <span class="nv">phonenumber</span><span class="o">=</span>+256778122118 <span class="se">\</span>
--d <span class="nv">currency</span><span class="o">=</span>UGX <span class="se">\</span>
+-d <span class="nv">phonenumber</span><span class="o">=</span>+401000000001 <span class="se">\</span>
+-d <span class="nv">currency</span><span class="o">=</span>BXC <span class="se">\</span>
 -d <span class="nv">amount</span><span class="o">=</span>3000 <span class="se">\</span>
 -d metadata.my_id<span class="o">=</span><span class="s1">'123ASDAsd123'</span>
 </code></pre>
@@ -1386,9 +1465,9 @@
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
 <span class="n">collection</span> <span class="o">=</span> <span class="no">Beyonic</span><span class="o">::</span><span class="no">CollectionRequest</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span>
-    <span class="ss">phonenumber: </span><span class="s2">"+256778122118"</span><span class="p">,</span>
+    <span class="ss">phonenumber: </span><span class="s2">"+401000000001"</span><span class="p">,</span>
     <span class="ss">amount: </span><span class="s2">"100.2"</span><span class="p">,</span>
-    <span class="ss">currency: </span><span class="s2">"UGX"</span><span class="p">,</span>
+    <span class="ss">currency: </span><span class="s2">"BXC"</span><span class="p">,</span>
     <span class="s1">'metadata.my_id'</span><span class="p">:</span> <span class="s2">"123ASDAsd123"</span>
 <span class="p">)</span>
 </code></pre>
@@ -1397,9 +1476,9 @@
 <span class="nx">Beyonic</span><span class="o">::</span><span class="na">setApiKey</span><span class="p">(</span><span class="s2">"ab594c14986612f6167a975e1c369e71edab6900"</span><span class="p">);</span>
 
 <span class="nx">Beyonic_Collection_Request</span><span class="o">::</span><span class="na">create</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
-  <span class="s2">"phonenumber"</span> <span class="o">=&gt;</span> <span class="s2">"+256778122118"</span><span class="p">,</span>
+  <span class="s2">"phonenumber"</span> <span class="o">=&gt;</span> <span class="s2">"+401000000001"</span><span class="p">,</span>
   <span class="s2">"amount"</span> <span class="o">=&gt;</span> <span class="s2">"100.2"</span><span class="p">,</span>
-  <span class="s2">"currency"</span> <span class="o">=&gt;</span> <span class="s2">"UGX"</span><span class="p">,</span>
+  <span class="s2">"currency"</span> <span class="o">=&gt;</span> <span class="s2">"BXC"</span><span class="p">,</span>
   <span class="s2">"metadata.my_id"</span> <span class="o">=&gt;</span> <span class="s2">"123ASDAsd123"</span>
 <span class="p">));</span>
 <span class="cp">?&gt;</span>
@@ -1409,9 +1488,9 @@
 
 <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s">'metadata.my_id'</span><span class="p">:</span> <span class="s">'123ASDAsd123'</span><span class="p">}</span>
 
-<span class="n">beyonic</span><span class="o">.</span><span class="n">CollectionRequest</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">phonenumber</span><span class="o">=</span><span class="s">'+256778122118'</span><span class="p">,</span>
+<span class="n">beyonic</span><span class="o">.</span><span class="n">CollectionRequest</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">phonenumber</span><span class="o">=</span><span class="s">'+401000000001'</span><span class="p">,</span>
                        <span class="n">amount</span><span class="o">=</span><span class="s">'1200'</span><span class="p">,</span>
-                       <span class="n">currency</span><span class="o">=</span><span class="s">'UGX'</span><span class="p">,</span>
+                       <span class="n">currency</span><span class="o">=</span><span class="s">'BXC'</span><span class="p">,</span>
                        <span class="n">description</span><span class="o">=</span><span class="s">'Per diem'</span><span class="p">,</span>
                        <span class="n">callback_url</span><span class="o">=</span><span class="s">'https://my.website/payments/callback'</span><span class="p">,</span>
                        <span class="o">**</span><span class="n">kwargs</span>
@@ -1431,8 +1510,8 @@
     <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">API_ENDPOINT</span> <span class="o">=</span> <span class="s">"https://app.beyonic.com/api/collectionrequests"</span><span class="o">;</span>
     <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">API_KEY</span> <span class="o">=</span> <span class="s">"ab594c14986612f6167a975e1c369e71edab6900"</span><span class="o">;</span>
     <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">CHARSET</span> <span class="o">=</span> <span class="s">"UTF-8"</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">PHONE_NUMBER</span> <span class="o">=</span> <span class="s">"+256778122118"</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">CURRENCY</span> <span class="o">=</span> <span class="s">"UGX"</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">PHONE_NUMBER</span> <span class="o">=</span> <span class="s">"+401000000001"</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">CURRENCY</span> <span class="o">=</span> <span class="s">"BXC"</span><span class="o">;</span>
     <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">DESCRIPTION</span> <span class="o">=</span> <span class="s">"Per Diem"</span><span class="o">;</span>
     <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">AMOUNT</span> <span class="o">=</span> <span class="s">"1200"</span><span class="o">;</span>
     <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">CALLBACK_URL</span> <span class="o">=</span> <span class="s">"https://my.website/payments/callback"</span><span class="o">;;</span>
@@ -1499,8 +1578,8 @@
     </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3620</span><span class="p">,</span><span class="w">
     </span><span class="nt">"organization"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
     </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UGX"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"phone_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+256778122118"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BXC"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"phone_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+401000000001"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.017Z"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
     </span><span class="nt">"modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.018Z"</span><span class="p">,</span><span class="w">
@@ -1523,7 +1602,7 @@
 <td>phonenumber</td>
 <td>Yes</td>
 <td>String</td>
-<td>+256778122118</td>
+<td>+401000000001</td>
 <td>Must be in international format</td>
 </tr>
 <tr>
@@ -1551,8 +1630,8 @@
 <td>currency</td>
 <td>Yes</td>
 <td>String</td>
-<td>UGX</td>
-<td>3 letter ISO currency code. No currency conversion is done, so the currency must be valid for the selected phonenumber. You must have funded Beyonic an account in this currency. If your account for this currency has zero balance, your payment will fail.</td>
+<td>BXC</td>
+<td>3 letter ISO currency code. No currency conversion is done, so the currency must be valid for the selected phonenumber. You must have funded Beyonic an account in this currency. If your account for this currency has zero balance, your payment will fail. <strong>Note:</strong>: BXC is the Beyonic Test Currency code. See the &ldquo;Testing&rdquo; section for more information. Supported currency codes are BXC (Testing), UGX (Uganda), KES (Kenya)</td>
 </tr>
 <tr>
 <td>reason</td>
@@ -1672,8 +1751,8 @@
     </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">230</span><span class="p">,</span><span class="w">
     </span><span class="nt">"organization"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
     </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UGX"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"phone_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+256778122118"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BXC"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"phone_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+401000000001"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.017Z"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
     </span><span class="nt">"modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.018Z"</span><span class="p">,</span><span class="w">
@@ -1786,8 +1865,8 @@
             </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">99</span><span class="p">,</span><span class="w">
             </span><span class="nt">"organization"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Beyonic"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3000.0000"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UGX"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"phonenumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+256778122118"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BXC"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"phonenumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+401000000001"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
             </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-10T16:10:01Z"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="p">,</span><span class="w">
@@ -1798,8 +1877,8 @@
             </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
             </span><span class="nt">"organization"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Beyonic"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3000.0000"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UGX"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"phonenumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+256778122118"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BXC"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"phonenumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+401000000001"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
             </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-10T16:10:01Z"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="p">,</span><span class="w">
@@ -1810,8 +1889,8 @@
             </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">101</span><span class="p">,</span><span class="w">
             </span><span class="nt">"organization"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Beyonic"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3000.0000"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UGX"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"phonenumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+256778122118"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BXC"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"phonenumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+401000000001"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
             </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-10T16:10:01Z"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="p">,</span><span class="w">
@@ -2006,7 +2085,7 @@
 <pre class="highlight shell"><code>curl https://app.beyonic.com/api/contacts -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span> <span class="se">\</span>
 -d <span class="nv">first_name</span><span class="o">=</span><span class="s1">'John'</span> <span class="se">\</span>
 -d <span class="nv">last_name</span><span class="o">=</span><span class="s1">'Doe'</span> <span class="se">\</span>
--d <span class="nv">phone_number</span><span class="o">=</span><span class="s1">'+256712954253'</span> <span class="se">\</span>
+-d <span class="nv">phone_number</span><span class="o">=</span><span class="s1">'+401000000001'</span> <span class="se">\</span>
 -d <span class="nv">email</span><span class="o">=</span><span class="s1">'john.doe@beyonic.com'</span> <span class="se">\</span>
 -d metadata.my_id<span class="o">=</span><span class="s1">'123ASDAsd123'</span>
 </code></pre>
@@ -2014,7 +2093,7 @@
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
 <span class="n">contact</span> <span class="o">=</span> <span class="no">Beyonic</span><span class="o">::</span><span class="no">Contact</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span>
-    <span class="ss">phone_number: </span><span class="s2">"+256778122118"</span><span class="p">,</span>
+    <span class="ss">phone_number: </span><span class="s2">"+401000000001"</span><span class="p">,</span>
     <span class="ss">first_name: </span><span class="s2">"John"</span><span class="p">,</span>
     <span class="ss">last_name: </span><span class="s2">"Doe"</span><span class="p">,</span>
     <span class="ss">email: </span><span class="s2">"john.doe@beyonic.com"</span><span class="p">,</span>
@@ -2026,7 +2105,7 @@
 <span class="nx">Beyonic</span><span class="o">::</span><span class="na">setApiKey</span><span class="p">(</span><span class="s2">"ab594c14986612f6167a975e1c369e71edab6900"</span><span class="p">);</span>
 
 <span class="nx">Beyonic_Contact</span><span class="o">::</span><span class="na">create</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
-  <span class="s2">"phone_number"</span> <span class="o">=&gt;</span> <span class="s2">"+256778122118"</span><span class="p">,</span>
+  <span class="s2">"phone_number"</span> <span class="o">=&gt;</span> <span class="s2">"+401000000001"</span><span class="p">,</span>
   <span class="s2">"first_name"</span> <span class="o">=&gt;</span> <span class="s2">"John"</span><span class="p">,</span>
   <span class="s2">"last_name"</span> <span class="o">=&gt;</span> <span class="s2">"Doe"</span><span class="p">,</span>
   <span class="s2">"email"</span> <span class="o">=&gt;</span> <span class="s2">"john.doe@beyonic.com"</span><span class="p">,</span>
@@ -2039,7 +2118,7 @@
 
 <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s">'metadata.my_id'</span><span class="p">:</span> <span class="s">'123ASDAsd123'</span><span class="p">}</span>
 
-<span class="n">beyonic</span><span class="o">.</span><span class="n">Contact</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">phone_number</span><span class="o">=</span><span class="s">'+256778122118'</span><span class="p">,</span>
+<span class="n">beyonic</span><span class="o">.</span><span class="n">Contact</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">phone_number</span><span class="o">=</span><span class="s">'+401000000001'</span><span class="p">,</span>
                        <span class="n">first_name</span><span class="o">=</span><span class="s">'John'</span><span class="p">,</span>
                        <span class="n">last_name</span><span class="o">=</span><span class="s">'Doe'</span><span class="p">,</span>
                        <span class="n">email</span><span class="o">=</span><span class="s">'john.doe@beyonic.com'</span><span class="p">,</span>
@@ -2062,7 +2141,7 @@
     <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">CHARSET</span> <span class="o">=</span> <span class="s">"UTF-8"</span><span class="o">;</span>
     <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">FIRST_NAME</span> <span class="o">=</span> <span class="s">"John"</span><span class="o">;</span>
     <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">LAST_NAME</span> <span class="o">=</span> <span class="s">"Doe"</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">PHONE_NUMBER</span> <span class="o">=</span> <span class="s">"+256778122118"</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">PHONE_NUMBER</span> <span class="o">=</span> <span class="s">"+401000000001"</span><span class="o">;</span>
     <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">EMAIL</span> <span class="o">=</span> <span class="s">"john.doe@beyonic.com"</span><span class="o">;</span>
 
     <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
@@ -2128,7 +2207,7 @@
     </span><span class="nt">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Suzanne"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Kwagala"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"suzanne@beyonic.com"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"phone_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+256778122118"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"phone_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+401000000001"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"employee"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
@@ -2154,7 +2233,7 @@
 <td>phone_number</td>
 <td>Yes</td>
 <td>String</td>
-<td>+256778122118</td>
+<td>+401000000001</td>
 <td>Must be in international format</td>
 </tr>
 <tr>
@@ -2270,7 +2349,7 @@
     </span><span class="nt">"first_name"</span><span class="p">:</span><span class="s2">"John"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"last_name"</span><span class="p">:</span><span class="s2">"Doe"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"email"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"phone_number"</span><span class="p">:</span><span class="s2">"+256778122118"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"phone_number"</span><span class="p">:</span><span class="s2">"+401000000001"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"employee"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"status"</span><span class="p">:</span><span class="s2">"active"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"metadata"</span><span class="p">:{},</span><span class="w">
@@ -2500,7 +2579,7 @@
 <li>phone_number - the contact&rsquo;s phone number. Note that the phonenumber will be matched in international format, starting with a &rsquo;+&rsquo; sign. If the &rsquo;+&rsquo; sign isn&rsquo;t included in your request, it will be appended before attempting to match your request.</li>
 </ul>
 
-          <h1 id="payments">Payments</h1>
+          <h1 id="payments-outgoing">Payments (Outgoing)</h1>
 
 <h2 id="introduction">Introduction</h2>
 
@@ -2536,7 +2615,7 @@
 <tr>
 <td>currency</td>
 <td>string</td>
-<td>The 3 letter ISO currency code for the payment</td>
+<td>The 3 letter ISO currency code for the payment. <strong>Note:</strong>: BXC is the Beyonic Test Currency code. See the &ldquo;Testing&rdquo; section for more information. Supported currency codes are BXC (Testing), UGX (Uganda), KES (Kenya)</td>
 </tr>
 <tr>
 <td>account</td>
@@ -2631,10 +2710,10 @@
 <p>Sample Request:</p>
 </blockquote>
 <pre class="highlight shell"><code>curl https://app.beyonic.com/api/payments -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span> <span class="se">\</span>
--d <span class="nv">phonenumber</span><span class="o">=</span>+256778122118 <span class="se">\</span>
+-d <span class="nv">phonenumber</span><span class="o">=</span>+401000000001 <span class="se">\</span>
 -d <span class="nv">first_name</span><span class="o">=</span>Kennedy<span class="se">\</span>
 -d <span class="nv">last_name</span><span class="o">=</span>Amani<span class="se">\</span>
--d <span class="nv">currency</span><span class="o">=</span>UGX <span class="se">\</span>
+-d <span class="nv">currency</span><span class="o">=</span>BXC <span class="se">\</span>
 -d <span class="nv">account</span><span class="o">=</span>1 <span class="se">\</span>
 -d <span class="nv">amount</span><span class="o">=</span>30 <span class="se">\</span>
 -d <span class="nv">description</span><span class="o">=</span><span class="s2">"Per diem payment"</span> <span class="se">\</span>
@@ -2645,11 +2724,11 @@
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
 <span class="n">payment</span> <span class="o">=</span> <span class="no">Beyonic</span><span class="o">::</span><span class="no">Payment</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span>
-    <span class="ss">phonenumber: </span><span class="s2">"+256778122118"</span><span class="p">,</span>
+    <span class="ss">phonenumber: </span><span class="s2">"+401000000001"</span><span class="p">,</span>
     <span class="ss">first_name: </span><span class="s2">"Kennedy"</span><span class="p">,</span>
     <span class="ss">last_name: </span><span class="s2">"Amani"</span><span class="p">,</span>
     <span class="ss">amount: </span><span class="s2">"100.2"</span><span class="p">,</span>
-    <span class="ss">currency: </span><span class="s2">"UGX"</span><span class="p">,</span>
+    <span class="ss">currency: </span><span class="s2">"BXC"</span><span class="p">,</span>
     <span class="ss">account: </span><span class="s2">"1"</span><span class="p">,</span>
     <span class="ss">description: </span><span class="s2">"Per diem payment"</span><span class="p">,</span>
     <span class="ss">payment_type: </span><span class="s2">"money"</span><span class="p">,</span>
@@ -2663,11 +2742,11 @@
 <span class="nx">Beyonic</span><span class="o">::</span><span class="na">setApiKey</span><span class="p">(</span><span class="s2">"ab594c14986612f6167a975e1c369e71edab6900"</span><span class="p">);</span>
 
 <span class="nx">Beyonic_Payment</span><span class="o">::</span><span class="na">create</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
-  <span class="s2">"phonenumber"</span> <span class="o">=&gt;</span> <span class="s2">"+256778122118"</span><span class="p">,</span>
+  <span class="s2">"phonenumber"</span> <span class="o">=&gt;</span> <span class="s2">"+401000000001"</span><span class="p">,</span>
   <span class="s2">"first_name"</span> <span class="o">=&gt;</span> <span class="s2">"Kennedy"</span><span class="p">,</span>
   <span class="s2">"last_name"</span> <span class="o">=&gt;</span> <span class="s2">"Kennedy"</span><span class="p">,</span>
   <span class="s2">"amount"</span> <span class="o">=&gt;</span> <span class="s2">"100.2"</span><span class="p">,</span>
-  <span class="s2">"currency"</span> <span class="o">=&gt;</span> <span class="s2">"UGX"</span><span class="p">,</span>
+  <span class="s2">"currency"</span> <span class="o">=&gt;</span> <span class="s2">"BXC"</span><span class="p">,</span>
   <span class="s2">"account"</span> <span class="o">=&gt;</span> <span class="s2">"1"</span><span class="p">,</span>
   <span class="s2">"description"</span> <span class="o">=&gt;</span> <span class="s2">"Per diem payment"</span><span class="p">,</span>
   <span class="s2">"payment_type"</span> <span class="o">=&gt;</span> <span class="s2">"money"</span><span class="p">,</span>
@@ -2682,11 +2761,11 @@
 
 <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s">'metadata.id'</span><span class="p">:</span> <span class="mi">1234</span><span class="p">,</span> <span class="s">'metadata.name'</span><span class="p">:</span> <span class="s">'Lucy'</span><span class="p">}</span>
 
-<span class="n">beyonic</span><span class="o">.</span><span class="n">Payment</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">phonenumber</span><span class="o">=</span><span class="s">'+256778122118'</span><span class="p">,</span>
+<span class="n">beyonic</span><span class="o">.</span><span class="n">Payment</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">phonenumber</span><span class="o">=</span><span class="s">'+401000000001'</span><span class="p">,</span>
                        <span class="n">first_name</span><span class="o">=</span><span class="s">'Kennedy'</span><span class="p">,</span>
                        <span class="n">last_name</span><span class="o">=</span><span class="s">'Amani'</span><span class="p">,</span>
                        <span class="n">amount</span><span class="o">=</span><span class="s">'1200'</span><span class="p">,</span>
-                       <span class="n">currency</span><span class="o">=</span><span class="s">'UGX'</span><span class="p">,</span>
+                       <span class="n">currency</span><span class="o">=</span><span class="s">'BXC'</span><span class="p">,</span>
                        <span class="n">account</span><span class="o">=</span><span class="s">'1'</span><span class="p">,</span>
                        <span class="n">description</span><span class="o">=</span><span class="s">'Per diem'</span><span class="p">,</span>
                        <span class="n">callback_url</span><span class="o">=</span><span class="s">'https://my.website/payments/callback'</span><span class="p">,</span>
@@ -2706,8 +2785,8 @@
     <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">API_ENDPOINT</span> <span class="o">=</span> <span class="s">"https://app.beyonic.com/api/payments"</span><span class="o">;</span>
     <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">API_KEY</span> <span class="o">=</span> <span class="s">"ab594c14986612f6167a975e1c369e71edab6900"</span><span class="o">;</span>
     <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">CHARSET</span> <span class="o">=</span> <span class="s">"UTF-8"</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">PHONE_NUMBER</span> <span class="o">=</span> <span class="s">"+256778122118"</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">CURRENCY</span> <span class="o">=</span> <span class="s">"UGX"</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">PHONE_NUMBER</span> <span class="o">=</span> <span class="s">"+401000000001"</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">CURRENCY</span> <span class="o">=</span> <span class="s">"BXC"</span><span class="o">;</span>
     <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">DESCRIPTION</span> <span class="o">=</span> <span class="s">"Per Diem"</span><span class="o">;</span>
     <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">AMOUNT</span> <span class="o">=</span> <span class="s">"1200"</span><span class="o">;</span>
     <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">CALLBACK_URL</span> <span class="o">=</span> <span class="s">"https://my.website/payments/callback"</span><span class="o">;</span>
@@ -2773,12 +2852,12 @@
     </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3620</span><span class="p">,</span><span class="w">
     </span><span class="nt">"organization"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
     </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UGX"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BXC"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"account"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"payment_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"money"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lucy"</span><span class="p">},</span><span class="w">
     </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Per diem payment"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"phone_nos"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"+256778122118"</span><span class="p">],</span><span class="w">
+    </span><span class="nt">"phone_nos"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"+401000000001"</span><span class="p">],</span><span class="w">
     </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"new"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"last_error"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="nt">"rejected_reason"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
@@ -2819,7 +2898,7 @@
 <td>phonenumber</td>
 <td>Yes</td>
 <td>String</td>
-<td>+256778122118</td>
+<td>+401000000001</td>
 <td>Must be in international format</td>
 </tr>
 <tr>
@@ -2833,8 +2912,8 @@
 <td>currency</td>
 <td>No</td>
 <td>String</td>
-<td>UGX</td>
-<td>3 letter ISO currency code. No currency conversion is done, so the currency must be valid for the selected phonenumber. You must have a funded Beyonic account in this currency. If your account for this currency has zero balance, your payment will fail. If you also provide an account parameter then the account&rsquo;s currency must match the currency parameter.</td>
+<td>BXC</td>
+<td>3 letter ISO currency code. No currency conversion is done, so the currency must be valid for the selected phonenumber. You must have a funded Beyonic account in this currency. If your account for this currency has zero balance, your payment will fail. If you also provide an account parameter then the account&rsquo;s currency must match the currency parameter. <strong>Note:</strong>: BXC is the Beyonic Test Currency code. See the &ldquo;Testing&rdquo; section for more information. Supported currency codes are BXC (Testing), UGX (Uganda), KES (Kenya)</td>
 </tr>
 <tr>
 <td>account</td>
@@ -2862,7 +2941,7 @@
 <td>No</td>
 <td>String</td>
 <td>https://my.website/payments/callback</td>
-<td>See &ldquo;Callback URLs&rdquo; below for more info.</td>
+<td>Callback URLs are used to send notifications of changes in payment status. Not all payments will be completed immediately, especially if it is a payment to a new number that hasn’t been verified, or if your account has approval rules that require other users to approve payments before they are processed. Note that the URL you submit isn’t specific to a specific payment you have created. Once submitted, it will receive notifications for all future payments made via your organization, whether they are made via the API or via the web-interface. Therefore, you are encouraged to use the same URL for all payments. Since URLs are stored at a per-organization level, using different URLs may result in duplicate notifications being sent to the different URLs. See &ldquo;Webhooks&rdquo; below for more info.</td>
 </tr>
 <tr>
 <td>metadata</td>
@@ -2886,19 +2965,6 @@
 <td>If this payment is to a new contact, you can include their last name. This name will only be used if the phone number is new.</td>
 </tr>
 </tbody></table>
-
-<p><strong>Callback URLs</strong></p>
-
-<p>Callback URLs are used to send notifications of changes in payment status. Not all payments will be completed immediately, especially if it is a payment to a new number that hasn’t been verified, or if your account has approval rules that require other users to approve payments before they are processed.</p>
-
-<ul>
-<li>Non-HTTPS URLs will be rejected.</li>
-<li>Data will be posted to the URL, and a 200 response is expected.</li>
-<li>In version 1, a non 200 response may result in deletion of the URL, and no further notifications will be sent.</li>
-<li>In version 1, the URL you submit isn’t specific to the payment you have created. Once submitted, it will receive notifications for all future payments made via your organization, whether they are made via the API or via the web-interface.</li>
-<li>Therefore, you are encouraged to use the same URL for all payments. Since URLs are stored at a per-organization level, using different URLs may result in duplicate notifications being sent to the different URLs.</li>
-<li>In version 1, previously submitted urls can be deleted via the web browser, or the Webhooks API methods described elsewhere in this reference.</li>
-</ul>
 
 <p><strong>Responses</strong></p>
 
@@ -2998,12 +3064,12 @@
     </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">22744</span><span class="p">,</span><span class="w">
     </span><span class="nt">"organization"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
     </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1200.0000"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UGX"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BXC"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"account"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"payment_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"money"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lucy"</span><span class="p">},</span><span class="w">
     </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Per diem payment"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"phone_nos"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"+256778122118"</span><span class="p">],</span><span class="w">
+    </span><span class="nt">"phone_nos"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"+401000000001"</span><span class="p">],</span><span class="w">
     </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"new"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"last_error"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="nt">"rejected_reason"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
@@ -3125,13 +3191,13 @@
             </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
             </span><span class="nt">"organization"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Beyonic"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0000"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UGX"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BXC"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"account"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"payment_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"money"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
             </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"phone_nos"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-                </span><span class="s2">"+256778122118"</span><span class="w">
+                </span><span class="s2">"+401000000001"</span><span class="w">
             </span><span class="p">],</span><span class="w">
             </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"approved"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"last_error"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
@@ -3151,13 +3217,13 @@
             </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
             </span><span class="nt">"organization"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Beyonic"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"200.0000"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UGX"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BXC"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"account"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"payment_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"money"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
             </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test2"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"phone_nos"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-                </span><span class="s2">"+256778122118"</span><span class="w">
+                </span><span class="s2">"+401000000001"</span><span class="w">
             </span><span class="p">],</span><span class="w">
             </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"scheduled"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"last_error"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
@@ -3272,6 +3338,17 @@
 
 <p><aside class="notice">https://app.beyonic.com/api/webhooks</aside></p>
 
+<p><strong>Note:</strong></p>
+
+<ul>
+<li>Non-HTTPS URLs will be rejected. For testing with a self signed certificate, see the &ldquo;Testing webhooks&rdquo; section below.</li>
+<li>Data will be posted to the URL, and a 200 response is expected.</li>
+<li>A non 200 response may result in deletion of the URL, and no further notifications will be sent.</li>
+<li>The URL you submit isn’t specific to a specific object. Once submitted, it will receive notifications for all future events of the specific type made in your organization, whether they are made via the API or via the web-interface.</li>
+<li>Therefore, you are encouraged to use the one URL for each event type. Since URLs are stored at a per-organization level, using different URLs may result in duplicate notifications being sent to the different URLs.</li>
+<li>Previously submitted urls can be deleted via the web browser, or the Webhooks API methods described elsewhere in this reference.</li>
+</ul>
+
 <h2 id="supported-events">Supported events</h2>
 
 <p>The following events are supported</p>
@@ -3379,11 +3456,11 @@
                 </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2314</span><span class="p">,</span><span class="w">
                 </span><span class="nt">"organization"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
                 </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30"</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UGX"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BXC"</span><span class="p">,</span><span class="w">
                 </span><span class="nt">"payment_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"money"</span><span class="p">,</span><span class="w">
                 </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lucy"</span><span class="p">},</span><span class="w">
                 </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Per diem payment"</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"phone_nos"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"+256778122118"</span><span class="p">],</span><span class="w">
+                </span><span class="nt">"phone_nos"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"+401000000001"</span><span class="p">],</span><span class="w">
                 </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"completed"</span><span class="p">,</span><span class="w">
                 </span><span class="nt">"last_error"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
                 </span><span class="nt">"rejected_reason"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
@@ -3418,45 +3495,6 @@
 <td>A JSON representation of the object that triggered the event. This is different for each event. See the &lsquo;Supported events&rsquo; section above.</td>
 </tr>
 </tbody></table>
-
-<h2 id="tips-for-testing-callbacks">Tips for testing callbacks</h2>
-
-<p><strong>1. Https with invalid certificates</strong></p>
-
-<p>Beyonic only supports notification urls that start with &ldquo;https://&rdquo;, even when testing. So, you should set up URL to a dedicated page on your server with a server-side https certificate.</p>
-
-<p>Beyonic will usually validate the https certificate, and if validation fails, the notification will not be sent to your URL. To skip validation while testing, add ?skip-cert-verify to your URL, for example:
-    <aside class="notice">https://my.callback.url.com?skip-cert-verify.</aside></p>
-
-<p>Note that skip-cert-verify only prevents certificate verification. It doesn&rsquo;t eliminate the &ldquo;https://&rdquo; requirement</p>
-
-<p>While you can use skip-cert-verify on your production URLs, we advise you to use valid server side certificates to maximize security on your production systems</p>
-
-<p><strong>2. Setting up a temporary callback URL and verifying the format of the notifications</strong></p>
-
-<p>If you are not able to set up a dedicated &ldquo;https://&rdquo; url while testing, we recommend using a service like <a href="https://requestb.in/">RequestBin</a>.</p>
-
-<p>RequestBin gives you a URL that will collect requests made to it and let you inspect them in a human-friendly way. Use RequestBin to inspect and debug the webhook notifications.</p>
-
-<p>Once you get a RequestBin URL, it uses http by default. Since Beyonic only supports https, remember to use &ldquo;https://&rdquo; and &ldquo;skip-cert-verify&rdquo;</p>
-
-<p>For example, if your RequestBin URL is</p>
-
-<p><aside class="notice">http://requestb.in/xzdqe313</aside></p>
-
-<p>Then use this for your callback URLs:</p>
-
-<p><aside class="notice">https://requestb.in/xzdqe313?skip-cert-verify</aside></p>
-
-<p><strong>3. Logging all callback requests and responses</strong></p>
-
-<p>RequestBin will only show you the request format, but will not send the request to your final callback URL, and will not show you the response that Beyonic is receiving from your callback URL.</p>
-
-<p>A number of third party services can be used to provide request proxying and logging. For example, <a href="https://www.runscope.com/">Runscope</a> provides full traffic inspection and debugging via its Gateway URLs service. This service will provide a custom URL for you, that will proxy the callbacks to your real callback URL, and log both the requests and responses. Runscope provides free plans as well as paid plans.</p>
-
-<p>Once you have your gateway URL from Runscope, use that as your callback URL in Beyonic.</p>
-
-<p><a href="https://www.runscope.com/docs/debugging">See this article for more information.</a></p>
 
 <h2 id="creating-a-new-webhook">Creating a new webhook</h2>
 
