@@ -1,4 +1,4 @@
-# Collections (Incoming)
+# Collections (Receive Funds)
 
 ## Introduction
 
@@ -9,7 +9,29 @@ When the user sends in a payment, it will create a collection object that you ca
 The collections api endpoint is:
   <aside class="notice">https://app.beyonic.com/api/collections</aside>
 
-## The collection object
+**NOTE: If you want to initiate new collections, use the [Collection Requests API](#collection-requests-request-funds). The collections api only allows you to view funds that have already been sent to you.**
+
+## The Collection object
+
+> Sample Collection Object (JSON):
+
+```json
+{
+    "id": 230,
+    "remote_transaction_id": "12132",
+    "organization": 1,
+    "amount": "20.0000",
+    "currency": 1,
+    "phonenumber": "+401000000001",
+    "payment_date": "2015-12-12T00:00:00Z",
+    "reference": null,
+    "status": "successful",
+    "created": "2015-08-01T16:49:48Z",
+    "author": null,
+    "modified": "2015-08-01T16:55:38Z",
+    "updated_by": null
+}
+```
 
 Field | Type | Description
 ----- | -----| ----
@@ -28,7 +50,7 @@ modified | string | The date that the collection was last modified, in the UTC t
 updated_by | string | The ID of the user who last updated the collection
 collection_request | long integer or null | The ID of the collection request that this collection was matched to, if any
 
-## Retrieving a single collection
+## Retrieving a single Collection
 
 > Sample Request:
 
@@ -38,7 +60,7 @@ curl https://app.beyonic.com/api/collections/230 -H "Authorization: Token ab594c
 
 ```ruby
 require 'beyonic'
-Beyonic.api_key = ab594c14986612f6167a975e1c369e71edab6900'
+Beyonic.api_key = 'ab594c14986612f6167a975e1c369e71edab6900'
 
 collection = Beyonic::Collection.get(23)
 ```
@@ -110,7 +132,7 @@ public class SingleCollectionExample {
 }
 ```
 
-> Sample Response (JSON):
+> Sample Response (JSON) - if you use one of the development libraries, this is automatically converted into a native object for you:
 
 ```json
 {
@@ -136,7 +158,7 @@ Parameter | Required | Type | Example | Notes
 --------- | -------- | ---- | ------- | -----
 id | Yes | Integer | 23 | The id of the collection you want to retrieve
 
-## Listing all collections
+## Listing all Collections
 
 > Sample Request:
 
@@ -217,7 +239,7 @@ public class ListAllCollectionsExample {
 }
 ```
 
-> Sample Response (JSON)
+> Sample Response (JSON) - if you use one of the development libraries, this is automatically converted into a native object for you:
 
 ```json
 {
@@ -276,7 +298,7 @@ public class ListAllCollectionsExample {
 
 To retrieve a list of all collections, make a GET request to the collections endpoint. This will return a list of collection objects.
 
-## Filtering collections
+## Filtering Collections
 
 > Sample Request:
 
@@ -365,7 +387,7 @@ public class FilterCollectionsExample {
 }
 ```
 
-> Sample Response (JSON)
+> Sample Response (JSON) - if you use one of the development libraries, this is automatically converted into a native object for you:
 
 ```json
 [
@@ -396,7 +418,7 @@ You can search or filter collections on the following fields. Simply add them to
 
 Note that the response will be a list of collections, not a single collection.
 
-## Claiming an ummatched collection
+## Claiming an ummatched Collection
 
 > Sample Request:
 
@@ -491,7 +513,7 @@ public class ClaimUnmatchedCollectionExample {
 }
 ```
 
-> Sample Response (JSON)
+> Sample Response (JSON) - if you use one of the development libraries, this is automatically converted into a native object for you:
 
 ```json
 [

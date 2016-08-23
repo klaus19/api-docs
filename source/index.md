@@ -28,6 +28,7 @@ includes:
   - methods/collections
   - methods/collection_requests
   - methods/contacts
+  - methods/events
   - methods/payments
   - methods/webhooks
 
