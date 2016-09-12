@@ -1,4 +1,4 @@
-# Collection Requests (Request Funds)
+# Collection Requests (Get Paid)
 
 ## Introduction
 

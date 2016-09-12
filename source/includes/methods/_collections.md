@@ -9,7 +9,7 @@ When the user sends in a payment, it will create a collection object that you ca
 The collections api endpoint is:
   <aside class="notice">https://app.beyonic.com/api/collections</aside>
 
-**NOTE: If you want to initiate new collections, use the [Collection Requests API](#collection-requests-request-funds). The collections api only allows you to view funds that have already been sent to you.**
+**NOTE: If you want to initiate new collections, use the [Collection Requests API](#collection-requests-get-paid). The collections api only allows you to view funds that have already been sent to you.**
 
 ## The Collection object
 

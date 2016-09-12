@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Accounts are buckets from which money to be sent is debited. The accounts api method allows you to list your accounts and view balances for each account.
+Accounts hold your funds. The accounts api method allows you to list your accounts and view balances for each account. When you sign up for Beyonic, at least one account in your primary currency is created for your organization. You can request additional accounts if needed. 
 
 The accounts api endpoint is: 
     <aside class="notice">https://app.beyonic.com/api/accounts</aside>
