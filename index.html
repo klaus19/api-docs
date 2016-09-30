@@ -1750,7 +1750,7 @@
 
 <h1 id="introduction">Introduction</h1>
 
-<p>Beyonic uses the term &ldquo;Payments&rdquo; to refer to money that you send to a mobile subscriber. This differentiates money you send (Payments) to mobile subscribers from money you receive from mobile subscribers (Collections).</p>
+<p>Beyonic uses the term &ldquo;Payments&rdquo; to refer to money (or prepaid airtime) that you send to a mobile subscriber. This differentiates money you send to mobile subscribers (aka Payments) from money you receive from mobile subscribers (aka Collections).</p>
 
 <p>Beyonic provides the <a href="#payments">Payments API</a> to enable you to send a payment to a mobile subscriber, or to view payments that you have previously sent to a mobile subscriber. See the <a href="#payments">Payments</a> documentation below for more information.</p>
 
@@ -1760,7 +1760,7 @@
 
           <h1 id="payments">Payments</h1>
 
-<p>To send payments to a mobile subscriber, you create a new payment object using the payments API. You can also use the payments API to retrieve individual payments or list all payments, as shown in the sections below.</p>
+<p>To send payments (mobile money or prepaid airtime credit) to a mobile subscriber, you create a new payment object using the payments API. You can also use the payments API to retrieve individual payments or list all payments, as shown in the sections below.</p>
 
 <p>The payments api endpoint is:
     <aside class="notice">https://app.beyonic.com/api/payments</aside></p>
@@ -1783,6 +1783,11 @@
 <td>organization</td>
 <td>long integer</td>
 <td>The ID of the organization that the payment belongs to. (This is usually your organization ID)</td>
+</tr>
+<tr>
+<td>payment_type</td>
+<td>String</td>
+<td>The payment type. Either &ldquo;money&rdquo; for mobile money or &ldquo;airtime&rdquo; for airtime</td>
 </tr>
 <tr>
 <td>amount</td>
@@ -2075,6 +2080,13 @@
 <td>Must be in international format</td>
 </tr>
 <tr>
+<td>payment_type</td>
+<td>No</td>
+<td>String</td>
+<td>money</td>
+<td>Options: money (default), airtime - use &ldquo;airtime&rdquo; to send an airtime payment instead of a mobile money payment</td>
+</tr>
+<tr>
 <td>amount</td>
 <td>Yes</td>
 <td>String, Integer or Decimal</td>
@@ -2101,13 +2113,6 @@
 <td>String</td>
 <td>Per diem payment</td>
 <td>This description will be sent to the recipient along with the payment, so it should be limited to about 140 characters.</td>
-</tr>
-<tr>
-<td>payment_type</td>
-<td>No</td>
-<td>String</td>
-<td>money</td>
-<td>Options: money (default), airtime - use &ldquo;airtime&rdquo; to send an airtime payment instead of a mobile money payment</td>
 </tr>
 <tr>
 <td>callback_url</td>
