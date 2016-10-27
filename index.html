@@ -446,7 +446,13 @@
 
 <h2 id="testing-webhooks">Testing Webhooks</h2>
 
-<p><strong>1. Https with invalid certificates</strong></p>
+<p><strong>1. Triggering test events</strong></p>
+
+<p>To trigger a test notification, simply perform the corresponding action in your account. You can do this via the API or the web portal.</p>
+
+<p>For example, to trigger a &lsquo;contact.created&rsquo; event, simply create a contact. Or, to trigger a &#39;payment.status.changed&rsquo; event, use the Payments API to create a payment with the test currency and test numbers described above.</p>
+
+<p><strong>2. Https with invalid certificates</strong></p>
 
 <p>Beyonic only supports notification urls (also called webhooks or callback urls) that start with &ldquo;https://&rdquo;, even when testing. See the &ldquo;Webhooks&rdquo; section for more infromation. So, you should set up URL to a dedicated page on your server with a server-side https certificate.</p>
 
@@ -455,9 +461,9 @@
 
 <p>Note that skip-cert-verify only prevents certificate verification. It doesn&rsquo;t eliminate the &ldquo;https://&rdquo; requirement</p>
 
-<p>While you can use skip-cert-verify on your production URLs, we advise you to use valid server side certificates to maximize security on your production systems</p>
+<p>While you can use skip-cert-verify on your production URLs, we advise you to use valid server side certificates to maximize security on your production systems.</p>
 
-<p><strong>2. Setting up a temporary callback URL and verifying the format of the notifications</strong></p>
+<p><strong>3. Setting up a temporary callback URL and verifying the format of the notifications</strong></p>
 
 <p>If you are not able to set up a dedicated &ldquo;https://&rdquo; url while testing, we recommend using a service like <a href="https://requestb.in/">RequestBin</a>.</p>
 
@@ -473,19 +479,21 @@
 
 <p><aside class="notice">https://requestb.in/xzdqe313?skip-cert-verify</aside></p>
 
-<p><strong>3. Logging all callback requests and responses</strong></p>
+<p><strong>4. Viewing logged notification requests and responses</strong></p>
 
-<p>RequestBin will only show you the request format, but will not send the request to your final callback URL, and will not show you the response that Beyonic is receiving from your callback URL.</p>
+<p>Beyonic logs notificaiton requests and responses for at least 30 days. These can be viewed by logging into the web portal, and going to &ldquo;Home&rdquo; &gt; Company Settings&quot; &gt; &ldquo;Advanced Settings&rdquo; &gt; &ldquo;Notification Endpoints&rdquo;</p>
 
-<p>A number of third party services can be used to provide request proxying and logging. For example, <a href="https://www.runscope.com/">Runscope</a> provides full traffic inspection and debugging via its Gateway URLs service. This service will provide a custom URL for you, that will proxy the callbacks to your real callback URL, and log both the requests and responses. Runscope provides free plans as well as paid plans.</p>
-
-<p>Once you have your gateway URL from Runscope, use that as your callback URL in Beyonic.</p>
-
-<p><a href="https://www.runscope.com/docs/debugging">See this article for more information.</a></p>
+<p>By clicking on &ldquo;Recent Events&rdquo;, you will be able to see events and notification attempts, including the responses that Beyonic is getting from your notification server.</p>
 
           <h1 id="changelog">Changelog</h1>
 
 <p>This section lists new versions and the changes made in those versions. Review these changes to decide whether you need to upgrade to the new version. Note that only backward incompatible changes are shown. See the <a href="#versioning">Versioning</a> section for more information on how to upgrade to a new version.</p>
+
+<p>v3 - September 2016</p>
+
+<ul>
+<li><em>collection_request</em> field on Collection object now contains a JSON representation of the Collection Request, not the ID</li>
+</ul>
 
 <p>v2 - February 2016</p>
 
@@ -497,7 +505,7 @@
 
 <ul>
 <li>Versioning improvements to provide transparent backward compatibility by automatically saving users&rsquo; version. Versions can be upgraded manually via web interface</li>
-<li><em>orgnaization</em> field now contains the organization ID, not name, in the Payments, Contacts and Collection Requests methods</li>
+<li><em>organization</em> field now contains the organization ID, not name, in the Payments, Contacts and Collection Requests methods</li>
 <li><em>currency</em> field now contains the currency code, not the currency ID, in the Collections method</li>
 </ul>
 
@@ -533,7 +541,23 @@
 <p>The collection requests api endpoint is:
     <aside class="notice">https://app.beyonic.com/api/collectionrequests</aside></p>
 
-<h2 id="the-collection-request-object">The collection request object</h2>
+<h2 id="the-collection-request-object">The Collection Request object</h2>
+
+<blockquote>
+<p>Sample Collection Request Object (JSON):</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3620</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"organization"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BXC"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"phone_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+401000000001"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.017Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.018Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"updated_by"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
 <table><thead>
 <tr>
@@ -619,7 +643,7 @@
 </tr>
 </tbody></table>
 
-<h2 id="creating-a-new-collection-request">Creating a new collection request</h2>
+<h2 id="creating-a-new-collection-request">Creating a new Collection Request</h2>
 
 <blockquote>
 <p>Sample Request:</p>
@@ -740,7 +764,7 @@
 </code></pre>
 
 <blockquote>
-<p>Sample Response (JSON):</p>
+<p>Sample Response (JSON) - if you use one of the development libraries, this is automatically converted into a native object for you:</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
     </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3620</span><span class="p">,</span><span class="w">
@@ -754,7 +778,7 @@
     </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.017Z"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
     </span><span class="nt">"modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.018Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"updated_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+    </span><span class="nt">"updated_by"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
@@ -841,7 +865,7 @@
 </tr>
 </tbody></table>
 
-<h2 id="retrieving-a-single-collection-request">Retrieving a single collection request</h2>
+<h2 id="retrieving-a-single-collection-request">Retrieving a single Collection Request</h2>
 
 <blockquote>
 <p>Sample Request:</p>
@@ -916,7 +940,7 @@
 </code></pre>
 
 <blockquote>
-<p>Sample Response (JSON):</p>
+<p>Sample Response (JSON) - if you use one of the development libraries, this is automatically converted into a native object for you:</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
     </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">230</span><span class="p">,</span><span class="w">
@@ -927,7 +951,7 @@
     </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.017Z"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
     </span><span class="nt">"modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.018Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"updated_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+    </span><span class="nt">"updated_by"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
@@ -951,7 +975,7 @@
 </tr>
 </tbody></table>
 
-<h2 id="listing-all-collection-requests">Listing all collection requests</h2>
+<h2 id="listing-all-collection-requests">Listing all Collection Requests</h2>
 
 <blockquote>
 <p>Sample Request:</p>
@@ -1025,7 +1049,7 @@
 </code></pre>
 
 <blockquote>
-<p>Sample Response (JSON)</p>
+<p>Sample Response (JSON) - if you use one of the development libraries, this is automatically converted into a native object for you:</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
     </span><span class="nt">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
@@ -1074,7 +1098,7 @@
 
 <p>To retrieve a list of all collections, make a GET request to the collections endpoint. This will return a list of collection objects.</p>
 
-<h2 id="filtering-collection-requests">Filtering collection requests</h2>
+<h2 id="filtering-collection-requests">Filtering Collection Requests</h2>
 
 <blockquote>
 <p>Sample Request:</p>
@@ -1172,7 +1196,29 @@
 <p>The collections api endpoint is:
   <aside class="notice">https://app.beyonic.com/api/collections</aside></p>
 
-<h2 id="the-collection-object">The collection object</h2>
+<p><strong>NOTE: If you want to initiate new collections, use the <a href="#collection-requests-get-paid">Collection Requests API</a>. The collections api only allows you to view funds that have already been sent to you.</strong></p>
+
+<h2 id="the-collection-object">The Collection object</h2>
+
+<blockquote>
+<p>Sample Collection Object (JSON):</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">230</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"remote_transaction_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12132"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"organization"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20.0000"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"phonenumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+401000000001"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"payment_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-12-12T00:00:00Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"reference"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"successful"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-01T16:49:48Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-01T16:55:38Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"updated_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
 <table><thead>
 <tr>
@@ -1248,12 +1294,12 @@
 </tr>
 <tr>
 <td>collection_request</td>
-<td>long integer or null</td>
-<td>The ID of the collection request that this collection was matched to, if any</td>
+<td>JSON string</td>
+<td>A JSON representation of the collection request that this collection was matched to, if any</td>
 </tr>
 </tbody></table>
 
-<h2 id="retrieving-a-single-collection">Retrieving a single collection</h2>
+<h2 id="retrieving-a-single-collection">Retrieving a single Collection</h2>
 
 <blockquote>
 <p>Sample Request:</p>
@@ -1261,7 +1307,7 @@
 <pre class="highlight shell"><code>curl https://app.beyonic.com/api/collections/230 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
 </code></pre>
 <pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
-<span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="n">ab594c14986612f6167a975e1c369e71edab6900</span><span class="err">'</span>
+<span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
 <span class="n">collection</span> <span class="o">=</span> <span class="no">Beyonic</span><span class="o">::</span><span class="no">Collection</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">23</span><span class="p">)</span>
 </code></pre>
@@ -1328,22 +1374,42 @@
 </code></pre>
 
 <blockquote>
-<p>Sample Response (JSON):</p>
+<p>Sample Response (JSON) - if you use one of the development libraries, this is automatically converted into a native object for you:</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">230</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
     </span><span class="nt">"remote_transaction_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12132"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"organization"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20.0000"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"phonenumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+401000000001"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"payment_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-12-12T00:00:00Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"reference"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"200.0000"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"KES"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"phonenumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+254722000000"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"payment_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-09-21T08:55:54Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"98989"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"successful"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-01T16:49:48Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-01T16:55:38Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"updated_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+    </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-09-21T08:56:18Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-09-21T09:07:13Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"updated_by"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"collection_request"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"organization"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"200.0000"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"KES"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"phonenumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+254722000000"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test payment"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+        </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-09-21T08:52:54Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-09-21T09:04:14Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"updated_by"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"collection"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"success_message"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"instructions"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"send_instructions"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"successful"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"error_message"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"error_details"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+    </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
@@ -1367,7 +1433,7 @@
 </tr>
 </tbody></table>
 
-<h2 id="listing-all-collections">Listing all collections</h2>
+<h2 id="listing-all-collections">Listing all Collections</h2>
 
 <blockquote>
 <p>Sample Request:</p>
@@ -1441,7 +1507,7 @@
 </code></pre>
 
 <blockquote>
-<p>Sample Response (JSON)</p>
+<p>Sample Response (JSON) - if you use one of the development libraries, this is automatically converted into a native object for you:</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
     </span><span class="nt">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
@@ -1499,7 +1565,7 @@
 
 <p>To retrieve a list of all collections, make a GET request to the collections endpoint. This will return a list of collection objects.</p>
 
-<h2 id="filtering-collections">Filtering collections</h2>
+<h2 id="filtering-collections">Filtering Collections</h2>
 
 <blockquote>
 <p>Sample Request:</p>
@@ -1581,7 +1647,7 @@
 </code></pre>
 
 <blockquote>
-<p>Sample Response (JSON)</p>
+<p>Sample Response (JSON) - if you use one of the development libraries, this is automatically converted into a native object for you:</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">[</span><span class="w">
        </span><span class="p">{</span><span class="w">
@@ -1612,7 +1678,7 @@
 
 <p>Note that the response will be a list of collections, not a single collection.</p>
 
-<h2 id="claiming-an-ummatched-collection">Claiming an ummatched collection</h2>
+<h2 id="claiming-an-ummatched-collection">Claiming an ummatched Collection</h2>
 
 <blockquote>
 <p>Sample Request:</p>
@@ -1700,7 +1766,7 @@
 </code></pre>
 
 <blockquote>
-<p>Sample Response (JSON)</p>
+<p>Sample Response (JSON) - if you use one of the development libraries, this is automatically converted into a native object for you:</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">[</span><span class="w">
        </span><span class="p">{</span><span class="w">
@@ -1765,7 +1831,36 @@
 <p>The payments api endpoint is:
     <aside class="notice">https://app.beyonic.com/api/payments</aside></p>
 
-<h2 id="the-payment-object">The payment object</h2>
+<h2 id="the-payment-object">The Payment object</h2>
+
+<blockquote>
+<p>Sample Payment Object (JSON):</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3620</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"organization"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BXC"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"account"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"payment_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"money"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lucy"</span><span class="p">},</span><span class="w">
+    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Per diem payment"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"phone_nos"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"+401000000001"</span><span class="p">],</span><span class="w">
+    </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"new"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"last_error"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"rejected_reason"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"rejected_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"rejected_time"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"cancelled_reason"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"cancelled_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"cancelled_time"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.017Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.018Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"updated_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.018Z"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
 <table><thead>
 <tr>
@@ -1886,7 +1981,7 @@
 </tr>
 </tbody></table>
 
-<h2 id="creating-a-new-payment">Creating a new payment</h2>
+<h2 id="creating-a-new-payment">Creating a new Payment</h2>
 
 <blockquote>
 <p>Sample Request:</p>
@@ -2024,7 +2119,7 @@
 </code></pre>
 
 <blockquote>
-<p>Sample Response (JSON):</p>
+<p>Sample Response (JSON) - if you use one of the development libraries, this is automatically converted into a native object for you:</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
     </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3620</span><span class="p">,</span><span class="w">
@@ -2161,7 +2256,7 @@
 </ul></li>
 </ul>
 
-<h2 id="retrieving-a-single-payment">Retrieving a single payment</h2>
+<h2 id="retrieving-a-single-payment">Retrieving a single Payment</h2>
 
 <blockquote>
 <p>Sample Request:</p>
@@ -2236,7 +2331,7 @@
 </code></pre>
 
 <blockquote>
-<p>Sample Response (JSON):</p>
+<p>Sample Response (JSON) - if you use one of the development libraries, this is automatically converted into a native object for you:</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
     </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">22744</span><span class="p">,</span><span class="w">
@@ -2284,7 +2379,7 @@
 </tr>
 </tbody></table>
 
-<h2 id="listing-all-payments">Listing all payments</h2>
+<h2 id="listing-all-payments">Listing all Payments</h2>
 
 <blockquote>
 <p>Sample Request:</p>
@@ -2358,7 +2453,7 @@
 </code></pre>
 
 <blockquote>
-<p>Sample Response (JSON)</p>
+<p>Sample Response (JSON) - if you use one of the development libraries, this is automatically converted into a native object for you:</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
     </span><span class="nt">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
@@ -2417,11 +2512,13 @@
             </span><span class="nt">"updated_by"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
             </span><span class="nt">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2013-08-21T00:00:00Z"</span><span class="w">
         </span><span class="p">},</span><span class="w">
+   </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre>
 
 <p>To return a list of all payments, make a GET request to the payments endpoint. This will return a list of payment objects.</p>
 
-<h2 id="filtering-payments">Filtering payments</h2>
+<h2 id="filtering-payments">Filtering Payments</h2>
 
 <blockquote>
 <p>Sample Request:</p>
@@ -2514,11 +2611,29 @@
 
 <h2 id="introduction">Introduction</h2>
 
-<p>Accounts are buckets from which money to be sent is debited. The accounts api method allows you to list your accounts and view balances for each account.</p>
+<p>Accounts hold your funds. The accounts api method allows you to list your accounts and view balances for each account. When you sign up for Beyonic, at least one account in your primary currency is created for your organization. You can request additional accounts if needed.</p>
 
-<p>The accounts api endpoint is https://app.beyonic.com/api/accounts</p>
+<p>The accounts api endpoint is: </p>
 
-<h2 id="the-account-object">The account object</h2>
+<p><aside class="notice">https://app.beyonic.com/api/accounts</aside></p>
+
+<h2 id="the-account-object">The Account object</h2>
+
+<blockquote>
+<p>Sample Account Object (JSON):</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1146</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"organization"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="mf">200.0</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"KES"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-02-13T04:22:31Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-02-26T13:00:35Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"updated_by"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
 <table><thead>
 <tr>
@@ -2571,6 +2686,115 @@
 <td>updated_by</td>
 <td>string</td>
 <td>The ID of the user who last updated the account</td>
+</tr>
+</tbody></table>
+
+<h2 id="retrieving-a-single-account">Retrieving a Single Account</h2>
+
+<blockquote>
+<p>Sample Request:</p>
+</blockquote>
+<pre class="highlight shell"><code>curl https://app.beyonic.com/api/accounts/12 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+</code></pre>
+<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
+<span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
+
+<span class="n">contact</span> <span class="o">=</span> <span class="no">Beyonic</span><span class="o">::</span><span class="no">Account</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+</code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="k">require_once</span><span class="p">(</span><span class="s1">'./lib/Beyonic.php'</span><span class="p">);</span>
+<span class="nx">Beyonic</span><span class="o">::</span><span class="na">setApiKey</span><span class="p">(</span><span class="s2">"ab594c14986612f6167a975e1c369e71edab6900"</span><span class="p">);</span>
+
+<span class="nv">$contact</span> <span class="o">=</span> <span class="nx">Beyonic_Account</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="mi">12</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+</code></pre>
+<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">beyonic</span>
+<span class="n">beyonic</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="s">'ab594c14986612f6167a975e1c369e71edab6900'</span>
+
+<span class="n">contact</span> <span class="o">=</span> <span class="n">beyonic</span><span class="o">.</span><span class="n">Account</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+</code></pre>
+<pre class="highlight java"><code><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">beyonic</span><span class="o">.</span><span class="na">examples</span><span class="o">.</span><span class="na">account</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.BufferedReader</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.InputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.InputStreamReader</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.HttpURLConnection</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.URL</span><span class="o">;</span>
+
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SingleAccountExample</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">API_ENDPOINT</span> <span class="o">=</span> <span class="s">"https://app.beyonic.com/api/accounts"</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">API_KEY</span> <span class="o">=</span> <span class="s">"ab594c14986612f6167a975e1c369e71edab6900"</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">CHARSET</span> <span class="o">=</span> <span class="s">"UTF-8"</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+        <span class="n">URL</span> <span class="n">url</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="k">new</span> <span class="n">URL</span><span class="o">(</span><span class="n">API_ENDPOINT</span> <span class="o">+</span> <span class="s">"/12"</span><span class="o">);</span>
+            <span class="n">HttpURLConnection</span> <span class="n">conn</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpURLConnection</span><span class="o">)</span> <span class="n">url</span><span class="o">.</span><span class="na">openConnection</span><span class="o">();</span>
+
+            <span class="n">conn</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">"Content-Type"</span><span class="o">,</span> <span class="s">"application/json"</span><span class="o">);</span>
+            <span class="n">conn</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">"Accept"</span><span class="o">,</span> <span class="s">"application/json"</span><span class="o">);</span>
+            <span class="n">conn</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">"charset"</span><span class="o">,</span> <span class="n">CHARSET</span><span class="o">);</span>
+            <span class="n">conn</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">"Authorization"</span><span class="o">,</span> <span class="s">"Token "</span> <span class="o">+</span> <span class="n">API_KEY</span><span class="o">);</span>
+
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">conn</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">()</span> <span class="o">+</span> <span class="s">" // "</span> <span class="o">+</span> <span class="n">conn</span><span class="o">.</span><span class="na">getResponseMessage</span><span class="o">());</span>
+
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">conn</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">()</span> <span class="o">==</span> <span class="mi">200</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">InputStream</span> <span class="n">inputStream</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">();</span>
+                    <span class="n">BufferedReader</span> <span class="n">reader</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="n">InputStreamReader</span><span class="o">(</span><span class="n">inputStream</span><span class="o">));</span>
+                    <span class="n">String</span> <span class="n">response</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="na">readLine</span><span class="o">();</span>
+                    <span class="n">reader</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+
+                    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">response</span><span class="o">);</span>
+                <span class="o">}</span>
+            <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+                <span class="n">conn</span><span class="o">.</span><span class="na">disconnect</span><span class="o">();</span>
+            <span class="o">}</span>
+
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre>
+
+<blockquote>
+<p>Sample Response (JSON) - if you use one of the development libraries, this is automatically converted into a native object for you:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"organization"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="mf">200.0</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"KES"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-02-13T04:22:31Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-02-26T13:00:35Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"updated_by"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>To retrieve a single account, provide the account id and a account object will be returned.</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Notes</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Yes</td>
+<td>Integer</td>
+<td>12</td>
+<td>The id of the account you want to retrieve</td>
 </tr>
 </tbody></table>
 
@@ -2648,7 +2872,7 @@
 </code></pre>
 
 <blockquote>
-<p>Sample Response (JSON)</p>
+<p>Sample Response (JSON)  - if you use one of the development libraries, this is automatically converted into a native object for you:</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
     </span><span class="nt">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
@@ -2683,7 +2907,7 @@
 
 <p>To retrieve a list of all accounts, make a GET request to the accounts end point. This will return a list of accounts.</p>
 
-<h2 id="filtering-accounts">Filtering accounts</h2>
+<h2 id="filtering-accounts">Filtering Accounts</h2>
 
 <blockquote>
 <p>Sample Request:</p>
@@ -2763,8 +2987,8 @@
 <p>You can search or filter accounts on the following fields. Simply add them to your request as shown in the examples. You can combine multiple filters. Note that filters return exact matches only.</p>
 
 <ul>
-<li>currrency - the accounts&rsquo;s currency</li>
-<li>status - the accounts&rsquo;s status</li>
+<li>currrency - the account currency</li>
+<li>status - the account status</li>
 </ul>
 
           <h1 id="contacts">Contacts</h1>
@@ -2776,7 +3000,27 @@
 <p>The contacts api endpoint is:
     <aside class="notice">https://app.beyonic.com/api/contacts</aside></p>
 
-<h2 id="the-contact-object">The contact object</h2>
+<h2 id="the-contact-object">The Contact object</h2>
+
+<blockquote>
+<p>Sample Contact Object (JSON)</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">26</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"organization"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Beyonic"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Suzanne"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Kwagala"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"suzanne@beyonic.com"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"phone_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+401000000001"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"employee"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2013-09-19T21:26:10Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-04-14T18:21:47Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"updated_by"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
 <table><thead>
 <tr>
@@ -2852,7 +3096,7 @@
 </tr>
 </tbody></table>
 
-<h2 id="creating-a-new-contact">Creating a new contact</h2>
+<h2 id="creating-a-new-contact">Creating a new Contact</h2>
 
 <blockquote>
 <p>Sample Request:</p>
@@ -2972,7 +3216,7 @@
 </code></pre>
 
 <blockquote>
-<p>Sample Response (JSON):</p>
+<p>Sample Response (JSON) - if you use one of the development libraries, this is automatically converted into a native object for you:</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
     </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">26</span><span class="p">,</span><span class="w">
@@ -3116,7 +3360,7 @@
 </code></pre>
 
 <blockquote>
-<p>Sample Response (JSON):</p>
+<p>Sample Response (JSON) - if you use one of the development libraries, this is automatically converted into a native object for you:</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
     </span><span class="nt">"id"</span><span class="p">:</span><span class="mi">44702</span><span class="p">,</span><span class="w">
@@ -3155,7 +3399,7 @@
 </tr>
 </tbody></table>
 
-<h2 id="listing-all-contacts">Listing all contacts</h2>
+<h2 id="listing-all-contacts">Listing all Contacts</h2>
 
 <blockquote>
 <p>Sample Request:</p>
@@ -3227,7 +3471,7 @@
 </code></pre>
 
 <blockquote>
-<p>Sample Response (JSON)</p>
+<p>Sample Response (JSON) - if you use one of the development libraries, this is automatically converted into a native object for you:</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
     </span><span class="nt">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
@@ -3270,7 +3514,7 @@
 
 <p>To retrieve a list of all contacts, make a GET request to the contact end point. This will return a list of contacts.</p>
 
-<h2 id="filtering-contacts">Filtering contacts</h2>
+<h2 id="filtering-contacts">Filtering Contacts</h2>
 
 <blockquote>
 <p>Sample Request:</p>
@@ -3354,6 +3598,440 @@
 <li>phone_number - the contact&rsquo;s phone number. Note that the phonenumber will be matched in international format, starting with a &rsquo;+&rsquo; sign. If the &rsquo;+&rsquo; sign isn&rsquo;t included in your request, it will be appended before attempting to match your request.</li>
 </ul>
 
+          <h1 id="events">Events</h1>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>Events track certain changes that happen to your Beyonic account. Events are created automatically when certain changes occur, and you can use them to stay informed about the changes. For example, when a new contact is created, we will create a &ldquo;contact.created&rdquo; event.</p>
+
+<p>You can use the events API to retrieve information about recent events. Events are saved for at least 30 days. After that, they may be discarded.</p>
+
+<p>The events api endpoint is:
+    <aside class="notice">https://app.beyonic.com/api/events</aside></p>
+
+<p>You can also set up your account to automatically notify you as event occur. See the <a href="#webhooks">Webhooks API</a> for more information about setting up automatic notification for events.</p>
+
+<h2 id="supported-events-types">Supported Events types</h2>
+
+<p>The following events are supported</p>
+
+<table><thead>
+<tr>
+<th>Event</th>
+<th>Description</th>
+<th>Object returned in data</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>payment.status.changed</td>
+<td>Triggered any time a payment changes status.</td>
+<td>Payment object</td>
+</tr>
+<tr>
+<td>collection.received</td>
+<td>Triggered any time a collection (an incoming payment) is received from a customer</td>
+<td>Collection object</td>
+</tr>
+<tr>
+<td>contact.created</td>
+<td>Triggered any time a contact is created in your account</td>
+<td>Contact object</td>
+</tr>
+</tbody></table>
+
+<h2 id="the-event-object">The Event object</h2>
+
+<blockquote>
+<p>Sample Event Object (JSON)</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1146</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"organization"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"contact.created"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">26</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"organization"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Suzanne"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Kwagala"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"suzanne@beyonic.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"phone_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+401000000001"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"employee"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2013-09-19T21:26:10Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-04-14T18:21:47Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"updated_by"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2013-09-19T21:26:10Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-04-14T18:21:47Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"updated_by"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>long integer</td>
+<td>Unique object identifier</td>
+</tr>
+<tr>
+<td>organization</td>
+<td>long integer</td>
+<td>The ID of the organization that the event belongs to. (This is usually your organization ID)</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>The event type. See Supported Event Types above</td>
+</tr>
+<tr>
+<td>data</td>
+<td>object</td>
+<td>The details about the event. This is a representation of the object that triggered the event. For example, for the &ldquo;contact.created&rdquo; event, this will repesent a &ldquo;Contact&rdquo; object</td>
+</tr>
+<tr>
+<td>created</td>
+<td>string</td>
+<td>The date that the event was created, in the UTC timezone. Format: &ldquo;YYYY-MM-DDTHH:MM:SSZ&rdquo;</td>
+</tr>
+<tr>
+<td>author</td>
+<td>long integer</td>
+<td>The ID of the user who created the event</td>
+</tr>
+<tr>
+<td>modified</td>
+<td>string</td>
+<td>The date that the event was last modified, in the UTC timezone. Format: &ldquo;YYYY-MM-DDTHH:MM:SSZ&rdquo;</td>
+</tr>
+<tr>
+<td>updated_by</td>
+<td>string</td>
+<td>The ID of the user who last modified the event</td>
+</tr>
+</tbody></table>
+
+<h2 id="retrieving-a-single-account">Retrieving a Single Account</h2>
+
+<blockquote>
+<p>Sample Request:</p>
+</blockquote>
+<pre class="highlight shell"><code>curl https://app.beyonic.com/api/events/12 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+</code></pre>
+<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
+<span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
+
+<span class="n">contact</span> <span class="o">=</span> <span class="no">Beyonic</span><span class="o">::</span><span class="no">Event</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+</code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="k">require_once</span><span class="p">(</span><span class="s1">'./lib/Beyonic.php'</span><span class="p">);</span>
+<span class="nx">Beyonic</span><span class="o">::</span><span class="na">setApiKey</span><span class="p">(</span><span class="s2">"ab594c14986612f6167a975e1c369e71edab6900"</span><span class="p">);</span>
+
+<span class="nv">$contact</span> <span class="o">=</span> <span class="nx">Beyonic_Event</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="mi">12</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+</code></pre>
+<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">beyonic</span>
+<span class="n">beyonic</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="s">'ab594c14986612f6167a975e1c369e71edab6900'</span>
+
+<span class="n">contact</span> <span class="o">=</span> <span class="n">beyonic</span><span class="o">.</span><span class="n">Event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+
+</code></pre>
+<pre class="highlight java"><code><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">beyonic</span><span class="o">.</span><span class="na">examples</span><span class="o">.</span><span class="na">events</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.BufferedReader</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.InputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.InputStreamReader</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.HttpURLConnection</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.URL</span><span class="o">;</span>
+
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SingleEventExample</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">API_ENDPOINT</span> <span class="o">=</span> <span class="s">"https://app.beyonic.com/api/events"</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">API_KEY</span> <span class="o">=</span> <span class="s">"ab594c14986612f6167a975e1c369e71edab6900"</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">CHARSET</span> <span class="o">=</span> <span class="s">"UTF-8"</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+        <span class="n">URL</span> <span class="n">url</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="k">new</span> <span class="n">URL</span><span class="o">(</span><span class="n">API_ENDPOINT</span> <span class="o">+</span> <span class="s">"/12"</span><span class="o">);</span>
+            <span class="n">HttpURLConnection</span> <span class="n">conn</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpURLConnection</span><span class="o">)</span> <span class="n">url</span><span class="o">.</span><span class="na">openConnection</span><span class="o">();</span>
+
+            <span class="n">conn</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">"Content-Type"</span><span class="o">,</span> <span class="s">"application/json"</span><span class="o">);</span>
+            <span class="n">conn</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">"Accept"</span><span class="o">,</span> <span class="s">"application/json"</span><span class="o">);</span>
+            <span class="n">conn</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">"charset"</span><span class="o">,</span> <span class="n">CHARSET</span><span class="o">);</span>
+            <span class="n">conn</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">"Authorization"</span><span class="o">,</span> <span class="s">"Token "</span> <span class="o">+</span> <span class="n">API_KEY</span><span class="o">);</span>
+
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">conn</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">()</span> <span class="o">+</span> <span class="s">" // "</span> <span class="o">+</span> <span class="n">conn</span><span class="o">.</span><span class="na">getResponseMessage</span><span class="o">());</span>
+
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">conn</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">()</span> <span class="o">==</span> <span class="mi">200</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">InputStream</span> <span class="n">inputStream</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">();</span>
+                    <span class="n">BufferedReader</span> <span class="n">reader</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="n">InputStreamReader</span><span class="o">(</span><span class="n">inputStream</span><span class="o">));</span>
+                    <span class="n">String</span> <span class="n">response</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="na">readLine</span><span class="o">();</span>
+                    <span class="n">reader</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+
+                    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">response</span><span class="o">);</span>
+                <span class="o">}</span>
+            <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+                <span class="n">conn</span><span class="o">.</span><span class="na">disconnect</span><span class="o">();</span>
+            <span class="o">}</span>
+
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre>
+
+<blockquote>
+<p>Sample Response (JSON) - if you use one of the development libraries, this is automatically converted into a native object for you:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1146</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"organization"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"contact.created"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">26</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"organization"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Suzanne"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Kwagala"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"suzanne@beyonic.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"phone_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+401000000001"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"employee"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2013-09-19T21:26:10Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-04-14T18:21:47Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"updated_by"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2013-09-19T21:26:10Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-04-14T18:21:47Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"updated_by"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>To retrieve a single event, provide the event id and an event object will be returned.</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Notes</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Yes</td>
+<td>Integer</td>
+<td>12</td>
+<td>The id of the event you want to retrieve</td>
+</tr>
+</tbody></table>
+
+<h2 id="listing-all-events">Listing all Events</h2>
+
+<blockquote>
+<p>Sample Request:</p>
+</blockquote>
+<pre class="highlight shell"><code>curl https://app.beyonic.com/api/events -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+</code></pre>
+<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
+<span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
+
+<span class="n">accounts</span> <span class="o">=</span> <span class="no">Beyonic</span><span class="o">::</span><span class="no">Event</span><span class="p">.</span><span class="nf">list</span>
+</code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="k">require_once</span><span class="p">(</span><span class="s1">'./lib/Beyonic.php'</span><span class="p">);</span>
+<span class="nx">Beyonic</span><span class="o">::</span><span class="na">setApiKey</span><span class="p">(</span><span class="s2">"ab594c14986612f6167a975e1c369e71edab6900"</span><span class="p">);</span>
+
+<span class="nv">$accounts</span> <span class="o">=</span> <span class="nx">Beyonic_Event</span><span class="o">::</span><span class="na">getAll</span><span class="p">();</span>
+<span class="cp">?&gt;</span>
+</code></pre>
+<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">beyonic</span>
+<span class="n">beyonic</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="s">'ab594c14986612f6167a975e1c369e71edab6900'</span>
+
+<span class="n">accounts</span> <span class="o">=</span> <span class="n">beyonic</span><span class="o">.</span><span class="n">Event</span><span class="o">.</span><span class="nb">list</span><span class="p">()</span>
+
+</code></pre>
+<pre class="highlight java"><code><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">beyonic</span><span class="o">.</span><span class="na">examples</span><span class="o">.</span><span class="na">events</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.BufferedReader</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.InputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.InputStreamReader</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.HttpURLConnection</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.URL</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ListAllEventsExample</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">API_ENDPOINT</span> <span class="o">=</span> <span class="s">"https://app.beyonic.com/api/events"</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">API_KEY</span> <span class="o">=</span> <span class="s">"ab594c14986612f6167a975e1c369e71edab6900"</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">CHARSET</span> <span class="o">=</span> <span class="s">"UTF-8"</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+        <span class="n">URL</span> <span class="n">url</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="k">new</span> <span class="n">URL</span><span class="o">(</span><span class="n">API_ENDPOINT</span><span class="o">);</span>
+            <span class="n">HttpURLConnection</span> <span class="n">conn</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpURLConnection</span><span class="o">)</span> <span class="n">url</span><span class="o">.</span><span class="na">openConnection</span><span class="o">();</span>
+
+            <span class="n">conn</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">"Content-Type"</span><span class="o">,</span> <span class="s">"application/json"</span><span class="o">);</span>
+            <span class="n">conn</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">"Accept"</span><span class="o">,</span> <span class="s">"application/json"</span><span class="o">);</span>
+            <span class="n">conn</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">"charset"</span><span class="o">,</span> <span class="n">CHARSET</span><span class="o">);</span>
+            <span class="n">conn</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">"Authorization"</span><span class="o">,</span> <span class="s">"Token "</span> <span class="o">+</span> <span class="n">API_KEY</span><span class="o">);</span>
+
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">conn</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">()</span> <span class="o">+</span> <span class="s">" // "</span> <span class="o">+</span> <span class="n">conn</span><span class="o">.</span><span class="na">getResponseMessage</span><span class="o">());</span>
+
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">conn</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">()</span> <span class="o">==</span> <span class="mi">200</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">InputStream</span> <span class="n">inputStream</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">();</span>
+                    <span class="n">BufferedReader</span> <span class="n">reader</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="n">InputStreamReader</span><span class="o">(</span><span class="n">inputStream</span><span class="o">));</span>
+                    <span class="n">String</span> <span class="n">response</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="na">readLine</span><span class="o">();</span>
+                    <span class="n">reader</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+
+                    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">response</span><span class="o">);</span>
+                <span class="o">}</span>
+            <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+                <span class="n">conn</span><span class="o">.</span><span class="na">disconnect</span><span class="o">();</span>
+            <span class="o">}</span>
+
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre>
+
+<blockquote>
+<p>Sample Response (JSON) - if you use one of the development libraries, this is automatically converted into a native object for you:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://app.beyonic.com/api/events?offset=10"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"previous"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"results"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1146</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"organization"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"contact.created"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">26</span><span class="p">,</span><span class="w">
+                    </span><span class="nt">"organization"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                    </span><span class="nt">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Suzanne"</span><span class="p">,</span><span class="w">
+                    </span><span class="nt">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Kwagala"</span><span class="p">,</span><span class="w">
+                    </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"suzanne@beyonic.com"</span><span class="p">,</span><span class="w">
+                    </span><span class="nt">"phone_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+401000000001"</span><span class="p">,</span><span class="w">
+                    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"employee"</span><span class="p">,</span><span class="w">
+                    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
+                    </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                    </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2013-09-19T21:26:10Z"</span><span class="p">,</span><span class="w">
+                    </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                    </span><span class="nt">"modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-04-14T18:21:47Z"</span><span class="p">,</span><span class="w">
+                    </span><span class="nt">"updated_by"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>To retrieve a list of all events, make a GET request to the events end point. This will return a list of events.</p>
+
+<h2 id="filtering-events">Filtering Events</h2>
+
+<blockquote>
+<p>Sample Request:</p>
+</blockquote>
+<pre class="highlight shell"><code>curl https://app.beyonic.com/api/events?type<span class="o">=</span>contact.created -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+</code></pre>
+<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
+<span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
+
+<span class="n">accounts</span> <span class="o">=</span> <span class="no">Beyonic</span><span class="o">::</span><span class="no">Event</span><span class="p">.</span><span class="nf">list</span><span class="p">(</span>
+  <span class="ss">type: </span><span class="s2">"contact.created"</span>
+<span class="p">)</span>
+</code></pre>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="k">require_once</span><span class="p">(</span><span class="s1">'./lib/Beyonic.php'</span><span class="p">);</span>
+<span class="nx">Beyonic</span><span class="o">::</span><span class="na">setApiKey</span><span class="p">(</span><span class="s2">"ab594c14986612f6167a975e1c369e71edab6900"</span><span class="p">);</span>
+
+<span class="nv">$accounts</span> <span class="o">=</span> <span class="nx">Beyonic_Event</span><span class="o">::</span><span class="na">getAll</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+  <span class="s2">"type"</span> <span class="o">=&gt;</span> <span class="s2">"contact.created"</span>
+<span class="p">));</span>
+<span class="cp">?&gt;</span>
+</code></pre>
+<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">beyonic</span>
+<span class="n">beyonic</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="s">'ab594c14986612f6167a975e1c369e71edab6900'</span>
+
+<span class="n">accounts</span> <span class="o">=</span> <span class="n">beyonic</span><span class="o">.</span><span class="n">Event</span><span class="o">.</span><span class="nb">list</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s">'contact.created'</span><span class="p">)</span>
+
+</code></pre>
+<pre class="highlight java"><code><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">beyonic</span><span class="o">.</span><span class="na">examples</span><span class="o">.</span><span class="na">events</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.BufferedReader</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.InputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.InputStreamReader</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.HttpURLConnection</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.URL</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">FilterEventsExample</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">API_ENDPOINT</span> <span class="o">=</span> <span class="s">"https://app.beyonic.com/api/events"</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">API_KEY</span> <span class="o">=</span> <span class="s">"ab594c14986612f6167a975e1c369e71edab6900"</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">CHARSET</span> <span class="o">=</span> <span class="s">"UTF-8"</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+        <span class="n">URL</span> <span class="n">url</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="k">new</span> <span class="n">URL</span><span class="o">(</span><span class="n">API_ENDPOINT</span> <span class="o">+</span> <span class="s">"?type=contact.created"</span><span class="o">);</span>
+            <span class="n">HttpURLConnection</span> <span class="n">conn</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpURLConnection</span><span class="o">)</span> <span class="n">url</span><span class="o">.</span><span class="na">openConnection</span><span class="o">();</span>
+
+            <span class="n">conn</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">"Content-Type"</span><span class="o">,</span> <span class="s">"application/json"</span><span class="o">);</span>
+            <span class="n">conn</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">"Accept"</span><span class="o">,</span> <span class="s">"application/json"</span><span class="o">);</span>
+            <span class="n">conn</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">"charset"</span><span class="o">,</span> <span class="n">CHARSET</span><span class="o">);</span>
+            <span class="n">conn</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">"Authorization"</span><span class="o">,</span> <span class="s">"Token "</span> <span class="o">+</span> <span class="n">API_KEY</span><span class="o">);</span>
+
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">conn</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">()</span> <span class="o">+</span> <span class="s">" // "</span> <span class="o">+</span> <span class="n">conn</span><span class="o">.</span><span class="na">getResponseMessage</span><span class="o">());</span>
+
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">conn</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">()</span> <span class="o">==</span> <span class="mi">200</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">InputStream</span> <span class="n">inputStream</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">();</span>
+                    <span class="n">BufferedReader</span> <span class="n">reader</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="n">InputStreamReader</span><span class="o">(</span><span class="n">inputStream</span><span class="o">));</span>
+                    <span class="n">String</span> <span class="n">response</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="na">readLine</span><span class="o">();</span>
+                    <span class="n">reader</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+
+                    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">response</span><span class="o">);</span>
+                <span class="o">}</span>
+            <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+                <span class="n">conn</span><span class="o">.</span><span class="na">disconnect</span><span class="o">();</span>
+            <span class="o">}</span>
+
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre>
+
+<p>You can search or filter events on the following fields. Simply add them to your request as shown in the examples. You can combine multiple filters. Note that filters return exact matches only.</p>
+
+<ul>
+<li>type - the event type</li>
+</ul>
+
           <h1 id="webhooks">Webhooks</h1>
 
 <h2 id="introduction">Introduction</h2>
@@ -3375,28 +4053,9 @@
 <li>Previously submitted urls can be deleted via the web browser, or the Webhooks API methods described elsewhere in this reference.</li>
 </ul>
 
-<h2 id="supported-events">Supported events</h2>
+<h2 id="supported-event-types">Supported Event types</h2>
 
-<p>The following events are supported</p>
-
-<table><thead>
-<tr>
-<th>Event</th>
-<th>Description</th>
-<th>Object returned in data</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>payment.status.changed</td>
-<td>Triggered any time a payment changes status.</td>
-<td>Payment object</td>
-</tr>
-<tr>
-<td>collection.received</td>
-<td>Triggered any time a collection (an incoming payment) is received from a customer</td>
-<td>Collection object</td>
-</tr>
-</tbody></table>
+<p>See the <a href="#events">Events API</a> for a list of supported event types.</p>
 
 <h2 id="managing-webhooks">Managing Webhooks</h2>
 
@@ -3411,9 +4070,7 @@
 
 <p>To manage webhooks using the web browser:
 1. Log into your account.
-2. Go to your organizations profile page. You can access this either from the organizations menu, or by clicking your organization name at the top left of the page.
-3. Click the Settings button (Cog wheel with an arrow pointing down)
-4. Click “Manage Webhooks” from the drop down menu that appears</p>
+2. Go &ldquo;Home&rdquo; &gt; &ldquo;Company Settings&rdquo; &gt; &ldquo;Advanced Settings&rdquo; &gt; &ldquo;Notification Endpoints&rdquo;.</p>
 
 <p><strong>Managing Webhooks from the API</strong></p>
 
@@ -3424,6 +4081,19 @@
 <p>To manage webhooks, either with the API or the web browser, you must have “Manage Users and Organization Settings” permissions for your organization.</p>
 
 <h2 id="the-webhook-object">The Webhook object</h2>
+
+<blockquote>
+<p>Sample Webhook Object (JSON):</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">53</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-01T16:56:29Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"updated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-01T16:56:29Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"payment.status.changed"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"target"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://my.callback.url/"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"user"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
 <table><thead>
 <tr>
@@ -3467,7 +4137,7 @@
 <h2 id="notification-body-format">Notification body format</h2>
 
 <blockquote>
-<p>Sample Response (JSON):</p>
+<p>Sample Response (JSON) - if you use one of the development libraries, this is automatically converted into a native object for you:</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
     </span><span class="nt">"hook"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -3627,7 +4297,7 @@
 </code></pre>
 
 <blockquote>
-<p>Sample Response (JSON)</p>
+<p>Sample Response (JSON) - if you use one of the development libraries, this is automatically converted into a native object for you:</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
     </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">53</span><span class="p">,</span><span class="w">
@@ -3748,7 +4418,7 @@
 </code></pre>
 
 <blockquote>
-<p>Sample Response (JSON)</p>
+<p>Sample Response (JSON) - if you use one of the development libraries, this is automatically converted into a native object for you:</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
     </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">23</span><span class="p">,</span><span class="w">
@@ -3854,7 +4524,7 @@
 </code></pre>
 
 <blockquote>
-<p>Sample Response (JSON)</p>
+<p>Sample Response (JSON) - if you use one of the development libraries, this is automatically converted into a native object for you:</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
     </span><span class="nt">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
@@ -4000,7 +4670,7 @@
 </code></pre>
 
 <blockquote>
-<p>Sample Response (JSON)</p>
+<p>Sample Response (JSON) - if you use one of the development libraries, this is automatically converted into a native object for you:</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
     </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
