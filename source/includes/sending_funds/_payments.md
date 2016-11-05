@@ -370,7 +370,7 @@ public class SinglePaymentExample {
     "description": "Per diem payment",
     "phone_nos": ["+401000000001"],
     "state": "new",
-    "remote_transaction_id", null,
+    "remote_transaction_id": null,
     "last_error": null,
     "rejected_reason": null,
     "rejected_by": null,
@@ -495,7 +495,7 @@ public class ListAllPaymentsExample {
                 "+401000000001"
             ],
             "state": "approved",
-            "remote_transaction_id", null,
+            "remote_transaction_id": null,
             "last_error": null,
             "rejected_reason": null,
             "rejected_by": null,
@@ -522,7 +522,7 @@ public class ListAllPaymentsExample {
                 "+401000000001"
             ],
             "state": "scheduled",
-            "remote_transaction_id", null,
+            "remote_transaction_id": null,
             "last_error": null,
             "rejected_reason": null,
             "rejected_by": null,
