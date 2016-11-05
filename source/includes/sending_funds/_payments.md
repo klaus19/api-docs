@@ -1,16 +1,46 @@
 # Payments
 
-To send payments to a mobile subscriber, you create a new payment object using the payments API. You can also use the payments API to retrieve individual payments or list all payments, as shown in the sections below.
+To send payments (mobile money or prepaid airtime credit) to a mobile subscriber, you create a new payment object using the payments API. You can also use the payments API to retrieve individual payments or list all payments, as shown in the sections below.
 
 The payments api endpoint is:
     <aside class="notice">https://app.beyonic.com/api/payments</aside>
 
-## The payment object
+## The Payment object
+
+> Sample Payment Object (JSON):
+
+```json
+{
+    "id": 3620,
+    "organization": 1,
+    "amount": "30",
+    "currency": "BXC",
+    "account": "1",
+    "payment_type": "money",
+    "metadata": {"id": 1234, "name": "Lucy"},
+    "description": "Per diem payment",
+    "phone_nos": ["+401000000001"],
+    "state": "new",
+    "last_error": null,
+    "rejected_reason": null,
+    "rejected_by": null,
+    "rejected_time": null,
+    "cancelled_reason": null,
+    "cancelled_by": null,
+    "cancelled_time": null,
+    "created": "2014-11-22T20:57:04.017Z",
+    "author": 15,
+    "modified": "2014-11-22T20:57:04.018Z",
+    "updated_by": null,
+    "start_date": "2014-11-22T20:57:04.018Z"
+}
+```
 
 Field | Type | Description
 ----- | -----| ----
 id | long integer | Unique object identifier
 organization | long integer | The ID of the organization that the payment belongs to. (This is usually your organization ID)
+payment_type | String | The payment type. Either "money" for mobile money or "airtime" for airtime
 amount | decimal | The payment amount
 currency | string | The 3 letter ISO currency code for the payment. **Note:**: BXC is the Beyonic Test Currency code. See the "Testing" section for more information. Supported currency codes are BXC (Testing), UGX (Uganda), KES (Kenya)
 account | long integer | The ID of the account from which the payment is made
@@ -31,7 +61,7 @@ author | long integer | The ID of the user who created the payment
 modified | string | The date that the payment was last modified, in the UTC timezone. Format: "YYYY-MM-DDTHH:MM:SSZ"
 updated_by | string | The ID of the user who last updated the payment
 
-## Creating a new payment
+## Creating a new Payment
 
 > Sample Request:
 
@@ -176,7 +206,7 @@ public class CreatePayment {
 }
 ```
 
-> Sample Response (JSON):
+> Sample Response (JSON) - if you use one of the development libraries, this is automatically converted into a native object for you:
 
 ```json
 {
@@ -217,11 +247,11 @@ To create a new payment, make a POST to the end point above, with the attributes
 Parameter | Required | Type | Example | Notes
 --------- | -------- | ---- | ------- | -----
 phonenumber | Yes | String | +401000000001 | Must be in international format
+payment_type | No | String | money | Options: money (default), airtime - use "airtime" to send an airtime payment instead of a mobile money payment
 amount | Yes | String, Integer or Decimal | 3000 | Do not include thousands separators
 currency | No | String | BXC | 3 letter ISO currency code. No currency conversion is done, so the currency must be valid for the selected phonenumber. You must have a funded Beyonic account in this currency. If your account for this currency has zero balance, your payment will fail. If you also provide an account parameter then the account's currency must match the currency parameter. **Note:**: BXC is the Beyonic Test Currency code. See the "Testing" section for more information. Supported currency codes are BXC (Testing), UGX (Uganda), KES (Kenya)
 account | No | Integer | 1 | The ID of the account from which you are making the payment. The account must be active and funded. If the account has zero balance, your payment will fail. This parameter is optional if a currency is provided. If you have more than one account with the same currency, and you leave this parameter out, the earliest created account (oldest account) that is still active will be used.
 description | Yes | String | Per diem payment | This description will be sent to the recipient along with the payment, so it should be limited to about 140 characters.
-payment_type | No | String | money | Options: money (default), airtime - use "airtime" to send an airtime payment instead of a mobile money payment
 callback_url | No | String | https://my.website/payments/callback | Callback URLs are used to send notifications of changes in payment status. Not all payments will be completed immediately, especially if it is a payment to a new number that hasn’t been verified, or if your account has approval rules that require other users to approve payments before they are processed. Note that the URL you submit isn’t specific to a specific payment you have created. Once submitted, it will receive notifications for all future payments made via your organization, whether they are made via the API or via the web-interface. Therefore, you are encouraged to use the same URL for all payments. Since URLs are stored at a per-organization level, using different URLs may result in duplicate notifications being sent to the different URLs. See "Webhooks" below for more info.
 metadata | No | JSON-formatted string or dictionary | "{'id':'1234','name':'Lucy'}" | Metadata allows you to add custom attributes to your payments. E.g. You can include a unique ID to identify each payment. Attributes must be key-value pairs. Both the keys and values must be strings. You can add up to 10 attributes. This data will be returned when you retrieve a payment.
 first_name | No | String | John | If this payment is to a new contact, you can include their first name. This name will only be used if the phone number is new.
@@ -239,7 +269,7 @@ last_name | No | String | Doe | If this payment is to a new contact, you can inc
     * rejected – for payments that were rejected during the approval process. The following fields will have more information: rejected_reason, rejected_by and rejected_time
     * cancelled – for payments that were cancelled. The following fields will have more information: cancelled_reason, cancelled_by and cancelled_time
 
-## Retrieving a single payment
+## Retrieving a single Payment
 
 > Sample Request:
 
@@ -321,7 +351,7 @@ public class SinglePaymentExample {
 }
 ```
 
-> Sample Response (JSON):
+> Sample Response (JSON) - if you use one of the development libraries, this is automatically converted into a native object for you:
 
 ```json
 {
@@ -356,7 +386,7 @@ Parameter | Required | Type | Example | Notes
 --------- | -------- | ---- | ------- | -----
 id | Yes | Integer | 2314 | The id of the payment you want to retrieve
 
-## Listing all payments
+## Listing all Payments
 
 > Sample Request:
 
@@ -437,7 +467,7 @@ public class ListAllPaymentsExample {
 }
 ```
 
-> Sample Response (JSON)
+> Sample Response (JSON) - if you use one of the development libraries, this is automatically converted into a native object for you:
 
 
 ```json
@@ -498,11 +528,13 @@ public class ListAllPaymentsExample {
             "updated_by": 1,
             "start_date": "2013-08-21T00:00:00Z"
         },
+   ]
+}
 ```
 
 To return a list of all payments, make a GET request to the payments endpoint. This will return a list of payment objects.
 
-## Filtering payments
+## Filtering Payments
 
 > Sample Request:
 
