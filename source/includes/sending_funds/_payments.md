@@ -21,6 +21,7 @@ The payments api endpoint is:
     "description": "Per diem payment",
     "phone_nos": ["+401000000001"],
     "state": "new",
+    "remote_transaction_id": "KJH9088234",
     "last_error": null,
     "rejected_reason": null,
     "rejected_by": null,
@@ -49,6 +50,7 @@ phone_nos | list | A list of phone numbers that this payment was sent to
 start_date | string | The date that the payment is scheduled to be delivered, in the UTC timezone. Format: "YYYY-MM-DDTHH:MM:SSZ"
 metadata | hash | Any custom metadata that was added to the contact object at creation time
 state | string | The payment state. One of: new, validated, approval_needed, approval_requested, approved, rejected, scheduled, processed, processed_with_errors or cancelled
+remote_transaction_id | string | The unique transaction ID from the mobile network operator
 last_error | string | A string description of the latest error that occurred, if any
 rejected_reason | string | Describes why the payment was rejected, if it is in the rejected state
 rejected_time | string | The date that the payment was rejected, in the UTC timezone. Format: "YYYY-MM-DDTHH:MM:SSZ"
@@ -220,6 +222,7 @@ public class CreatePayment {
     "description": "Per diem payment",
     "phone_nos": ["+401000000001"],
     "state": "new",
+    "remote_transaction_id": null,
     "last_error": null,
     "rejected_reason": null,
     "rejected_by": null,
@@ -268,6 +271,8 @@ last_name | No | String | Doe | If this payment is to a new contact, you can inc
     * processed_with_errors – for payments that didn’t complete successfully. The last_error field with have more information.
     * rejected – for payments that were rejected during the approval process. The following fields will have more information: rejected_reason, rejected_by and rejected_time
     * cancelled – for payments that were cancelled. The following fields will have more information: cancelled_reason, cancelled_by and cancelled_time
+* The remote_transaction_id field is null for a new payment but will be populated with the value from the network if the payment is successfully completed.
+
 
 ## Retrieving a single Payment
 
@@ -365,6 +370,7 @@ public class SinglePaymentExample {
     "description": "Per diem payment",
     "phone_nos": ["+401000000001"],
     "state": "new",
+    "remote_transaction_id": null,
     "last_error": null,
     "rejected_reason": null,
     "rejected_by": null,
@@ -489,6 +495,7 @@ public class ListAllPaymentsExample {
                 "+401000000001"
             ],
             "state": "approved",
+            "remote_transaction_id": null,
             "last_error": null,
             "rejected_reason": null,
             "rejected_by": null,
@@ -515,6 +522,7 @@ public class ListAllPaymentsExample {
                 "+401000000001"
             ],
             "state": "scheduled",
+            "remote_transaction_id": null,
             "last_error": null,
             "rejected_reason": null,
             "rejected_by": null,
