@@ -492,7 +492,7 @@
 <h3 id="sending-payments">Sending Payments</h3>
 
 <ul>
-<li><strong>+80000000000</strong> - When you add a contact with this number, the contact will always fail the mobile money registration checks, and therefore payments sent to this number will always fail.</li>
+<li><strong>+80000000001</strong> - When you add a contact with this number, the contact will always fail the mobile money registration checks, and therefore payments sent to this number will always fail.</li>
 <li><strong>+800XXXXXXXX</strong> - All other numbers in the format +800XXXXXXXX will pass the name checks only if the contact name is &ldquo;John Doe&rdquo;. So, set the name to &ldquo;John Doe&rdquo; to test the effect of a successful name check, or set it to something else to test the effect of a failed name check.</li>
 <li>Subsequently, all BXC payments to numbers with format +800XXXXXXXX and name &ldquo;John Doe&rdquo;, (except +80000000000) will succeed, if the amount is greater than or equal to 10 and less than or equal to 5,000,000 BXC.</li>
 </ul>
@@ -502,7 +502,7 @@
 <h3 id="receiving-payments">Receiving Payments</h3>
 
 <ul>
-<li><strong>+80000000000</strong> - If you request a payment from this number, it will always fail with the &ldquo;Cancelled By User&rdquo; error. Use this to simulate a user cancelling or rejecting your payment request.</li>
+<li><strong>+80000000001</strong> - If you request a payment from this number, it will always fail with the &ldquo;Cancelled By User&rdquo; error. Use this to simulate a user cancelling or rejecting your payment request.</li>
 <li><strong>+80000000009</strong> - If you request a payment from this number, it will always expire. Use this to simulate a user ignoring your payment request by doing nothing and letting it expire.</li>
 <li><strong>+800XXXXXXXX</strong> - All other numbers in this format will complete successfully. Use this to test successful payment request scenarios.</li>
 </ul>
@@ -938,17 +938,17 @@
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
-<span class="n">collection</span> <span class="o">=</span> <span class="no">Beyonic</span><span class="o">::</span><span class="no">CollectionRequest</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">23</span><span class="p">)</span>
+<span class="n">collection_request</span> <span class="o">=</span> <span class="no">Beyonic</span><span class="o">::</span><span class="no">CollectionRequest</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">23</span><span class="p">)</span>
 </code></pre><pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="k">require_once</span><span class="p">(</span><span class="s1">'./lib/Beyonic.php'</span><span class="p">);</span>
 <span class="nx">Beyonic</span><span class="o">::</span><span class="na">setApiKey</span><span class="p">(</span><span class="s2">"ab594c14986612f6167a975e1c369e71edab6900"</span><span class="p">);</span>
 
-<span class="nv">$collection</span> <span class="o">=</span> <span class="nx">Beyonic_Collection_Request</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="mi">23</span><span class="p">);</span>
+<span class="nv">$collection_request</span> <span class="o">=</span> <span class="nx">Beyonic_Collection_Request</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="mi">23</span><span class="p">);</span>
 <span class="cp">?&gt;</span>
 </code></pre><pre class="highlight python"><code><span class="kn">import</span> <span class="nn">beyonic</span>
 <span class="n">beyonic</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="s">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
-<span class="n">collection</span> <span class="o">=</span> <span class="n">beyonic</span><span class="o">.</span><span class="n">CollectionRequest</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">23</span><span class="p">)</span>
+<span class="n">collection_request</span> <span class="o">=</span> <span class="n">beyonic</span><span class="o">.</span><span class="n">CollectionRequest</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">23</span><span class="p">)</span>
 
 </code></pre><pre class="highlight java"><code><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">beyonic</span><span class="o">.</span><span class="na">examples</span><span class="o">.</span><span class="na">collectionrequests</span><span class="o">;</span>
 
@@ -1042,17 +1042,17 @@
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
-<span class="n">collection</span> <span class="o">=</span> <span class="no">Beyonic</span><span class="o">::</span><span class="no">CollectionRequest</span><span class="p">.</span><span class="nf">list</span>
+<span class="n">collection_requests</span> <span class="o">=</span> <span class="no">Beyonic</span><span class="o">::</span><span class="no">CollectionRequest</span><span class="p">.</span><span class="nf">list</span>
 </code></pre><pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="k">require_once</span><span class="p">(</span><span class="s1">'./lib/Beyonic.php'</span><span class="p">);</span>
 <span class="nx">Beyonic</span><span class="o">::</span><span class="na">setApiKey</span><span class="p">(</span><span class="s2">"ab594c14986612f6167a975e1c369e71edab6900"</span><span class="p">);</span>
 
-<span class="nv">$collection</span> <span class="o">=</span> <span class="nx">Beyonic_Collection_Request</span><span class="o">::</span><span class="na">getAll</span><span class="p">();</span>
+<span class="nv">$collection_requests</span> <span class="o">=</span> <span class="nx">Beyonic_Collection_Request</span><span class="o">::</span><span class="na">getAll</span><span class="p">();</span>
 <span class="cp">?&gt;</span>
 </code></pre><pre class="highlight python"><code><span class="kn">import</span> <span class="nn">beyonic</span>
 <span class="n">beyonic</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="s">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
-<span class="n">collection</span> <span class="o">=</span> <span class="n">beyonic</span><span class="o">.</span><span class="n">CollectionRequest</span><span class="o">.</span><span class="nb">list</span><span class="p">()</span>
+<span class="n">collection_requests</span> <span class="o">=</span> <span class="n">beyonic</span><span class="o">.</span><span class="n">CollectionRequest</span><span class="o">.</span><span class="nb">list</span><span class="p">()</span>
 
 </code></pre><pre class="highlight java"><code><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">beyonic</span><span class="o">.</span><span class="na">examples</span><span class="o">.</span><span class="na">collectionrequests</span><span class="o">;</span>
 
@@ -1159,7 +1159,7 @@
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
-<span class="n">collection</span> <span class="o">=</span> <span class="no">Beyonic</span><span class="o">::</span><span class="no">CollectionRequest</span><span class="p">.</span><span class="nf">list</span><span class="p">(</span>
+<span class="n">collection_requests</span> <span class="o">=</span> <span class="no">Beyonic</span><span class="o">::</span><span class="no">CollectionRequest</span><span class="p">.</span><span class="nf">list</span><span class="p">(</span>
   <span class="ss">remote_transaction_id: </span><span class="s1">'12345'</span><span class="p">,</span>
   <span class="ss">amount: </span><span class="mi">500</span>
 <span class="p">)</span>
@@ -1167,7 +1167,7 @@
 <span class="k">require_once</span><span class="p">(</span><span class="s1">'./lib/Beyonic.php'</span><span class="p">);</span>
 <span class="nx">Beyonic</span><span class="o">::</span><span class="na">setApiKey</span><span class="p">(</span><span class="s2">"ab594c14986612f6167a975e1c369e71edab6900"</span><span class="p">);</span>
 
-<span class="nv">$collection</span> <span class="o">=</span> <span class="nx">Beyonic_Collection_Request</span><span class="o">::</span><span class="na">getAll</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+<span class="nv">$collection_requests</span> <span class="o">=</span> <span class="nx">Beyonic_Collection_Request</span><span class="o">::</span><span class="na">getAll</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
   <span class="s2">"remote_transaction_id"</span> <span class="o">=&gt;</span> <span class="s2">"12345"</span><span class="p">,</span>
   <span class="s2">"amount"</span> <span class="o">=&gt;</span> <span class="mi">500</span>
 <span class="p">));</span>
@@ -1175,7 +1175,7 @@
 </code></pre><pre class="highlight python"><code><span class="kn">import</span> <span class="nn">beyonic</span>
 <span class="n">beyonic</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="s">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
-<span class="n">collection</span> <span class="o">=</span> <span class="n">beyonic</span><span class="o">.</span><span class="n">CollectionRequest</span><span class="o">.</span><span class="nb">list</span><span class="p">(</span><span class="n">remote_transaction_id</span><span class="o">=</span><span class="s">'12345'</span><span class="p">,</span> <span class="n">amount</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">collection_requests</span> <span class="o">=</span> <span class="n">beyonic</span><span class="o">.</span><span class="n">CollectionRequest</span><span class="o">.</span><span class="nb">list</span><span class="p">(</span><span class="n">remote_transaction_id</span><span class="o">=</span><span class="s">'12345'</span><span class="p">,</span> <span class="n">amount</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
 
 </code></pre><pre class="highlight java"><code><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">beyonic</span><span class="o">.</span><span class="na">examples</span><span class="o">.</span><span class="na">collectionrequests</span><span class="o">;</span>
 
@@ -1231,7 +1231,7 @@
 <li>currency - the currency code</li>
 <li>collection - the ID of the collection that fulfilled or matched this collection request</li>
 <li>phonenumber - the phonenumber that the collection request was intended for. Note that the phonenumber will be matched in international format, starting with a &rsquo;+&rsquo; sign. If the &rsquo;+&rsquo; sign isn&rsquo;t included in your request, it will be appended before attempting to match your request.</li>
-<li>remote_transaction_id - the transation id or transaction reference of the collection on the mobile network operator&rsquo;s side</li>
+<li>remote_transaction_id - the transaction id or transaction reference of the collection on the mobile network operator&rsquo;s side</li>
 </ul>
 
           <h1 id="collections">Collections</h1>
