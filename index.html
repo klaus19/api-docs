@@ -236,6 +236,130 @@
 
 <p>The API key in all the examples is a valid test key, so you can test the examples immediately.</p>
 
+          <h1 id="errors">Errors</h1>
+
+<p>Beyonic uses HTTP response status codes to indicate success or failure. When a request to our API is successful, Beyonic returns an HTTP response code in the 2XX range.
+And when a request fails, Beyonic returns an HTTP response code in the <em>4XX</em> or <em>5XX</em> range.</p>
+
+<p>In summary:</p>
+
+<ul>
+<li>Codes in the <em>2XX</em> range mean that the request was processed successfully</li>
+<li>Codes in the <em>4XX</em> range mean that something was wrong with the data that you sent. For example, you might have missed some required parameters, or you might be using a wrong API token.</li>
+<li>Codes in the <em>5XX</em> range mean that something went wrong within Beyonic&rsquo;s servers.</li>
+</ul>
+
+<p>In all cases, the response will include an appropriate status code and content-type. The body of the response will include any additional details regarding the nature of the error.</p>
+
+<p>Most error responses will include a &ldquo;detail&rdquo; key in the body of the response, but some may include additional information, for example, they may include information about missing fields.</p>
+
+<p>The examples to the right show some of the errors that might occur, including the status code and content-type in the response header, and the json-formatted details in the response body.</p>
+
+<blockquote>
+<p>401 Unauthorized error response due to using a wrong token.</p>
+</blockquote>
+<pre class="highlight plaintext"><code>HTTP/1.1 401 Unauthorized
+Content-Type: application/json
+Content-Length: 27
+
+{"detail":"Invalid token."}
+</code></pre>
+<blockquote>
+<p>400 Bad Request error response due to missing parameters in the request. Note that the fields are included as keys, and the error messages for each field are included as a list after each key.</p>
+</blockquote>
+<pre class="highlight plaintext"><code>HTTP/1.1 400 Bad Request
+Content-Type: application/json
+Content-Length: 94
+
+{"amount": ["A valid integer is required."], "description": ["This field may not be blank."]}
+</code></pre>
+<h2 id="common-error-codes">Common Error Codes</h2>
+
+<table><thead>
+<tr>
+<th>Error Code</th>
+<th>Meaning</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>400</td>
+<td>Bad Request &ndash; Your request is malformed or is missing some required parameters.</td>
+</tr>
+<tr>
+<td>401</td>
+<td>Unauthorized &ndash; You are using an invalid API token.</td>
+</tr>
+<tr>
+<td>403</td>
+<td>Forbidden &ndash; You are attempting to access a resource that doesn&rsquo;t belong to you. Check that you are using the correct API token for the user who owns the resource.</td>
+</tr>
+<tr>
+<td>404</td>
+<td>Not Found &ndash; You are attempting to access a resource that doesn&rsquo;t exit. Check the url for your request.</td>
+</tr>
+<tr>
+<td>405</td>
+<td>Method Not Allowed &ndash; You are attempting to use an invalid method. For example, you might be trying to POST to a readonly endpoint.</td>
+</tr>
+<tr>
+<td>406</td>
+<td>Not Acceptable &ndash; You requested a format that isn&rsquo;t supported. Check the &ldquo;Accept&rdquo; header of your request, and try to ensure that you are using json format for your requests.</td>
+</tr>
+<tr>
+<td>415</td>
+<td>Unsupported Media Type &ndash; Check the content-type of the data you are sending.</td>
+</tr>
+<tr>
+<td>429</td>
+<td>Throttled &ndash; You are sending too many requests in a short period of time. Slow down!</td>
+</tr>
+<tr>
+<td>500</td>
+<td>Internal Server Error &ndash; We had a problem with our server. Try again later.</td>
+</tr>
+<tr>
+<td>503</td>
+<td>Service Unavailable &ndash; We&rsquo;re temporarily offline for maintenance. Please try again later.</td>
+</tr>
+</tbody></table>
+
+<p><em>Note</em>: always check the response body for details about the error.</p>
+
+<h2 id="handling-errors">Handling errors</h2>
+
+<p>Your code should handle errors gracefully.</p>
+
+<p>Beyonic&rsquo;s API libraries will raise an exception when an error occurs. So you should add exception handling to your requests as shown in the examples to the right.</p>
+<pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="k">require_once</span><span class="p">(</span><span class="s1">'./lib/Beyonic.php'</span><span class="p">);</span>
+<span class="nx">Beyonic</span><span class="o">::</span><span class="na">setApiKey</span><span class="p">(</span><span class="s2">"ab594c14986612f6167a975e1c369e71edab6901"</span><span class="p">);</span>
+
+<span class="k">try</span> <span class="p">{</span>
+  <span class="nv">$collection_requests</span> <span class="o">=</span> <span class="nx">Beyonic_Collection_Request</span><span class="o">::</span><span class="na">getAll</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">Beyonic_Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">echo</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">();</span>
+  <span class="k">echo</span> <span class="nb">json_decode</span><span class="p">(</span><span class="nv">$e</span><span class="o">-&gt;</span><span class="na">responseBody</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">detail</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
+</code></pre><pre class="highlight python"><code><span class="kn">import</span> <span class="nn">beyonic</span>
+<span class="n">beyonic</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="s">'ab594c14986612f6167a975e1c369e71edab6901'</span>
+
+<span class="k">try</span><span class="p">:</span>
+  <span class="n">collection_request</span> <span class="o">=</span> <span class="n">beyonic</span><span class="o">.</span><span class="n">CollectionRequest</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">23</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">beyonic</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">ResponseError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+  <span class="k">print</span> <span class="n">e</span>
+<span class="k">else</span><span class="p">:</span>
+  <span class="c"># No error, proceed with processing</span>
+  <span class="k">pass</span>
+</code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
+<span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6901'</span>
+
+<span class="k">begin</span>
+  <span class="n">collection_request</span> <span class="o">=</span> <span class="no">Beyonic</span><span class="o">::</span><span class="no">CollectionRequest</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">23</span><span class="p">)</span>
+<span class="k">rescue</span> <span class="no">RestClient</span><span class="o">::</span><span class="no">ExceptionWithResponse</span> <span class="o">=&gt;</span> <span class="n">e</span>   <span class="c1"># You probably want to use more specific RestClient codes like RestClient::Unauthorized, RestClient::ResourceNotFound, etc</span>
+  <span class="nb">p</span> <span class="n">e</span>  <span class="c1"># Print out the error</span>
+<span class="k">end</span>
+</code></pre>
           <h1 id="pagination">Pagination</h1>
 
 <blockquote>
