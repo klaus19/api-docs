@@ -721,7 +721,7 @@
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
-<span class="n">collection</span> <span class="o">=</span> <span class="no">Beyonic</span><span class="o">::</span><span class="no">CollectionRequest</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span>
+<span class="n">collection_request</span> <span class="o">=</span> <span class="no">Beyonic</span><span class="o">::</span><span class="no">CollectionRequest</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span>
     <span class="ss">phonenumber: </span><span class="s2">"+80000000001"</span><span class="p">,</span>
     <span class="ss">amount: </span><span class="s2">"100.2"</span><span class="p">,</span>
     <span class="ss">currency: </span><span class="s2">"BXC"</span><span class="p">,</span>
@@ -732,7 +732,7 @@
 <span class="k">require_once</span><span class="p">(</span><span class="s1">'./lib/Beyonic.php'</span><span class="p">);</span>
 <span class="nx">Beyonic</span><span class="o">::</span><span class="na">setApiKey</span><span class="p">(</span><span class="s2">"ab594c14986612f6167a975e1c369e71edab6900"</span><span class="p">);</span>
 
-<span class="nx">Beyonic_Collection_Request</span><span class="o">::</span><span class="na">create</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+<span class="nv">$collection_request</span> <span class="o">=</span> <span class="nx">Beyonic_Collection_Request</span><span class="o">::</span><span class="na">create</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
   <span class="s2">"phonenumber"</span> <span class="o">=&gt;</span> <span class="s2">"+80000000001"</span><span class="p">,</span>
   <span class="s2">"amount"</span> <span class="o">=&gt;</span> <span class="s2">"100.2"</span><span class="p">,</span>
   <span class="s2">"currency"</span> <span class="o">=&gt;</span> <span class="s2">"BXC"</span><span class="p">,</span>
@@ -744,7 +744,7 @@
 <span class="n">beyonic</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="s">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
 
-<span class="n">beyonic</span><span class="o">.</span><span class="n">CollectionRequest</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">phonenumber</span><span class="o">=</span><span class="s">'+80000000001'</span><span class="p">,</span>
+<span class="n">collection_request</span> <span class="o">=</span> <span class="n">beyonic</span><span class="o">.</span><span class="n">CollectionRequest</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">phonenumber</span><span class="o">=</span><span class="s">'+80000000001'</span><span class="p">,</span>
                        <span class="n">amount</span><span class="o">=</span><span class="s">'1200'</span><span class="p">,</span>
                        <span class="n">currency</span><span class="o">=</span><span class="s">'BXC'</span><span class="p">,</span>
                        <span class="n">description</span><span class="o">=</span><span class="s">'Per diem'</span><span class="p">,</span>
