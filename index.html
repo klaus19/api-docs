@@ -238,23 +238,6 @@
 
           <h1 id="errors">Errors</h1>
 
-<p>Beyonic uses HTTP response status codes to indicate success or failure. When a request to our API is successful, Beyonic returns an HTTP response code in the 2XX range.
-And when a request fails, Beyonic returns an HTTP response code in the <em>4XX</em> or <em>5XX</em> range.</p>
-
-<p>In summary:</p>
-
-<ul>
-<li>Codes in the <em>2XX</em> range mean that the request was processed successfully</li>
-<li>Codes in the <em>4XX</em> range mean that something was wrong with the data that you sent. For example, you might have missed some required parameters, or you might be using a wrong API token.</li>
-<li>Codes in the <em>5XX</em> range mean that something went wrong within Beyonic&rsquo;s servers.</li>
-</ul>
-
-<p>In all cases, the response will include an appropriate status code and content-type. The body of the response will include any additional details regarding the nature of the error.</p>
-
-<p>Most error responses will include a &ldquo;detail&rdquo; key in the body of the response, but some may include additional information, for example, they may include information about missing fields.</p>
-
-<p>The examples to the right show some of the errors that might occur, including the status code and content-type in the response header, and the json-formatted details in the response body.</p>
-
 <blockquote>
 <p>401 Unauthorized error response due to using a wrong token.</p>
 </blockquote>
@@ -273,6 +256,23 @@ Content-Length: 94
 
 {"amount": ["A valid integer is required."], "description": ["This field may not be blank."]}
 </code></pre>
+<p>Beyonic uses HTTP response status codes to indicate success or failure. When a request to our API is successful, Beyonic returns an HTTP response code in the 2XX range.
+And when a request fails, Beyonic returns an HTTP response code in the <em>4XX</em> or <em>5XX</em> range.</p>
+
+<p>In summary:</p>
+
+<ul>
+<li>Codes in the <em>2XX</em> range mean that the request was processed successfully</li>
+<li>Codes in the <em>4XX</em> range mean that something was wrong with the data that you sent. For example, you might have missed some required parameters, or you might be using a wrong API token.</li>
+<li>Codes in the <em>5XX</em> range mean that something went wrong within Beyonic&rsquo;s servers.</li>
+</ul>
+
+<p>In all cases, the response will include an appropriate status code and content-type. The body of the response will include any additional details regarding the nature of the error.</p>
+
+<p>Most error responses will include a &ldquo;detail&rdquo; key in the body of the response, but some may include additional information, for example, they may include information about missing fields.</p>
+
+<p>The examples to the right show some of the errors that might occur, including the status code and content-type in the response header, and the json-formatted details in the response body.</p>
+
 <h2 id="common-error-codes">Common Error Codes</h2>
 
 <table><thead>
@@ -326,10 +326,6 @@ Content-Length: 94
 <p><em>Note</em>: always check the response body for details about the error.</p>
 
 <h2 id="handling-errors">Handling errors</h2>
-
-<p>Your code should handle errors gracefully.</p>
-
-<p>Beyonic&rsquo;s API libraries will raise an exception when an error occurs. So you should add exception handling to your requests as shown in the examples to the right.</p>
 <pre class="highlight php"><code><span class="cp">&lt;?php</span>
 <span class="k">require_once</span><span class="p">(</span><span class="s1">'./lib/Beyonic.php'</span><span class="p">);</span>
 <span class="nx">Beyonic</span><span class="o">::</span><span class="na">setApiKey</span><span class="p">(</span><span class="s2">"ab594c14986612f6167a975e1c369e71edab6901"</span><span class="p">);</span>
@@ -360,6 +356,10 @@ Content-Length: 94
   <span class="nb">p</span> <span class="n">e</span>  <span class="c1"># Print out the error</span>
 <span class="k">end</span>
 </code></pre>
+<p>Your code should handle errors gracefully.</p>
+
+<p>Beyonic&rsquo;s API libraries will raise an exception when an error occurs. So you should add exception handling to your requests as shown in the examples to the right.</p>
+
           <h1 id="pagination">Pagination</h1>
 
 <blockquote>
