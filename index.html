@@ -353,7 +353,7 @@ And when a request fails, Beyonic returns an HTTP response code in the <em>4XX</
   <span class="nv">$collection_requests</span> <span class="o">=</span> <span class="nx">Beyonic_Collection_Request</span><span class="o">::</span><span class="na">getAll</span><span class="p">();</span>
 <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">Beyonic_Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">echo</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">();</span>
-  <span class="k">echo</span> <span class="nb">json_decode</span><span class="p">(</span><span class="nv">$e</span><span class="o">-&gt;</span><span class="na">responseBody</span><span class="p">);</span>
+  <span class="nb">print_r</span><span class="p">(</span><span class="nb">json_decode</span><span class="p">(</span><span class="nv">$e</span><span class="o">-&gt;</span><span class="na">responseBody</span><span class="p">));</span>
 <span class="p">}</span>
 <span class="cp">?&gt;</span>
 </code></pre><pre class="highlight python"><code><span class="kn">import</span> <span class="nn">beyonic</span>
