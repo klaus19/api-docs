@@ -1074,7 +1074,7 @@ And when a request fails, Beyonic returns an HTTP response code in the <em>4XX</
 <td>No</td>
 <td>String (Max 140 characters)</td>
 <td>&ldquo;Use #1234 as the reference&rdquo;</td>
-<td><em>New in V2.</em> Allows overriding of the default instructions sent to the subscriber. This value may be ignored on some networks that have alternative ways of notifying the subscriber of pending payment requests.</td>
+<td><em>New in V2.</em> Allows overriding of the default instructions sent to the subscriber. If omitted, default network-specific instructions will be sent to the subscriber via SMS. If you want to skip sending ANY sms instructions and turn off even the default instructions, set this parameter to &ldquo;skip&rdquo; (instructions = &ldquo;skip&rdquo;)</td>
 </tr>
 </tbody></table>
 
