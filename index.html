@@ -325,6 +325,10 @@ And when a request fails, Beyonic returns an HTTP response code in the <em>4XX</
 <td>Not Acceptable &ndash; You requested a format that isn&rsquo;t supported. Check the &ldquo;Accept&rdquo; header of your request, and try to ensure that you are using json format for your requests.</td>
 </tr>
 <tr>
+<td>409</td>
+<td>Conflict &ndash; You sent a duplicate request. Check your Duplicate-Check-Key</td>
+</tr>
+<tr>
 <td>415</td>
 <td>Unsupported Media Type &ndash; Check the content-type of the data you are sending.</td>
 </tr>
