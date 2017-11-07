@@ -843,24 +843,19 @@ And when a request fails, Beyonic returns an HTTP response code in the <em>4XX</
 <td>The confirmation message delivered to the customer upon successful completion of this payment request</td>
 </tr>
 <tr>
+<td>send_instructions</td>
+<td>boolean</td>
+<td><em>New in V2.</em> Defaults to False (but you probably want to set this to True). Indicates whether we should send payment instructions to the subscriber via SMS. Note that this field defaults to False, so if you want the collection request to actually notify the customer (with a USSD popup and an SMS), you must set this field to True. Omitting the field will prevent collection requests from being sent out to the customer.</td>
+</tr>
+<tr>
 <td>instructions</td>
 <td>string or null</td>
-<td>Any custom instructions that were delivered to the customer</td>
-</tr>
-<tr>
-<td>send_instructions</td>
-<td>boolean</td>
-<td>Whether or not Beyonic will attempt to send instructions to the user</td>
-</tr>
-<tr>
-<td>send_instructions</td>
-<td>boolean</td>
-<td>Whether or not Beyonic will attempt to send instructions to the user</td>
+<td><em>New in V2.</em> Allows overriding of the default instructions sent to the subscriber. If omitted, default network-specific instructions will be sent to the subscriber via SMS. If you want to skip sending ANY sms instructions and turn off even the default instructions, set this parameter to &ldquo;skip&rdquo; (instructions = &ldquo;skip&rdquo;)</td>
 </tr>
 <tr>
 <td>expiry_date</td>
 <td>string or null</td>
-<td>Specifies the date and time when this collection request will be marked as expired. Defaults to &ldquo;24 hours&rdquo; Examples of valid values for this field include strings such as &ldquo;tomorrow&rdquo;, &ldquo;24 hours&rdquo;, &ldquo;2 minutes&rdquo;, or %d/%m/%Y format e.g 24/05/2019 or %d/%m/%Y %H:%M:%S format e.g 24/05/2019 13:24:12</td>
+<td>Defaults to &ldquo;24 hours&rdquo;. Specifies the date and time when this collection request will be marked as expired. Examples of valid values for this field include strings such as &ldquo;tomorrow&rdquo;, &ldquo;24 hours&rdquo;, &ldquo;2 minutes&rdquo;, or %d/%m/%Y format e.g 24/05/2019 or %d/%m/%Y %H:%M:%S format e.g 24/05/2019 13:24:12</td>
 </tr>
 </tbody></table>
 
@@ -1081,7 +1076,7 @@ And when a request fails, Beyonic returns an HTTP response code in the <em>4XX</
 <td>No</td>
 <td>Boolean</td>
 <td>False</td>
-<td><em>New in V2.</em> Defaults to False. Indicates whether we should send payment instructions to the subscriber via SMS. Note that this field defaults to False, so if you want the collection request to actually be sent out, you must set this field to True. Omitting the field will prevent collection requests from being sent out.</td>
+<td><em>New in V2.</em> Defaults to False (but you probably want to set this to True). Indicates whether we should send payment instructions to the subscriber via SMS. Note that this field defaults to False, so if you want the collection request to actually notify the customer (with a USSD popup and an SMS), you must set this field to True. Omitting the field will prevent collection requests from being sent out to the customer.</td>
 </tr>
 <tr>
 <td>instructions</td>
@@ -1089,6 +1084,13 @@ And when a request fails, Beyonic returns an HTTP response code in the <em>4XX</
 <td>String (Max 140 characters)</td>
 <td>&ldquo;Use #1234 as the reference&rdquo;</td>
 <td><em>New in V2.</em> Allows overriding of the default instructions sent to the subscriber. If omitted, default network-specific instructions will be sent to the subscriber via SMS. If you want to skip sending ANY sms instructions and turn off even the default instructions, set this parameter to &ldquo;skip&rdquo; (instructions = &ldquo;skip&rdquo;)</td>
+</tr>
+<tr>
+<td>expiry_date</td>
+<td>No</td>
+<td>Date String</td>
+<td>24 hours</td>
+<td>Defaults to &ldquo;24 hours&rdquo;. Specifies the date and time when this collection request will be marked as expired. Examples of valid values for this field include strings such as &ldquo;tomorrow&rdquo;, &ldquo;24 hours&rdquo;, &ldquo;2 minutes&rdquo;, or %d/%m/%Y format e.g 24/05/2019 or %d/%m/%Y %H:%M:%S format e.g 24/05/2019 13:24:12</td>
 </tr>
 </tbody></table>
 
