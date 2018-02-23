@@ -560,7 +560,13 @@ And when a request fails, Beyonic returns an HTTP response code in the <em>4XX</
                        <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s">'id'</span><span class="p">:</span> <span class="s">'1234'</span><span class="p">,</span> <span class="s">'name'</span><span class="p">:</span> <span class="s">'Lucy'</span><span class="p">}</span>
                        <span class="p">)</span>
 </code></pre>
-<p>Beyonic supports Metadata, which allows you to add custom key-value attributes when creating objects. For example, you can include a unique ID to identify a payment, or add more information about a Contact. This data will be returned when you retrieve the record later, and can be used to identify the record.</p>
+<p>Beyonic supports Metadata on the contact, payment and collection request APIs. </p>
+
+<p>Metadata allows you to add custom key-value attributes when creating objects. You can use metadata to track any 
+information you want to track by attaching it to a contact, payment or collection request object.</p>
+
+<p>For example, you can include a unique ID to identify a payment, or add more information about a Contact. 
+This data will be returned when you retrieve the record later, and can be used to identify the record.</p>
 
 <p>Metadata has the following constraints:</p>
 
@@ -570,17 +576,31 @@ And when a request fails, Beyonic returns an HTTP response code in the <em>4XX</
 <li>For each record, you can have up to 10 custom attributes.</li>
 </ul>
 
-<p>Metadata is added to the object a set of key-value pairs, where the key is in the format metadata.key_name, for example: metadata.id or metadata.name or metadata.date, and so on.</p>
+<p>Metadata is added to the object a set of key-value pairs, where the key is in the format metadata.key_name, 
+for example: metadata.id or metadata.name or metadata.date, and so on.</p>
 
 <p>See the examples for more information.</p>
 
-<h2 id="custom-fields">Custom Fields</h2>
+<h3 id="api-methods-that-support-metadata">API methods that support metadata.</h3>
 
-<p>Custom Fields are similar to Metadata - they allow you to add custom data to some objects. There are a couple of differences between custom fields and other metadata:</p>
+<p>Not all API methods support metadata. Currently, the following API methods and their corresponding objects support metadata.</p>
 
 <ol>
-<li>Custom fields are available through the web interface as well, while metadata fields are only available through the API</li>
-<li>Metadata keys and values can be created and edited through the API, while custom fields can only be created through the web interface (currently, you need to request addition of a custom field by <a href="http://beyonic.com/contact">contacting us</a>). However, once custom fields have been created through the web interface, they can be updated or edited through the API as well.</li>
+<li>The payment API</li>
+<li>The contacts API</li>
+<li>The collection requests API</li>
+</ol>
+
+<h2 id="custom-fields">Custom Fields</h2>
+
+<p>Custom Fields are similar to Metadata - they allow you to add custom data to some objects. Custom fields can be added to contacts,
+payments or collection requests.</p>
+
+<p>There are a couple of differences between custom fields and other metadata:</p>
+
+<ol>
+<li>Custom fields are available through the web interface as well as the API. Metadata can be viewed through the web interface, but can only be created via the API.</li>
+<li>Metadata keys and values can be created and edited through the API, while custom fields &lsquo;labels&rsquo; can only be created through the web interface by your organization administrator. However, once custom fields have been created through the web interface, they can be updated or edited through the API as well.</li>
 <li>Metadata consists of string-based keys and string-based values. Custom field keys are strings (starting with &ldquo;s_&rdquo;), but the values may be of different types, including strings, numbers, boolean values or enum values (restricted to a predefined set of values)</li>
 </ol>
 
@@ -599,6 +619,7 @@ And when a request fails, Beyonic returns an HTTP response code in the <em>4XX</
 <ol>
 <li>The payment API</li>
 <li>The contacts API</li>
+<li>The collection requests API</li>
 </ol>
 
           <h1 id="testing">Testing</h1>
@@ -1407,11 +1428,13 @@ And when a request fails, Beyonic returns an HTTP response code in the <em>4XX</
 <p>You can search or filter collection requests on the following fields. Simply add them to your request as shown in the examples. You can combine multiple filters. Note that filters return exact matches only. (The phonenumber field is treated differently - see below).</p>
 
 <ul>
-<li>amount - the transaction amount</li>
+<li>amount - the collection request amount</li>
 <li>currency - the currency code</li>
 <li>collection - the ID of the collection that fulfilled or matched this collection request</li>
 <li>phonenumber - the phonenumber that the collection request was intended for. Note that the phonenumber will be matched in international format, starting with a &rsquo;+&rsquo; sign. If the &rsquo;+&rsquo; sign isn&rsquo;t included in your request, it will be appended before attempting to match your request.</li>
 <li>remote_transaction_id - the transaction id or transaction reference of the collection on the mobile network operator&rsquo;s side</li>
+<li>created_after - only return collection requests created after this date (E.g. 2017-01-01 00:00)</li>
+<li>created_before - only return collection requests created before this date (E.g. 2017-01-01 00:00)</li>
 </ul>
 
           <h1 id="collections">Collections</h1>
@@ -1784,7 +1807,7 @@ And when a request fails, Beyonic returns an HTTP response code in the <em>4XX</
 <blockquote>
 <p>Sample Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/collections?phonenumber<span class="o">=</span>+80000000001&amp;remote_transaction_id<span class="o">=</span>SS12312 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+<pre class="highlight shell"><code>curl https://app.beyonic.com/api/collections?phonenumber<span class="o">=</span>%2B80000000001&amp;remote_transaction_id<span class="o">=</span>SS12312 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
@@ -1874,12 +1897,14 @@ And when a request fails, Beyonic returns an HTTP response code in the <em>4XX</
 <p>You can search or filter collections on the following fields. Simply add them to your request as shown in the examples. You can combine multiple filters. Note that filters return exact matches only (the phonenumber field is treated differently - see below).</p>
 
 <ul>
-<li>amount - the transaction amount</li>
+<li>amount - the collection amount</li>
 <li>currency - the currency code</li>
 <li>phonenumber - the phonenumber that the collection request was intended for. Note that the phonenumber will be matched in international format, starting with a &rsquo;+&rsquo; sign. If the &rsquo;+&rsquo; sign isn&rsquo;t included in your request, it will be appended before attempting to match your request. This is only true for phone number searches with collections, to make claiming of transactions easier. Other</li>
 <li>reference - the reference code that the customer used when sending the collection</li>
 <li>remote_transaction_id - the transation id or transaction reference of the collection on the mobile network operator&rsquo;s side</li>
 <li>collection_request - the ID of the collection request that this collection was matched to</li>
+<li>created_after - only return collections created after this date (E.g. 2017-01-01 00:00)</li>
+<li>created_before - only return collections created before this date (E.g. 2017-01-01 00:00)</li>
 </ul>
 
 <p><strong>Response</strong></p>
@@ -1891,7 +1916,7 @@ And when a request fails, Beyonic returns an HTTP response code in the <em>4XX</
 <blockquote>
 <p>Sample Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/collections?phonenumber<span class="o">=</span>+80000000001&amp;remote_transaction_id<span class="o">=</span>SS12312&amp;claim<span class="o">=</span>True&amp;amount<span class="o">=</span>200 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+<pre class="highlight shell"><code>curl https://app.beyonic.com/api/collections?phonenumber<span class="o">=</span>%2B80000000001&amp;remote_transaction_id<span class="o">=</span>SS12312&amp;claim<span class="o">=</span>True&amp;amount<span class="o">=</span>200 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
@@ -1938,7 +1963,7 @@ And when a request fails, Beyonic returns an HTTP response code in the <em>4XX</
     <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
         <span class="n">URL</span> <span class="n">url</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
         <span class="k">try</span> <span class="o">{</span>
-            <span class="n">url</span> <span class="o">=</span> <span class="k">new</span> <span class="n">URL</span><span class="o">(</span><span class="n">API_ENDPOINT</span> <span class="o">+</span> <span class="s">"?phonenumber=+80000000001&amp;remote_transaction_id=SS12312&amp;amount=200&amp;claim=True"</span><span class="o">);</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="k">new</span> <span class="n">URL</span><span class="o">(</span><span class="n">API_ENDPOINT</span> <span class="o">+</span> <span class="s">"?phonenumber=%2B80000000001&amp;remote_transaction_id=SS12312&amp;amount=200&amp;claim=True"</span><span class="o">);</span>
             <span class="n">HttpURLConnection</span> <span class="n">conn</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpURLConnection</span><span class="o">)</span> <span class="n">url</span><span class="o">.</span><span class="na">openConnection</span><span class="o">();</span>
 
             <span class="n">conn</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">"Content-Type"</span><span class="o">,</span> <span class="s">"application/json"</span><span class="o">);</span>
@@ -2807,6 +2832,8 @@ And when a request fails, Beyonic returns an HTTP response code in the <em>4XX</
 <li>amount - the payment amount</li>
 <li>currency - the payment currency code</li>
 <li>payment_type - the payment type</li>
+<li>created_after - only return payments created after this date (E.g. 2017-01-01 00:00)</li>
+<li>created_before - only return payments created before this date (E.g. 2017-01-01 00:00)</li>
 </ul>
 
           <h1 id="other-actions">Other Actions</h1>
@@ -3177,6 +3204,8 @@ And when a request fails, Beyonic returns an HTTP response code in the <em>4XX</
 <ul>
 <li>currrency - the account currency</li>
 <li>status - the account status</li>
+<li>created_after - only return accounts created after this date (E.g. 2017-01-01 00:00)</li>
+<li>created_before - only return accounts created before this date (E.g. 2017-01-01 00:00)</li>
 </ul>
 
           <h1 id="transactions">Transactions</h1>
@@ -3518,8 +3547,10 @@ transactions.</p>
 <ul>
 <li>account - the account id</li>
 <li>type - the type of the transaction</li>
-<li>start_date - the earliest date you want to include transactions from</li>
-<li>end_date - the latest date you want to include transactions</li>
+<li>created_after - only return transactions created after this date (E.g. 2017-01-01 00:00)</li>
+<li>created_before - only return transactions created before this date (E.g. 2017-01-01 00:00)</li>
+<li>start_date - the earliest date you want to include transactions from, inclusive (E.g. 2017-01-01 00:00)</li>
+<li>end_date - the latest date you want to include transactions, inclusive (E.g. 2017-01-01 00:00)</li>
 </ul>
 
           <h1 id="contacts">Contacts</h1>
@@ -4103,6 +4134,8 @@ transactions.</p>
 <li>last_name - the contact&rsquo;s last name</li>
 <li>email - the contact&rsquo;s email</li>
 <li>phone_number - the contact&rsquo;s phone number. Note that the phonenumber will be matched in international format, starting with a &rsquo;+&rsquo; sign. If the &rsquo;+&rsquo; sign isn&rsquo;t included in your request, it will be appended before attempting to match your request.</li>
+<li>created_after - only return contacts created after this date (E.g. 2017-01-01 00:00)</li>
+<li>created_before - only return contacts created before this date (E.g. 2017-01-01 00:00)</li>
 </ul>
 
           <h1 id="events">Events</h1>
