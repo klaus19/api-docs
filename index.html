@@ -2257,7 +2257,8 @@ payments or collection requests.</p>
     </span><span class="nt">"updated_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="nt">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.018Z"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"remote_transaction_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"send_sms_message"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="nt">"send_sms_message"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"charged_fee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <table><thead>
@@ -2386,6 +2387,11 @@ payments or collection requests.</p>
 <td>send_sms_message</td>
 <td>boolean</td>
 <td>Defaults to False. Indicates whether we should send the description as a separate sms message to the consumer. Additional SMS fees apply. See https://beyonic.com/pricing for fees information. When SMS is enabled, can use the following placeholders in the description for personalization: {firstname}, {fullname}, {phone}, {amount}</td>
+</tr>
+<tr>
+<td>charged_fee</td>
+<td>decimal</td>
+<td>The fee that was charged. It is only available for completed payments.</td>
 </tr>
 </tbody></table>
 
@@ -2553,7 +2559,8 @@ payments or collection requests.</p>
     </span><span class="nt">"modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.018Z"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"updated_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="nt">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.018Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"remote_transaction_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+    </span><span class="nt">"remote_transaction_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"charged_fee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>To create a new payment, make a POST to the end point above, with the attributes below.</p>
@@ -2764,7 +2771,8 @@ payments or collection requests.</p>
     </span><span class="nt">"author"</span><span class="p">:</span><span class="mi">134</span><span class="p">,</span><span class="w">
     </span><span class="nt">"modified"</span><span class="p">:</span><span class="s2">"2016-03-31T08:08:45Z"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"updated_by"</span><span class="p">:</span><span class="mi">134</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"start_date"</span><span class="p">:</span><span class="s2">"2016-03-31T08:08:01Z"</span><span class="w">
+    </span><span class="nt">"start_date"</span><span class="p">:</span><span class="s2">"2016-03-31T08:08:01Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"charged_fee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>To retrieve a single payment object, provide the payment id and a payment object will be returned.</p>
@@ -2892,7 +2900,8 @@ payments or collection requests.</p>
             </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
             </span><span class="nt">"modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2013-08-20T17:21:39Z"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"updated_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2013-08-20T00:00:00Z"</span><span class="w">
+            </span><span class="nt">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2013-08-20T00:00:00Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"charged_fee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
         </span><span class="p">},</span><span class="w">
         </span><span class="p">{</span><span class="w">
             </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
@@ -2918,7 +2927,8 @@ payments or collection requests.</p>
             </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
             </span><span class="nt">"modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2013-08-22T01:53:36Z"</span><span class="p">,</span><span class="w">
             </span><span class="nt">"updated_by"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2013-08-21T00:00:00Z"</span><span class="w">
+            </span><span class="nt">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2013-08-21T00:00:00Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"charged_fee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
         </span><span class="p">},</span><span class="w">
    </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
