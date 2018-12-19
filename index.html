@@ -1784,36 +1784,36 @@ payments or collection requests.</p>
 
 <h3 id="accept-response">ACCEPT response</h3>
 
-<p>In order to accept the collection, you must respond with a 200 response, and the following text in the body of the response:</p>
-
-<p>ACCEPT &lt; remote_transaction_id &gt;</p>
-
 <blockquote>
 <p>ACCEPT &lt; remote_transaction_id &gt;</p>
 </blockquote>
-
-<p>E.g. if the remote transaction id was ASCD1234, then you must respond with:</p>
-
-<p>ACCEPT ASCD1234</p>
 <pre class="highlight plaintext"><code>For example:
 
 ACCEPT ASCD1234
 </code></pre>
+<p>In order to accept the collection, you must respond with a 200 response, and the following text in the body of the response:</p>
+
+<p>ACCEPT &lt; remote_transaction_id &gt;</p>
+
+<p>E.g. if the remote transaction id was ASCD1234, then you must respond with:</p>
+
+<p>ACCEPT ASCD1234</p>
+
 <h3 id="reject-response">REJECT response</h3>
-
-<p>In order to reject the collection, you must respond with a 200 response, and the following text in the body of the response:</p>
-
-<p>REJECT &lt; remote_transaction_id &gt; &lt; optional reason &gt;</p>
 
 <blockquote>
 <p>REJECT &lt; remote_transaction_id &gt; &lt; optional reason &gt;</p>
 </blockquote>
-
-<p>E.g. if the remote transaction id was ASCD1234, then you must respond with:</p>
 <pre class="highlight plaintext"><code>For example:
 
 REJECT ASCD1234 Wrong Account Number.
 </code></pre>
+<p>In order to reject the collection, you must respond with a 200 response, and the following text in the body of the response:</p>
+
+<p>REJECT &lt; remote_transaction_id &gt; &lt; optional reason &gt;</p>
+
+<p>E.g. if the remote transaction id was ASCD1234, then you must respond with:</p>
+
 <p>NOTE: The reject reason is optional. If included, we shall attempt to return it to the network (and the network may send it on to the subscriber)</p>
 
 <h3 id="response-timeout">Response timeout</h3>
