@@ -164,7 +164,7 @@
 <li>Profit!</li>
 </ol>
 
-          <h1 id="libraries">Libraries</h1>
+          <h1 id="client-libraries">Client Libraries</h1>
 
 <p>Here are links to the various client libraries &amp; specific installation instructions:</p>
 
@@ -1717,6 +1717,108 @@ payments or collection requests.</p>
 <td><em>New in V3.</em> A JSON representation of the collection request that this collection was matched to, if any. Before V3, this was simply the id of the collection request object. In V3. It&rsquo;s an expanded representation of the collection request object.</td>
 </tr>
 </tbody></table>
+
+<h2 id="accept-or-reject-collections">Accept or reject Collections</h2>
+
+<p>By default, collections are matched to your account and automatically accepted. However, the following networks allow you to decide whether you want to accept or reject a collection.</p>
+
+<ul>
+<li>Safaricom (MPESA) Kenya</li>
+<li>MTN Uganda</li>
+<li>Airtel Tanzania</li>
+<li>Vodacom Tanzania</li>
+<li>All Rwanda Networks</li>
+</ul>
+
+<h3 id="enabling-collection-verification">Enabling Collection verification</h3>
+
+<p>To enable this functionality, you need to add a verificaiton URL to your collection settings:</p>
+
+<ol>
+<li>Log into your Beyonic Account</li>
+<li>Click &ldquo;Company Settings&rdquo; on the home page</li>
+<li>Click &ldquo;Advanced Settings&rdquo;</li>
+<li>Click &ldquo;Collection Settings&rdquo;</li>
+<li>Enter a Collection Verification URL.</li>
+<li>You can also decide what action we should take if we cannot reach your verification URL for some reason. This is controlled by the &ldquo;Accept Collections By Default&rdquo; option. If this option is checked, we&rsquo;ll accept collections when your URL is unreachable. Otherwise, they will be rejected.</li>
+</ol>
+
+<h3 id="verification-request-parameters">Verification request parameters</h3>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"remote_transaction_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ASD12132"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"phonenumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+80000000001"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Payment for A/C 13112313"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"500"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"currency_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BXC"</span><span class="p">,</span><span class="w">
+</span><span class="err">}</span><span class="w">
+</span></code></pre>
+<p>Once you have created a URL, we will send a JSON POST to the URL you have provided, whenever a new collection is received. The request body shall include the following parameters as a JSON object:</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>phonenumber</td>
+<td>The subscriber&rsquo;s phone number that was used to send collection in international format, e.g. +256782123123</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>The amount that was sent, e.g. 500</td>
+</tr>
+<tr>
+<td>currency_code</td>
+<td>The 3 letter currency code, e.g. UGX</td>
+</tr>
+<tr>
+<td>reference</td>
+<td>The reference or description that the subscriber sent along with the collection. e.g A/C 12312</td>
+</tr>
+<tr>
+<td>remote_transaction_id</td>
+<td>The network transaction id that identifies this collection on the mobile network operator&rsquo;s system e.g. ASDASDW12321312</td>
+</tr>
+</tbody></table>
+
+<h3 id="accept-response">ACCEPT response</h3>
+
+<p>In order to accept the collection, you must respond with a 200 response, and the following text in the body of the response:</p>
+
+<p>ACCEPT &lt; remote_transaction_id &gt;</p>
+
+<blockquote>
+<p>ACCEPT &lt; remote_transaction_id &gt;</p>
+</blockquote>
+
+<p>E.g. if the remote transaction id was ASCD1234, then you must respond with:</p>
+
+<p>ACCEPT ASCD1234</p>
+<pre class="highlight plaintext"><code>For example:
+
+ACCEPT ASCD1234
+</code></pre>
+<h3 id="reject-response">REJECT response</h3>
+
+<p>In order to reject the collection, you must respond with a 200 response, and the following text in the body of the response:</p>
+
+<p>REJECT &lt; remote_transaction_id &gt; &lt; optional reason &gt;</p>
+
+<blockquote>
+<p>REJECT &lt; remote_transaction_id &gt; &lt; optional reason &gt;</p>
+</blockquote>
+
+<p>E.g. if the remote transaction id was ASCD1234, then you must respond with:</p>
+<pre class="highlight plaintext"><code>For example:
+
+REJECT ASCD1234 Wrong Account Number.
+</code></pre>
+<p>NOTE: The reject reason is optional. If included, we shall attempt to return it to the network (and the network may send it on to the subscriber)</p>
+
+<h3 id="response-timeout">Response timeout</h3>
+
+<p>You must respond within 60 seconds, otherwise the verification request will timeout and the default action shall be taken.</p>
 
 <h2 id="retrieving-a-single-collection">Retrieving a single Collection</h2>
 
@@ -4333,7 +4435,7 @@ transactions.</p>
 <p>You can use the events API to retrieve information about recent events. Events are saved for at least 30 days. After that, they may be discarded.</p>
 
 <p>The events api endpoint is:
-    <aside class="notice">https://app.beyonic.com/api/events</aside></p>
+        <aside class="notice">https://app.beyonic.com/api/events</aside></p>
 
 <p>You can also set up your account to automatically notify you as event occur. See the <a href="#webhooks">Webhooks API</a> for more information about setting up automatic notification for events.</p>
 
