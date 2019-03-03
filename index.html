@@ -383,6 +383,14 @@ And when a request fails, Beyonic returns an HTTP response code in the <em>4XX</
 
 <p>Beyonic&rsquo;s API libraries will raise an exception when an error occurs. So you should add exception handling to your requests as shown in the examples to the right.</p>
 
+          <h1 id="throttling">Throttling</h1>
+
+<p>Requests to Beyonic are throttled. If you send too many requests too fast, you will receive a throttling error resulting in a response with the HTTP status code &ldquo;429 Too Many Requests&rdquo;.</p>
+
+<p>API READ requests are limited to 30/minute.</p>
+
+<p>API WRITE requests are limited to 3000/minute.</p>
+
           <h1 id="pagination">Pagination</h1>
 
 <blockquote>
@@ -768,6 +776,8 @@ payments or collection requests.</p>
 <p><strong>Related Events</strong></p>
 
 <p>The &ldquo;collection.received&rdquo; event is triggered whenever you receive funds from a user. You can configure a web link to receive notifications whenever this event occurs. This will allow you to respond automatically whenever you receive funds. See our <a href="#webhooks">Webhooks API</a> documentation for more information.</p>
+
+<p>The &ldquo;collectionrequest.status.changed&rdquo; event is triggered whenever the status of your collection request changes, for example if a collection is received in response to your collection request, or if the collection request fails or expires. You can configure a web link to receive notifications whenever this event occurs. This will allow you to respond automatically to updates made to your collection request. See our <a href="#webhooks">Webhooks API</a> documentation for more information.</p>
 
           <h1 id="collection-requests">Collection Requests</h1>
 
