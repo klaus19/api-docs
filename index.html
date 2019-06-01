@@ -2703,10 +2703,10 @@ REJECT ASCD1234 Wrong Account Number.
 </thead><tbody>
 <tr>
 <td>phonenumber</td>
-<td>Yes</td>
+<td>Yes*</td>
 <td>String</td>
 <td>+80000000001</td>
-<td>Must be in international format</td>
+<td>Must be in international format. * Only required if recipient_data is not set.</td>
 </tr>
 <tr>
 <td>payment_type</td>
@@ -2771,6 +2771,13 @@ REJECT ASCD1234 Wrong Account Number.
 <td>Doe</td>
 <td>If this payment is to a new contact, you can include their last name. This name will only be used if the phone number is new.</td>
 </tr>
+<tr>
+<td>recipient_data</td>
+<td>No</td>
+<td>JSON-formatted list of dictionaries</td>
+<td>[{&#39;phonenumber&rsquo;: &rsquo;+256712321232&rsquo;, &#39;amount&rsquo;: 500},&hellip;]</td>
+<td>Used to send multiple payments in one request. See the section: <a href="#create-multiple-payments">&ldquo;Creating multiple Payments&rdquo;</a> Below for more details</td>
+</tr>
 </tbody></table>
 
 <p><strong>Responses</strong></p>
@@ -2789,6 +2796,53 @@ REJECT ASCD1234 Wrong Account Number.
 <li>cancelled – for payments that were cancelled. The following fields will have more information: cancelled_reason, cancelled_by and cancelled_time</li>
 </ul></li>
 </ul>
+
+<h2 id="creating-multiple-payments">Creating multiple Payments</h2>
+
+<blockquote>
+<p>Below is a sample request where each recipient has a unique amount value:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"KES"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"account"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"payment_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"money"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lucy"</span><span class="p">},</span><span class="w">
+    </span><span class="nt">"recipient_data"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="nt">"phonenumber"</span><span class="p">:</span><span class="s2">"+254727447101"</span><span class="p">,</span><span class="w"> </span><span class="nt">"first_name"</span><span class="p">:</span><span class="s2">"Jerry"</span><span class="p">,</span><span class="w"> </span><span class="nt">"last_name"</span><span class="p">:</span><span class="s2">"Shikanga"</span><span class="p">,</span><span class="w"> </span><span class="nt">"amount"</span><span class="p">:</span><span class="mi">500</span><span class="p">,</span><span class="w"> </span><span class="nt">"description"</span><span class="p">:</span><span class="s2">"Per diem payment"</span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="nt">"phonenumber"</span><span class="p">:</span><span class="s2">"+254739936708"</span><span class="p">,</span><span class="w"> </span><span class="nt">"amount"</span><span class="p">:</span><span class="mi">30000</span><span class="p">,</span><span class="w"> </span><span class="nt">"description"</span><span class="p">:</span><span class="s2">"Salary for January"</span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Below is a sample request where a single amount value is to be applied to each recipient:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"amount"</span><span class="p">:</span><span class="mi">500</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"KES"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"account"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"payment_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"money"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lucy"</span><span class="p">},</span><span class="w">
+    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Per diem payment"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"recipient_data"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="nt">"phonenumber"</span><span class="p">:</span><span class="s2">"+254727447101"</span><span class="p">,</span><span class="w"> </span><span class="nt">"first_name"</span><span class="p">:</span><span class="s2">"Jerry"</span><span class="p">,</span><span class="w"> </span><span class="nt">"last_name"</span><span class="p">:</span><span class="s2">"Shikanga"</span><span class="w"> </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="nt">"phonenumber"</span><span class="p">:</span><span class="s2">"+254739936708"</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Beyonic now supports creation of multiple payments via API. When multiple payments are created via one API call, they will all be part of the same payment schedule, making it easier for you to perform bulk operations such as approval. </p>
+
+<p>To create a bulk payment, you have to include an extra field called &ldquo;recipient_data&rdquo; in the request payload. </p>
+
+<p>recipient_data should be a list of dictionaries, each containing the following fields :
+    * first_name, 
+    * last_name, 
+    * phonenumber, 
+    * amount 
+    * description</p>
+
+<p>Phonenumber is a mandatory field. 
+Amount can be nullable, but if missing then it must be set in the main payload. In this case each user will be paid the same amount in the payload. If provided in the recipient_data dictionaries then each user will be paid the amounts specified in the recipient_data.
+The rest of the fields are optional.</p>
 
 <h2 id="retrieving-a-single-payment">Retrieving a single Payment</h2>
 
