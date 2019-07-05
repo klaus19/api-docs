@@ -3198,6 +3198,571 @@ The rest of the fields are optional.</p>
 
 <p>Below are additional API endpoints supported by Beyonic&rsquo;s API. Clicking on each topic in the table of contents shall reveal the actions that you can perform.</p>
 
+          <h1 id="currencies">Currencies</h1>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>The currency api method allows you to list the currencies supported by Beyonic, including information like network prefixes for each currency/country</p>
+
+<p>The currency api endpoint is:</p>
+
+<p><aside class="notice">https://app.beyonic.com/api/currencies</aside></p>
+
+<h2 id="the-currency-object">The Currency object</h2>
+
+<blockquote>
+<p>Sample Currency Object (JSON):</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Rwandan Francs"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RWF"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"country"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"iso"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RW"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"iso3"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RWA"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"iso_numeric"</span><span class="p">:</span><span class="w"> </span><span class="mi">646</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RWANDA"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"printable_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Rwanda"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"phone_prefix"</span><span class="p">:</span><span class="w"> </span><span class="s2">"250"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"supported"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"usd_rate"</span><span class="p">:</span><span class="w"> </span><span class="mf">897.5</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>long integer</td>
+<td>Unique object identifier</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>The currency name</td>
+</tr>
+<tr>
+<td>code</td>
+<td>string</td>
+<td>The code i.e KES, UGX</td>
+</tr>
+<tr>
+<td>country</td>
+<td>object</td>
+<td>Expanded country object</td>
+</tr>
+<tr>
+<td>usd_rate</td>
+<td>float</td>
+<td>The latest USD exchange rate</td>
+</tr>
+</tbody></table>
+
+<h2 id="retrieving-a-single-currency">Retrieving a Single Currency</h2>
+
+<blockquote>
+<p>Sample Request:</p>
+</blockquote>
+<pre class="highlight shell"><code>curl https://app.beyonic.com/api/currencies/7 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+</code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
+<span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
+
+<span class="n">currency</span> <span class="o">=</span> <span class="no">Beyonic</span><span class="o">::</span><span class="no">Currency</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+</code></pre><pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="k">require_once</span><span class="p">(</span><span class="s1">'./lib/Beyonic.php'</span><span class="p">);</span>
+<span class="nx">Beyonic</span><span class="o">::</span><span class="na">setApiKey</span><span class="p">(</span><span class="s2">"ab594c14986612f6167a975e1c369e71edab6900"</span><span class="p">);</span>
+
+<span class="nv">$account</span> <span class="o">=</span> <span class="nx">Beyonic_Currency</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="mi">7</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+</code></pre><pre class="highlight python"><code><span class="kn">import</span> <span class="nn">beyonic</span>
+<span class="n">beyonic</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="s">'ab594c14986612f6167a975e1c369e71edab6900'</span>
+
+<span class="n">currency</span> <span class="o">=</span> <span class="n">beyonic</span><span class="o">.</span><span class="n">Currency</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+</code></pre><pre class="highlight java"><code><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">beyonic</span><span class="o">.</span><span class="na">examples</span><span class="o">.</span><span class="na">currency</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.BufferedReader</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.InputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.InputStreamReader</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.HttpURLConnection</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.URL</span><span class="o">;</span>
+
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SingleCurrencyExample</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">API_ENDPOINT</span> <span class="o">=</span> <span class="s">"https://app.beyonic.com/api/currencies"</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">API_KEY</span> <span class="o">=</span> <span class="s">"ab594c14986612f6167a975e1c369e71edab6900"</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">CHARSET</span> <span class="o">=</span> <span class="s">"UTF-8"</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+        <span class="n">URL</span> <span class="n">url</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="k">new</span> <span class="n">URL</span><span class="o">(</span><span class="n">API_ENDPOINT</span> <span class="o">+</span> <span class="s">"/7"</span><span class="o">);</span>
+            <span class="n">HttpURLConnection</span> <span class="n">conn</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpURLConnection</span><span class="o">)</span> <span class="n">url</span><span class="o">.</span><span class="na">openConnection</span><span class="o">();</span>
+
+            <span class="n">conn</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">"Content-Type"</span><span class="o">,</span> <span class="s">"application/json"</span><span class="o">);</span>
+            <span class="n">conn</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">"Accept"</span><span class="o">,</span> <span class="s">"application/json"</span><span class="o">);</span>
+            <span class="n">conn</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">"charset"</span><span class="o">,</span> <span class="n">CHARSET</span><span class="o">);</span>
+            <span class="n">conn</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">"Authorization"</span><span class="o">,</span> <span class="s">"Token "</span> <span class="o">+</span> <span class="n">API_KEY</span><span class="o">);</span>
+
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">conn</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">()</span> <span class="o">+</span> <span class="s">" // "</span> <span class="o">+</span> <span class="n">conn</span><span class="o">.</span><span class="na">getResponseMessage</span><span class="o">());</span>
+
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">conn</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">()</span> <span class="o">==</span> <span class="mi">200</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">InputStream</span> <span class="n">inputStream</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">();</span>
+                    <span class="n">BufferedReader</span> <span class="n">reader</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="n">InputStreamReader</span><span class="o">(</span><span class="n">inputStream</span><span class="o">));</span>
+                    <span class="n">String</span> <span class="n">response</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="na">readLine</span><span class="o">();</span>
+                    <span class="n">reader</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+
+                    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">response</span><span class="o">);</span>
+                <span class="o">}</span>
+            <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+                <span class="n">conn</span><span class="o">.</span><span class="na">disconnect</span><span class="o">();</span>
+            <span class="o">}</span>
+
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre>
+<blockquote>
+<p>Sample Response (JSON) - if you use one of the development libraries, this is automatically converted into a native object for you:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Rwandan Francs"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RWF"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"country"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"iso"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RW"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"iso3"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RWA"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"iso_numeric"</span><span class="p">:</span><span class="w"> </span><span class="mi">646</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RWANDA"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"printable_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Rwanda"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"phone_prefix"</span><span class="p">:</span><span class="w"> </span><span class="s2">"250"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"supported"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"usd_rate"</span><span class="p">:</span><span class="w"> </span><span class="mf">897.5</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>To retrieve a single currency, provide the currency id and a currency object will be returned.</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Notes</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Yes</td>
+<td>Integer</td>
+<td>7</td>
+<td>The id of the currency you want to retrieve</td>
+</tr>
+</tbody></table>
+
+<h2 id="listing-all-currencies">Listing all currencies</h2>
+
+<blockquote>
+<p>Sample Request:</p>
+</blockquote>
+<pre class="highlight shell"><code>curl https://app.beyonic.com/api/currencies -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+</code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
+<span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
+
+<span class="n">currencies</span> <span class="o">=</span> <span class="no">Beyonic</span><span class="o">::</span><span class="no">Currency</span><span class="p">.</span><span class="nf">list</span>
+</code></pre><pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="k">require_once</span><span class="p">(</span><span class="s1">'./lib/Beyonic.php'</span><span class="p">);</span>
+<span class="nx">Beyonic</span><span class="o">::</span><span class="na">setApiKey</span><span class="p">(</span><span class="s2">"ab594c14986612f6167a975e1c369e71edab6900"</span><span class="p">);</span>
+
+<span class="nv">$accounts</span> <span class="o">=</span> <span class="nx">Beyonic_Currency</span><span class="o">::</span><span class="na">getAll</span><span class="p">();</span>
+<span class="cp">?&gt;</span>
+</code></pre><pre class="highlight python"><code><span class="kn">import</span> <span class="nn">beyonic</span>
+<span class="n">beyonic</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="s">'ab594c14986612f6167a975e1c369e71edab6900'</span>
+
+<span class="n">currencies</span> <span class="o">=</span> <span class="n">beyonic</span><span class="o">.</span><span class="n">Currency</span><span class="o">.</span><span class="nb">list</span><span class="p">()</span>
+
+</code></pre><pre class="highlight java"><code><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">beyonic</span><span class="o">.</span><span class="na">examples</span><span class="o">.</span><span class="na">currencies</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.BufferedReader</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.InputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.InputStreamReader</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.HttpURLConnection</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.URL</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ListAllAccountsExample</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">API_ENDPOINT</span> <span class="o">=</span> <span class="s">"https://app.beyonic.com/api/currencies"</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">API_KEY</span> <span class="o">=</span> <span class="s">"ab594c14986612f6167a975e1c369e71edab6900"</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">CHARSET</span> <span class="o">=</span> <span class="s">"UTF-8"</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+        <span class="n">URL</span> <span class="n">url</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="k">new</span> <span class="n">URL</span><span class="o">(</span><span class="n">API_ENDPOINT</span><span class="o">);</span>
+            <span class="n">HttpURLConnection</span> <span class="n">conn</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpURLConnection</span><span class="o">)</span> <span class="n">url</span><span class="o">.</span><span class="na">openConnection</span><span class="o">();</span>
+
+            <span class="n">conn</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">"Content-Type"</span><span class="o">,</span> <span class="s">"application/json"</span><span class="o">);</span>
+            <span class="n">conn</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">"Accept"</span><span class="o">,</span> <span class="s">"application/json"</span><span class="o">);</span>
+            <span class="n">conn</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">"charset"</span><span class="o">,</span> <span class="n">CHARSET</span><span class="o">);</span>
+            <span class="n">conn</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">"Authorization"</span><span class="o">,</span> <span class="s">"Token "</span> <span class="o">+</span> <span class="n">API_KEY</span><span class="o">);</span>
+
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">conn</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">()</span> <span class="o">+</span> <span class="s">" // "</span> <span class="o">+</span> <span class="n">conn</span><span class="o">.</span><span class="na">getResponseMessage</span><span class="o">());</span>
+
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">conn</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">()</span> <span class="o">==</span> <span class="mi">200</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">InputStream</span> <span class="n">inputStream</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">();</span>
+                    <span class="n">BufferedReader</span> <span class="n">reader</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="n">InputStreamReader</span><span class="o">(</span><span class="n">inputStream</span><span class="o">));</span>
+                    <span class="n">String</span> <span class="n">response</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="na">readLine</span><span class="o">();</span>
+                    <span class="n">reader</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+
+                    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">response</span><span class="o">);</span>
+                <span class="o">}</span>
+            <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+                <span class="n">conn</span><span class="o">.</span><span class="na">disconnect</span><span class="o">();</span>
+            <span class="o">}</span>
+
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre>
+<blockquote>
+<p>Sample Response (JSON)  - if you use one of the development libraries, this is automatically converted into a native object for you:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"next"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"previous"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"results"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Rwandan Francs"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RWF"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"country"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"iso"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RW"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"iso3"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RWA"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"iso_numeric"</span><span class="p">:</span><span class="w"> </span><span class="mi">646</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RWANDA"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"printable_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Rwanda"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"phone_prefix"</span><span class="p">:</span><span class="w"> </span><span class="s2">"250"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"supported"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"usd_rate"</span><span class="p">:</span><span class="w"> </span><span class="mf">897.5</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tanzania Shillings"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TZS"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"country"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"iso"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TZ"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"iso3"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TZA"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"iso_numeric"</span><span class="p">:</span><span class="w"> </span><span class="mi">834</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TANZANIA, UNITED REPUBLIC OF"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"printable_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tanzania, United Republic of"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"phone_prefix"</span><span class="p">:</span><span class="w"> </span><span class="s2">"255"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"supported"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"usd_rate"</span><span class="p">:</span><span class="w"> </span><span class="mf">2303.0</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>To retrieve a list of all currencies, make a GET request to the currencies end point. This will return a list of currencies.</p>
+
+<h2 id="filtering-currencies">Filtering Currencies</h2>
+
+<p>The currency api doesn&rsquo;t currently support filtering</p>
+
+          <h1 id="networks">Networks</h1>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>The network api method allows you to list the networks supported by Beyonic, including information like network prefixes for each network/country</p>
+
+<p>The network api endpoint is:</p>
+
+<p><aside class="notice">https://app.beyonic.com/api/networks</aside></p>
+
+<h2 id="the-network-object">The Network object</h2>
+
+<blockquote>
+<p>Sample Network Object (JSON):</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HALOTEL"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"country"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"iso"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TZ"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"iso3"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TZA"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"iso_numeric"</span><span class="p">:</span><span class="w"> </span><span class="mi">834</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TANZANIA, UNITED REPUBLIC OF"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"printable_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tanzania, United Republic of"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"phone_prefix"</span><span class="p">:</span><span class="w"> </span><span class="s2">"255"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"supported"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"phone_regex"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^[[.plus-sign.]]25562[0-9]{7}"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>long integer</td>
+<td>Unique object identifier</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>The network name</td>
+</tr>
+<tr>
+<td>country</td>
+<td>object</td>
+<td>Expanded country object</td>
+</tr>
+<tr>
+<td>phone_regex</td>
+<td>string</td>
+<td>The regular expression for phone numbers belonging to the network, in posix format</td>
+</tr>
+</tbody></table>
+
+<h2 id="retrieving-a-single-network">Retrieving a Single Network</h2>
+
+<blockquote>
+<p>Sample Request:</p>
+</blockquote>
+<pre class="highlight shell"><code>curl https://app.beyonic.com/api/networks/15 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+</code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
+<span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
+
+<span class="n">network</span> <span class="o">=</span> <span class="no">Beyonic</span><span class="o">::</span><span class="no">Network</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+</code></pre><pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="k">require_once</span><span class="p">(</span><span class="s1">'./lib/Beyonic.php'</span><span class="p">);</span>
+<span class="nx">Beyonic</span><span class="o">::</span><span class="na">setApiKey</span><span class="p">(</span><span class="s2">"ab594c14986612f6167a975e1c369e71edab6900"</span><span class="p">);</span>
+
+<span class="nv">$account</span> <span class="o">=</span> <span class="nx">Beyonic_Currency</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="mi">15</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+</code></pre><pre class="highlight python"><code><span class="kn">import</span> <span class="nn">beyonic</span>
+<span class="n">beyonic</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="s">'ab594c14986612f6167a975e1c369e71edab6900'</span>
+
+<span class="n">network</span> <span class="o">=</span> <span class="n">beyonic</span><span class="o">.</span><span class="n">Network</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+</code></pre><pre class="highlight java"><code><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">beyonic</span><span class="o">.</span><span class="na">examples</span><span class="o">.</span><span class="na">network</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.BufferedReader</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.InputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.InputStreamReader</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.HttpURLConnection</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.URL</span><span class="o">;</span>
+
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SingleCurrencyExample</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">API_ENDPOINT</span> <span class="o">=</span> <span class="s">"https://app.beyonic.com/api/networks"</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">API_KEY</span> <span class="o">=</span> <span class="s">"ab594c14986612f6167a975e1c369e71edab6900"</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">CHARSET</span> <span class="o">=</span> <span class="s">"UTF-8"</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+        <span class="n">URL</span> <span class="n">url</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="k">new</span> <span class="n">URL</span><span class="o">(</span><span class="n">API_ENDPOINT</span> <span class="o">+</span> <span class="s">"/15"</span><span class="o">);</span>
+            <span class="n">HttpURLConnection</span> <span class="n">conn</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpURLConnection</span><span class="o">)</span> <span class="n">url</span><span class="o">.</span><span class="na">openConnection</span><span class="o">();</span>
+
+            <span class="n">conn</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">"Content-Type"</span><span class="o">,</span> <span class="s">"application/json"</span><span class="o">);</span>
+            <span class="n">conn</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">"Accept"</span><span class="o">,</span> <span class="s">"application/json"</span><span class="o">);</span>
+            <span class="n">conn</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">"charset"</span><span class="o">,</span> <span class="n">CHARSET</span><span class="o">);</span>
+            <span class="n">conn</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">"Authorization"</span><span class="o">,</span> <span class="s">"Token "</span> <span class="o">+</span> <span class="n">API_KEY</span><span class="o">);</span>
+
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">conn</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">()</span> <span class="o">+</span> <span class="s">" // "</span> <span class="o">+</span> <span class="n">conn</span><span class="o">.</span><span class="na">getResponseMessage</span><span class="o">());</span>
+
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">conn</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">()</span> <span class="o">==</span> <span class="mi">200</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">InputStream</span> <span class="n">inputStream</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">();</span>
+                    <span class="n">BufferedReader</span> <span class="n">reader</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="n">InputStreamReader</span><span class="o">(</span><span class="n">inputStream</span><span class="o">));</span>
+                    <span class="n">String</span> <span class="n">response</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="na">readLine</span><span class="o">();</span>
+                    <span class="n">reader</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+
+                    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">response</span><span class="o">);</span>
+                <span class="o">}</span>
+            <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+                <span class="n">conn</span><span class="o">.</span><span class="na">disconnect</span><span class="o">();</span>
+            <span class="o">}</span>
+
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre>
+<blockquote>
+<p>Sample Response (JSON) - if you use one of the development libraries, this is automatically converted into a native object for you:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HALOTEL"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"country"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"iso"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TZ"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"iso3"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TZA"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"iso_numeric"</span><span class="p">:</span><span class="w"> </span><span class="mi">834</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TANZANIA, UNITED REPUBLIC OF"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"printable_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tanzania, United Republic of"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"phone_prefix"</span><span class="p">:</span><span class="w"> </span><span class="s2">"255"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"supported"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"phone_regex"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^[[.plus-sign.]]25562[0-9]{7}"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>To retrieve a single network, provide the network id and a network object will be returned.</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Notes</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Yes</td>
+<td>Integer</td>
+<td>15</td>
+<td>The id of the network you want to retrieve</td>
+</tr>
+</tbody></table>
+
+<h2 id="listing-all-networks">Listing all networks</h2>
+
+<blockquote>
+<p>Sample Request:</p>
+</blockquote>
+<pre class="highlight shell"><code>curl https://app.beyonic.com/api/networks -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+</code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
+<span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
+
+<span class="n">networks</span> <span class="o">=</span> <span class="no">Beyonic</span><span class="o">::</span><span class="no">Network</span><span class="p">.</span><span class="nf">list</span>
+</code></pre><pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="k">require_once</span><span class="p">(</span><span class="s1">'./lib/Beyonic.php'</span><span class="p">);</span>
+<span class="nx">Beyonic</span><span class="o">::</span><span class="na">setApiKey</span><span class="p">(</span><span class="s2">"ab594c14986612f6167a975e1c369e71edab6900"</span><span class="p">);</span>
+
+<span class="nv">$accounts</span> <span class="o">=</span> <span class="nx">Beyonic_Currency</span><span class="o">::</span><span class="na">getAll</span><span class="p">();</span>
+<span class="cp">?&gt;</span>
+</code></pre><pre class="highlight python"><code><span class="kn">import</span> <span class="nn">beyonic</span>
+<span class="n">beyonic</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="s">'ab594c14986612f6167a975e1c369e71edab6900'</span>
+
+<span class="n">networks</span> <span class="o">=</span> <span class="n">beyonic</span><span class="o">.</span><span class="n">Network</span><span class="o">.</span><span class="nb">list</span><span class="p">()</span>
+
+</code></pre><pre class="highlight java"><code><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">beyonic</span><span class="o">.</span><span class="na">examples</span><span class="o">.</span><span class="na">networks</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.BufferedReader</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.InputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.InputStreamReader</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.HttpURLConnection</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.URL</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ListAllAccountsExample</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">API_ENDPOINT</span> <span class="o">=</span> <span class="s">"https://app.beyonic.com/api/networks"</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">API_KEY</span> <span class="o">=</span> <span class="s">"ab594c14986612f6167a975e1c369e71edab6900"</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">CHARSET</span> <span class="o">=</span> <span class="s">"UTF-8"</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+        <span class="n">URL</span> <span class="n">url</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="k">new</span> <span class="n">URL</span><span class="o">(</span><span class="n">API_ENDPOINT</span><span class="o">);</span>
+            <span class="n">HttpURLConnection</span> <span class="n">conn</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpURLConnection</span><span class="o">)</span> <span class="n">url</span><span class="o">.</span><span class="na">openConnection</span><span class="o">();</span>
+
+            <span class="n">conn</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">"Content-Type"</span><span class="o">,</span> <span class="s">"application/json"</span><span class="o">);</span>
+            <span class="n">conn</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">"Accept"</span><span class="o">,</span> <span class="s">"application/json"</span><span class="o">);</span>
+            <span class="n">conn</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">"charset"</span><span class="o">,</span> <span class="n">CHARSET</span><span class="o">);</span>
+            <span class="n">conn</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">"Authorization"</span><span class="o">,</span> <span class="s">"Token "</span> <span class="o">+</span> <span class="n">API_KEY</span><span class="o">);</span>
+
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">conn</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">()</span> <span class="o">+</span> <span class="s">" // "</span> <span class="o">+</span> <span class="n">conn</span><span class="o">.</span><span class="na">getResponseMessage</span><span class="o">());</span>
+
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">conn</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">()</span> <span class="o">==</span> <span class="mi">200</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">InputStream</span> <span class="n">inputStream</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">();</span>
+                    <span class="n">BufferedReader</span> <span class="n">reader</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="n">InputStreamReader</span><span class="o">(</span><span class="n">inputStream</span><span class="o">));</span>
+                    <span class="n">String</span> <span class="n">response</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="na">readLine</span><span class="o">();</span>
+                    <span class="n">reader</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+
+                    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">response</span><span class="o">);</span>
+                <span class="o">}</span>
+            <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+                <span class="n">conn</span><span class="o">.</span><span class="na">disconnect</span><span class="o">();</span>
+            <span class="o">}</span>
+
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre>
+<blockquote>
+<p>Sample Response (JSON)  - if you use one of the development libraries, this is automatically converted into a native object for you:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"next"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"previous"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"results"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HALOTEL"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"country"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"iso"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TZ"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"iso3"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TZA"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"iso_numeric"</span><span class="p">:</span><span class="w"> </span><span class="mi">834</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TANZANIA, UNITED REPUBLIC OF"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"printable_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tanzania, United Republic of"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"phone_prefix"</span><span class="p">:</span><span class="w"> </span><span class="s2">"255"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"supported"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"phone_regex"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^[[.plus-sign.]]25562[0-9]{7}"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">14</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AIRTEL-TIGO"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"country"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"iso"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RW"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"iso3"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RWA"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"iso_numeric"</span><span class="p">:</span><span class="w"> </span><span class="mi">646</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RWANDA"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"printable_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Rwanda"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"phone_prefix"</span><span class="p">:</span><span class="w"> </span><span class="s2">"250"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"supported"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"phone_regex"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^[[.plus-sign.]]250(72|73)[0-9]{7}"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>To retrieve a list of all networks, make a GET request to the networks end point. This will return a list of networks.</p>
+
+<h2 id="filtering-networks">Filtering Networks</h2>
+
+<p>The network api doesn&rsquo;t currently support filtering</p>
+
           <h1 id="accounts">Accounts</h1>
 
 <h2 id="introduction">Introduction</h2>
