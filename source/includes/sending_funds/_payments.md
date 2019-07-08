@@ -66,9 +66,8 @@ updated_by | string | The ID of the user who last updated the payment
 remote_transaction_id | string | The transaction id provided by the mobile network operator. This will only be available once the payment is completed.
 send_sms_message | boolean | Defaults to False. Indicates whether we should send the description as a separate sms message to the consumer. Additional SMS fees apply. See https://beyonic.com/pricing for fees information. When SMS is enabled, can use the following placeholders in the description for personalization: {firstname}, {fullname}, {phone}, {amount}
 charged_fee | decimal | The fee that was charged. It is only available for completed payments.
-recipient_data | JSON | See the section [link Creating Multiple Payments](#create-multiple-payments) Below for more details
 
-## Creating a single Payment
+## Creating a new Payment
 
 > Sample Request:
 
@@ -78,7 +77,6 @@ curl https://app.beyonic.com/api/payments -H "Authorization: Token ab594c1498661
 -d first_name=Kennedy\
 -d last_name=Amani\
 -d currency=BXC \
--d account=1 \
 -d amount=30 \
 -d description="Per diem payment" \
 -d callback_url="https://my.website/payments/callback" \
@@ -95,11 +93,10 @@ payment = Beyonic::Payment.create(
     last_name: "Amani",
     amount: "100.2",
     currency: "BXC",
-    account: "1",
     description: "Per diem payment",
     payment_type: "money",
     callback_url: "https://my.website/payments/callback",
-    metadata: {"id": "1234", "name": "Lucy"}
+    metadata: {id: "1234", name: "Lucy"}
 )
 
 p payment  # Examine the returned object
@@ -116,7 +113,6 @@ $payment = Beyonic_Payment::create(array(
   "last_name" => "Kennedy",
   "amount" => "100.2",
   "currency" => "BXC",
-  "account" => "1",
   "description" => "Per diem payment",
   "payment_type" => "money",
   "callback_url" => "https://my.website/payments/callback",
@@ -136,7 +132,6 @@ payment = beyonic.Payment.create(phonenumber='+80000000001',
                        last_name='Amani',
                        amount='1200',
                        currency='BXC',
-                       account='1',
                        description='Per diem',
                        callback_url='https://my.website/payments/callback',
                        metadata={'id': '1234', 'name': 'Lucy'}
@@ -261,7 +256,7 @@ To create a new payment, make a POST to the end point above, with the attributes
 
 Parameter | Required | Type | Example | Notes
 --------- | -------- | ---- | ------- | -----
-phonenumber | Yes | String | +80000000001 | Must be in international format
+phonenumber | Yes* | String | +80000000001 | Must be in international format. * Only required if recipient_data is not set.
 payment_type | No | String | money | Options: money (default), airtime - use "airtime" to send an airtime payment instead of a mobile money payment
 amount | Yes | String, Integer or Decimal | 3000 | Do not include thousands separators
 currency | No | String | BXC | 3 letter ISO currency code. No currency conversion is done, so the currency must be valid for the selected phonenumber. You must have a funded Beyonic account in this currency. If your account for this currency has zero balance, your payment will fail. If you also provide an account parameter then the account's currency must match the currency parameter. **Note:**: BXC is the Beyonic Test Currency code. See the "Testing" section for more information. Supported currency codes are BXC (Testing), UGX (Uganda), KES (Kenya)
@@ -271,6 +266,7 @@ callback_url | No | String | https://my.website/payments/callback | Callback URL
 metadata | No | JSON-formatted string or dictionary | "{'id':'1234','name':'Lucy'}" | Metadata allows you to add custom attributes to your payments. E.g. You can include a unique ID to identify each payment. Attributes must be key-value pairs. Both the keys and values must be strings. You can add up to 10 attributes. This data will be returned when you retrieve a payment.
 first_name | No | String | John | If this payment is to a new contact, you can include their first name. This name will only be used if the phone number is new.
 last_name | No | String | Doe | If this payment is to a new contact, you can include their last name. This name will only be used if the phone number is new.
+recipient_data | No | JSON-formatted list of dictionaries | [{'phonenumber': '+256712321232', 'amount': 500},...] | Used to send multiple payments in one request. See the section: ["Creating multiple Payments"](#create-multiple-payments) Below for more details
 
 **Responses**
 
@@ -284,11 +280,7 @@ last_name | No | String | Doe | If this payment is to a new contact, you can inc
     * rejected – for payments that were rejected during the approval process. The following fields will have more information: rejected_reason, rejected_by and rejected_time
     * cancelled – for payments that were cancelled. The following fields will have more information: cancelled_reason, cancelled_by and cancelled_time
 
-## Creating Multiple Payments
-Beyonic now supports creation of multiple payments via API. When multiple payments are created via one API call, they are in one BatchPaymentSchedule making it easier for you to perform bulk operations such as approval. To create a bulk payment, you have to include an
-extra field recipient_data in the request payload. recipient_data is of type json list of json dictionaries each containing the following fields :
-first_name, last_name, phonenumber, amount and description. Phonenumber is a mandatory field. Amount can be nullable, but if missing then it must be set in the main payload. In this case each user will be paid the same amount in the payload. If provided in the recipient_data dictionaries then each user will be paid the amounts specified in the recipient_data.
-
+## Creating multiple Payments
 
 > Below is a sample request where each recipient has a unique amount value:
 
@@ -298,10 +290,10 @@ first_name, last_name, phonenumber, amount and description. Phonenumber is a man
     "account": "1",
     "payment_type": "money",
     "metadata": {"id": 1234, "name": "Lucy"},
-    "recipient_data" : "[
+    "recipient_data" : [
       {"phonenumber":"+254727447101", "first_name":"Jerry", "last_name":"Shikanga", "amount":500, "description":"Per diem payment"},
       {"phonenumber":"+254739936708", "amount":30000, "description":"Salary for January"}
-    ]"
+    ]
 }
 ```
 
@@ -311,16 +303,30 @@ first_name, last_name, phonenumber, amount and description. Phonenumber is a man
 {
     "amount":500,
     "currency": "KES",
-    "account": "1",
     "payment_type": "money",
     "metadata": {"id": 1234, "name": "Lucy"},
     "description": "Per diem payment",
-    "recipient_data" : "[
-      {"phonenumber":"+254727447101", "first_name":"Jerry", "last_name":"Shikanga", },
-      {"phonenumber":"+254739936708",}
-    ]"
+    "recipient_data" : [
+      {"phonenumber":"+254727447101", "first_name":"Jerry", "last_name":"Shikanga" },
+      {"phonenumber":"+254739936708" }
+    ]
 }
 ```
+
+Beyonic now supports creation of multiple payments via API. When multiple payments are created via one API call, they will all be part of the same payment schedule, making it easier for you to perform bulk operations such as approval. 
+
+To create a bulk payment, you have to include an extra field called "recipient_data" in the request payload. 
+
+recipient_data should be a list of dictionaries, each containing the following fields :
+    * first_name, 
+    * last_name, 
+    * phonenumber, 
+    * amount 
+    * description
+    
+Phonenumber is a mandatory field. 
+Amount can be nullable, but if missing then it must be set in the main payload. In this case each user will be paid the same amount in the payload. If provided in the recipient_data dictionaries then each user will be paid the amounts specified in the recipient_data.
+The rest of the fields are optional.
 
 ## Retrieving a single Payment
 
