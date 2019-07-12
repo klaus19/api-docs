@@ -292,16 +292,18 @@ https://app.beyonic.com/api/payments
 require 'beyonic'
 Beyonic.api_key = 'ab594c14986612f6167a975e1c369e71edab6900'
 
+recipient_data = [
+                   {phonenumber: "+254727447101",first_name: "Jerry", last_name: "Shikanga", amount: 500, description: "Per diem payment2"},
+                   {phonenumber: "+254739936708", amount: 30000, description:"Salary for January2"}
+                 ]
+                 
 payment = Beyonic::Payment.create(
     currency: "BXC",
     description: "Per diem payment",
     payment_type: "money",
     callback_url: "https://my.website/payments/callback",
-    metadata: {id: "1234", name: "Lucy"}
-    recipient_data: "[
-                   {\"phonenumber\":\"+254727447101\", \"first_name\":\"Jerry\", \"last_name\":\"Shikanga\", \"amount\":500, \"description\":\"Per diem payment\"},
-                   {\"phonenumber\":\"+254739936708\", \"amount\":30000, \"description\":\"Salary for January\"}
-                 ]"
+    metadata: {id: "1234", name: "Lucy"},
+    recipient_data: recipient_data.to_json
 )
 
 p payment  # Examine the returned object
@@ -312,16 +314,19 @@ p payment  # Examine the returned object
 require_once('./lib/Beyonic.php');
 Beyonic::setApiKey("ab594c14986612f6167a975e1c369e71edab6900");
 
+$recipient_data = [
+	array("phonenumber" => "+254727447101", "first_name" => "Jerry", "last_name" => "Shikanga", "amount" => 500, "description" => "Per diem payment"),
+	array("phonenumber" => "+254739936708", "amount" => 30000, "description" => "Salary for January")
+
+];
+
 $payment = Beyonic_Payment::create(array(
   "currency" => "BXC",
   "description" => "Per diem payment",
   "payment_type" => "money",
   "callback_url" => "https://my.website/payments/callback",
   "metadata" => array("id"=>"1234", "name"=>"Lucy"),
-  "recipient_data" => "[
-                         {\"phonenumber\":\"+254727447101\", \"first_name\":\"Jerry\", \"last_name\":\"Shikanga\", \"amount\":500, \"description\":\"Per diem payment\"},
-                         {\"phonenumber\":\"+254739936708\", \"amount\":30000, \"description\":\"Salary for January\"}
-                       ]"
+  "recipient_data" => json_encode($recipient_data)
 ));
 
 print_r($payment);  // Examine the returned object
