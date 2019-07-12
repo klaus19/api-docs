@@ -2899,36 +2899,93 @@ REJECT ASCD1234 Wrong Account Number.
 </ul>
 
 <h2 id="creating-multiple-payments">Creating multiple Payments</h2>
+<pre class="highlight shell"><code>curl -d <span class="s1">'{"currency": "BXC", "description": "Test response on mutiples", "callback_url": "https://my.url.com/callback", "payment_type": "money", "account": 1, "recipient_data": "[\\n {\\n  \\"amount\\": 1,\\n \\"phonenumber\\": \\"+80000000001\\",\\n \\"first_name\\": \\"Jerry\\",\\n  \\"last_name\\": \\"Airtel\\",\\n \\"description\\": \\"This is a payment to {first_name}. This desc is in child obj.\\"\\n\\n  },\\n {\\n  \\"phonenumber\\": \\"+80000000002\\",\\n \\"description\\": \\"What the response?\\",\\n  \\"amount\\":5\\n }\\n ]\\n "}'</span> <span class="se">\</span>
+-H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span> <span class="se">\</span>
+-H <span class="s2">"Content-type : application/json"</span> <span class="se">\</span>
+https://app.beyonic.com/api/payments
+</code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
+<span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
-<blockquote>
-<p>Below is a sample request where each recipient has a unique amount value:</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-    </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"KES"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"account"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"payment_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"money"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lucy"</span><span class="p">},</span><span class="w">
-    </span><span class="nt">"recipient_data"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="p">{</span><span class="nt">"phonenumber"</span><span class="p">:</span><span class="s2">"+254727447101"</span><span class="p">,</span><span class="w"> </span><span class="nt">"first_name"</span><span class="p">:</span><span class="s2">"Jerry"</span><span class="p">,</span><span class="w"> </span><span class="nt">"last_name"</span><span class="p">:</span><span class="s2">"Shikanga"</span><span class="p">,</span><span class="w"> </span><span class="nt">"amount"</span><span class="p">:</span><span class="mi">500</span><span class="p">,</span><span class="w"> </span><span class="nt">"description"</span><span class="p">:</span><span class="s2">"Per diem payment"</span><span class="p">},</span><span class="w">
-      </span><span class="p">{</span><span class="nt">"phonenumber"</span><span class="p">:</span><span class="s2">"+254739936708"</span><span class="p">,</span><span class="w"> </span><span class="nt">"amount"</span><span class="p">:</span><span class="mi">30000</span><span class="p">,</span><span class="w"> </span><span class="nt">"description"</span><span class="p">:</span><span class="s2">"Salary for January"</span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<blockquote>
-<p>Below is a sample request where a single amount value is to be applied to each recipient:</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-    </span><span class="nt">"amount"</span><span class="p">:</span><span class="mi">500</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"KES"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"payment_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"money"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lucy"</span><span class="p">},</span><span class="w">
-    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Per diem payment"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"recipient_data"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="p">{</span><span class="nt">"phonenumber"</span><span class="p">:</span><span class="s2">"+254727447101"</span><span class="p">,</span><span class="w"> </span><span class="nt">"first_name"</span><span class="p">:</span><span class="s2">"Jerry"</span><span class="p">,</span><span class="w"> </span><span class="nt">"last_name"</span><span class="p">:</span><span class="s2">"Shikanga"</span><span class="w"> </span><span class="p">},</span><span class="w">
-      </span><span class="p">{</span><span class="nt">"phonenumber"</span><span class="p">:</span><span class="s2">"+254739936708"</span><span class="w"> </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
+<span class="n">recipient_data</span> <span class="o">=</span> <span class="p">[</span>
+                   <span class="p">{</span><span class="ss">phonenumber: </span><span class="s2">"+254727447101"</span><span class="p">,</span><span class="ss">first_name: </span><span class="s2">"Jerry"</span><span class="p">,</span> <span class="ss">last_name: </span><span class="s2">"Shikanga"</span><span class="p">,</span> <span class="ss">amount: </span><span class="mi">500</span><span class="p">,</span> <span class="ss">description: </span><span class="s2">"Per diem payment2"</span><span class="p">},</span>
+                   <span class="p">{</span><span class="ss">phonenumber: </span><span class="s2">"+254739936708"</span><span class="p">,</span> <span class="ss">amount: </span><span class="mi">30000</span><span class="p">,</span> <span class="n">description</span><span class="ss">:"Salary for January2"</span><span class="p">}</span>
+                 <span class="p">]</span>
+
+<span class="n">payment</span> <span class="o">=</span> <span class="no">Beyonic</span><span class="o">::</span><span class="no">Payment</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span>
+    <span class="ss">currency: </span><span class="s2">"BXC"</span><span class="p">,</span>
+    <span class="ss">description: </span><span class="s2">"Per diem payment"</span><span class="p">,</span>
+    <span class="ss">payment_type: </span><span class="s2">"money"</span><span class="p">,</span>
+    <span class="ss">callback_url: </span><span class="s2">"https://my.website/payments/callback"</span><span class="p">,</span>
+    <span class="ss">metadata: </span><span class="p">{</span><span class="ss">id: </span><span class="s2">"1234"</span><span class="p">,</span> <span class="ss">name: </span><span class="s2">"Lucy"</span><span class="p">},</span>
+    <span class="ss">recipient_data: </span><span class="n">recipient_data</span><span class="p">.</span><span class="nf">to_json</span>
+<span class="p">)</span>
+
+<span class="nb">p</span> <span class="n">payment</span>  <span class="c1"># Examine the returned object</span>
+</code></pre><pre class="highlight php"><code><span class="cp">&lt;?php</span>
+<span class="k">require_once</span><span class="p">(</span><span class="s1">'./lib/Beyonic.php'</span><span class="p">);</span>
+<span class="nx">Beyonic</span><span class="o">::</span><span class="na">setApiKey</span><span class="p">(</span><span class="s2">"ab594c14986612f6167a975e1c369e71edab6900"</span><span class="p">);</span>
+
+<span class="nv">$recipient_data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="k">array</span><span class="p">(</span><span class="s2">"phonenumber"</span> <span class="o">=&gt;</span> <span class="s2">"+254727447101"</span><span class="p">,</span> <span class="s2">"first_name"</span> <span class="o">=&gt;</span> <span class="s2">"Jerry"</span><span class="p">,</span> <span class="s2">"last_name"</span> <span class="o">=&gt;</span> <span class="s2">"Shikanga"</span><span class="p">,</span> <span class="s2">"amount"</span> <span class="o">=&gt;</span> <span class="mi">500</span><span class="p">,</span> <span class="s2">"description"</span> <span class="o">=&gt;</span> <span class="s2">"Per diem payment"</span><span class="p">),</span>
+    <span class="k">array</span><span class="p">(</span><span class="s2">"phonenumber"</span> <span class="o">=&gt;</span> <span class="s2">"+254739936708"</span><span class="p">,</span> <span class="s2">"amount"</span> <span class="o">=&gt;</span> <span class="mi">30000</span><span class="p">,</span> <span class="s2">"description"</span> <span class="o">=&gt;</span> <span class="s2">"Salary for January"</span><span class="p">)</span>
+
+<span class="p">];</span>
+
+<span class="nv">$payment</span> <span class="o">=</span> <span class="nx">Beyonic_Payment</span><span class="o">::</span><span class="na">create</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+  <span class="s2">"currency"</span> <span class="o">=&gt;</span> <span class="s2">"BXC"</span><span class="p">,</span>
+  <span class="s2">"description"</span> <span class="o">=&gt;</span> <span class="s2">"Per diem payment"</span><span class="p">,</span>
+  <span class="s2">"payment_type"</span> <span class="o">=&gt;</span> <span class="s2">"money"</span><span class="p">,</span>
+  <span class="s2">"callback_url"</span> <span class="o">=&gt;</span> <span class="s2">"https://my.website/payments/callback"</span><span class="p">,</span>
+  <span class="s2">"metadata"</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s2">"id"</span><span class="o">=&gt;</span><span class="s2">"1234"</span><span class="p">,</span> <span class="s2">"name"</span><span class="o">=&gt;</span><span class="s2">"Lucy"</span><span class="p">),</span>
+  <span class="s2">"recipient_data"</span> <span class="o">=&gt;</span> <span class="nb">json_encode</span><span class="p">(</span><span class="nv">$recipient_data</span><span class="p">)</span>
+<span class="p">));</span>
+
+<span class="nb">print_r</span><span class="p">(</span><span class="nv">$payment</span><span class="p">);</span>  <span class="c1">// Examine the returned object
+</span><span class="cp">?&gt;</span>
+</code></pre><pre class="highlight python"><code><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">beyonic</span>
+<span class="n">beyonic</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="s">'ab594c14986612f6167a975e1c369e71edab6900'</span>
+
+<span class="n">recipients</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s">"amount"</span><span class="p">:</span><span class="mi">54</span><span class="p">,</span> <span class="s">"phonenumber"</span><span class="p">:</span><span class="s">"+80000000001"</span><span class="p">},</span>
+    <span class="p">{</span><span class="s">"amount"</span><span class="p">:</span><span class="mi">23</span><span class="p">,</span> <span class="s">"phonenumber"</span><span class="p">:</span><span class="s">"+80000000023"</span><span class="p">},</span>
+<span class="p">]</span>
+<span class="n">payment</span> <span class="o">=</span> <span class="n">beyonic</span><span class="o">.</span><span class="n">Payment</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+                       <span class="n">currency</span><span class="o">=</span><span class="s">'BXC'</span><span class="p">,</span>
+                       <span class="n">description</span><span class="o">=</span><span class="s">'Per diem'</span><span class="p">,</span>
+                       <span class="n">callback_url</span><span class="o">=</span><span class="s">'https://my.website/payments/callback'</span><span class="p">,</span>
+                       <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s">'id'</span><span class="p">:</span> <span class="s">'1234'</span><span class="p">,</span> <span class="s">'name'</span><span class="p">:</span> <span class="s">'Lucy'</span><span class="p">},</span>
+                       <span class="n">recipient_data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">recipients</span><span class="p">)</span>
+                       <span class="p">)</span>
+
+<span class="k">print</span> <span class="n">payment</span>  <span class="c"># Examine the returned object</span>
+</code></pre><pre class="highlight java"><code><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">beyonic</span><span class="o">.</span><span class="na">samples</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.beyonic.models</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.beyonic.exceptions.BeyonicException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.json.JSONArray</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.json.JSONObject</span><span class="o">;</span>
+
+<span class="c1">// Multiple payments</span>
+<span class="n">JSONObject</span> <span class="n">recipient1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JSONObject</span><span class="o">();</span>
+<span class="n">recipient1</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"amount"</span><span class="o">,</span> <span class="mi">15</span><span class="o">);</span>
+<span class="n">recipient1</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"phonenumber"</span><span class="o">,</span> <span class="s">"+80000000001"</span><span class="o">);</span>
+<span class="n">JSONObject</span> <span class="n">recipient2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JSONObject</span><span class="o">();</span>
+<span class="n">recipient2</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"amount"</span><span class="o">,</span> <span class="mi">25</span><span class="o">);</span>
+<span class="n">recipient2</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"phonenumber"</span><span class="o">,</span> <span class="s">"80000000005"</span><span class="o">);</span>
+<span class="n">recipient2</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"description"</span><span class="o">,</span> <span class="s">"Cool guy benefits"</span><span class="o">);</span>
+<span class="n">JSONArray</span> <span class="n">recipientsArray</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JSONArray</span><span class="o">();</span>
+<span class="n">recipientsArray</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">recipient1</span><span class="o">);</span>
+<span class="n">recipientsArray</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">recipient2</span><span class="o">);</span>
+
+<span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">mutiplePayments</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+<span class="n">mutiplePayments</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"recipient_data"</span><span class="o">,</span> <span class="n">recipientsArray</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+<span class="n">mutiplePayments</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"currency"</span><span class="o">,</span> <span class="s">"BXC"</span><span class="o">);</span>
+<span class="n">mutiplePayments</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"description"</span><span class="o">,</span> <span class="s">"Per diem payment"</span><span class="o">);</span>
+<span class="n">mutiplePayments</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"payment_type"</span><span class="o">,</span> <span class="s">"airtime"</span><span class="o">);</span>
+<span class="n">response</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Payment</span><span class="o">().</span><span class="na">create</span><span class="o">(</span><span class="n">mutiplePayments</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">response</span><span class="o">);</span>
+</code></pre>
 <p>Beyonic now supports creation of multiple payments via API. When multiple payments are created via one API call, they will all be part of the same payment schedule, making it easier for you to perform bulk operations such as approval. </p>
 
 <p>To create a bulk payment, you have to include an extra field called &ldquo;recipient_data&rdquo; in the request payload. </p>
@@ -2944,12 +3001,45 @@ REJECT ASCD1234 Wrong Account Number.
 Amount can be nullable, but if missing then it must be set in the main payload. In this case each user will be paid the same amount in the payload. If provided in the recipient_data dictionaries then each user will be paid the amounts specified in the recipient_data.
 The rest of the fields are optional.</p>
 
-<h2 id="retrieving-a-single-payment">Retrieving a single Payment</h2>
-
 <blockquote>
-<p>Sample Request:</p>
+<p>The following is a sample response
+&ldquo;`json
+{
+    &quot;account&rdquo;: 98,
+    &ldquo;amount&rdquo;: &ldquo;0.00&rdquo;,
+    &ldquo;author&rdquo;: 13289,
+    &ldquo;cancelled_by&rdquo;: None,
+    &ldquo;cancelled_reason&rdquo;: None,
+    &ldquo;cancelled_time&rdquo;: None,
+    &ldquo;charged_fee&rdquo;: 0,
+    &ldquo;created&rdquo;: &ldquo;2019-07-08T22:12:39.173057Z&rdquo;,
+    &ldquo;currency&rdquo;: &ldquo;KES&rdquo;,
+    &ldquo;description&rdquo;: &ldquo;Test response on mutiples&rdquo;,
+    &ldquo;id&rdquo;: 3837303,
+    &ldquo;last_error&rdquo;: &ldquo;&rdquo;,
+     &ldquo;metadata&rdquo;: {},
+     &ldquo;modified&rsquo;: &quot;2019-07-08T22:12:39.173119Z&rdquo;,
+     &ldquo;organization&rdquo;: 1,
+     &ldquo;payment_type&rdquo;: &ldquo;money&rdquo;,
+     &ldquo;phone_nos&rdquo;: [&ldquo;+254739936708&rdquo;, &ldquo;+254727447101&rdquo;],
+     &ldquo;rejected_by&rdquo;: None,
+     &ldquo;rejected_reason&rdquo;: None,
+     &ldquo;rejected_time&rdquo;: None,
+     &ldquo;remote_transaction_id&rdquo;: None,
+     &ldquo;send_sms_message&rdquo;: False,
+     &ldquo;start_date&rdquo;: &ldquo;2019-07-08T22:12:39.161414Z&rdquo;,
+     &ldquo;state&rdquo;: &ldquo;new&rdquo;,
+     &ldquo;transactions&rdquo;: [],
+     &ldquo;updated_by&rdquo;: 13289,
+ }</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/payments/22744 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+<pre class="highlight plaintext"><code>
+## Retrieving a single Payment
+
+&gt; Sample Request:
+
+```shell
+curl https://app.beyonic.com/api/payments/22744 -H "Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
