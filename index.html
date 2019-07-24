@@ -3748,7 +3748,7 @@ curl https://app.beyonic.com/api/payments/22744 -H "Authorization: Token ab594c1
 <span class="k">require_once</span><span class="p">(</span><span class="s1">'./lib/Beyonic.php'</span><span class="p">);</span>
 <span class="nx">Beyonic</span><span class="o">::</span><span class="na">setApiKey</span><span class="p">(</span><span class="s2">"ab594c14986612f6167a975e1c369e71edab6900"</span><span class="p">);</span>
 
-<span class="nv">$account</span> <span class="o">=</span> <span class="nx">Beyonic_Currency</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="mi">15</span><span class="p">);</span>
+<span class="nv">$account</span> <span class="o">=</span> <span class="nx">Beyonic_Network</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="mi">15</span><span class="p">);</span>
 <span class="cp">?&gt;</span>
 </code></pre><pre class="highlight python"><code><span class="kn">import</span> <span class="nn">beyonic</span>
 <span class="n">beyonic</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="s">'ab594c14986612f6167a975e1c369e71edab6900'</span>
@@ -3763,7 +3763,7 @@ curl https://app.beyonic.com/api/payments/22744 -H "Authorization: Token ab594c1
 <span class="kn">import</span> <span class="nn">java.net.URL</span><span class="o">;</span>
 
 
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SingleCurrencyExample</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SingleNetworkExample</span> <span class="o">{</span>
 
     <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">API_ENDPOINT</span> <span class="o">=</span> <span class="s">"https://app.beyonic.com/api/networks"</span><span class="o">;</span>
     <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">API_KEY</span> <span class="o">=</span> <span class="s">"ab594c14986612f6167a975e1c369e71edab6900"</span><span class="o">;</span>
@@ -3854,7 +3854,7 @@ curl https://app.beyonic.com/api/payments/22744 -H "Authorization: Token ab594c1
 <span class="k">require_once</span><span class="p">(</span><span class="s1">'./lib/Beyonic.php'</span><span class="p">);</span>
 <span class="nx">Beyonic</span><span class="o">::</span><span class="na">setApiKey</span><span class="p">(</span><span class="s2">"ab594c14986612f6167a975e1c369e71edab6900"</span><span class="p">);</span>
 
-<span class="nv">$accounts</span> <span class="o">=</span> <span class="nx">Beyonic_Currency</span><span class="o">::</span><span class="na">getAll</span><span class="p">();</span>
+<span class="nv">$accounts</span> <span class="o">=</span> <span class="nx">Beyonic_Network</span><span class="o">::</span><span class="na">getAll</span><span class="p">();</span>
 <span class="cp">?&gt;</span>
 </code></pre><pre class="highlight python"><code><span class="kn">import</span> <span class="nn">beyonic</span>
 <span class="n">beyonic</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="s">'ab594c14986612f6167a975e1c369e71edab6900'</span>
