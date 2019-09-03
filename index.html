@@ -871,6 +871,24 @@ payments or collection requests.</p>
 <li><em>currency</em> field now contains the currency code, not the currency ID, in the Collections method</li>
 </ul>
 
+<p>v3 - September 2016</p>
+
+<ul>
+<li><em>collection_request</em> field on Collections object now return the expanded collection request object, not just the collection request id</li>
+</ul>
+
+<p>v4 - May 2017</p>
+
+<ul>
+<li>Added <em>transaction</em> field to Collections object. It contains the expanded transaction object for the collection</li>
+</ul>
+
+<p>v5 - July 2017</p>
+
+<ul>
+<li><em>phone_nos</em> field on Payment object now contains more data about each phone number within the payment including amount status and any errors (only for payments that have more than one phone number attached to them)</li>
+</ul>
+
           <h1 id="receiving-money">Receiving Money</h1>
 
 <h1 id="introduction">Introduction</h1>
@@ -1913,19 +1931,121 @@ payments or collection requests.</p>
 <p>Sample Collection Object (JSON):</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">230</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"remote_transaction_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12132"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"organization"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20.0000"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BXC"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"phonenumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+80000000001"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"payment_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-12-12T00:00:00Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"reference"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"successful"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-01T16:49:48Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-08-01T16:55:38Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"updated_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+   </span><span class="nt">"remote_transaction_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"a9011942a8a9b669be6a05da411d9da2"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"created"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-07-26T09:28:25Z"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"organization"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"reference"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"transaction"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"fee_transaction"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"account"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nt">"author"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"low_balance_threshold"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"organization"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"status"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"created"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-08-06T17:09:13Z"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"updated_by"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"label"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Test currency"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"description"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Test currency"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"low_balance_notification_last_send_time"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">2874303</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"modified"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-08-06T17:09:13Z"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"currency"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"created"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-07-26T09:28:24.993743Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"description"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Incoming payment from +80000000011"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">2797147</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"amount"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1000.0000"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"type"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"mobile_collection"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"currency"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"BXC"</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="nt">"modified"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-07-26T09:28:25Z"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"payment_date"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-07-26T09:28:25Z"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"collection_request"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"subscription_settings"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"instructions"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Thank you for making a test credit purchase request. Please check your credit balance in 'Payment Options' menu on the app after completing your purchase."</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"created"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-07-26T09:28:24Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"success_message"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1000 test credit successfully purchased"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"organization"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"retry_interval_minutes"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"send_instructions"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"modified"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-07-26T09:28:25Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"max_attempts"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"start_date"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11 21:11:13.702766+00:00"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"error_details"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"phonenumber"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"+80000000011"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"updated_by"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">134</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"account"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"status"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"successful"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"expiry_date"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-10-03 06:15:55.722862+00:00"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"collection"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">131820</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"author"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">134</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"currency"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"BXC"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"error_message"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"reason"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"contact"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nt">"email"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"phone_number"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"+80000000011"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"last_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Doe"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"modified"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-26T08:21:15Z"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"type"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"employee"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"organization"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"network_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"created"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-06-17T14:43:57Z"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"phone_is_mm_registered"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"yes"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"metadata"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"s_contact4partner_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"s_contact4gender"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"s_contact4age"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+         </span><span class="p">},</span><span class="w">
+         </span><span class="nt">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">219912</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"phone_is_supported"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"yes"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"first_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"John"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"author"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">134</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"name_on_network"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"John Doe"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"status"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"updated_by"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">134</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"name_matches_network_score"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"name_matches_network_status"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"checked"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"metadata"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nt">"amount"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1000"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"user_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"212407165802199720"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">86296</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"amount"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1000.0000"</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="nt">"phonenumber"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"+80000000011"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"updated_by"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"status"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"successful"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"author"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"currency"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"BXC"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"contact"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"name_matches_network_status"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"checked"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"status"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"updated_by"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">134</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"name_matches_network_score"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"name_on_network"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"John Doe"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"author"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">134</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"first_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"John"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">219912</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"metadata"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nt">"s_contact4gender"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"s_contact4partner_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"s_contact4age"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"phone_is_supported"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"yes"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"phone_is_mm_registered"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"yes"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"network_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"created"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-06-17T14:43:57Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"organization"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"type"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"employee"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"modified"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-26T08:21:15Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"last_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Doe"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"email"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"phone_number"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"+80000000011"</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="nt">"amount"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1000.0000"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">131820</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <table><thead>
@@ -2004,6 +2124,11 @@ payments or collection requests.</p>
 <td>collection_request</td>
 <td>JSON string</td>
 <td><em>New in V3.</em> A JSON representation of the collection request that this collection was matched to, if any. Before V3, this was simply the id of the collection request object. In V3. It&rsquo;s an expanded representation of the collection request object.</td>
+</tr>
+<tr>
+<td>transaction</td>
+<td>JSON string</td>
+<td><em>New in V4.</em> A JSON representation of the transaction that added funds to the organization account when this collection was received.</td>
 </tr>
 </tbody></table>
 
@@ -2182,39 +2307,121 @@ REJECT ASCD1234 Wrong Account Number.
 <p>Sample Response (JSON) - if you use one of the development libraries, this is automatically converted into a native object for you:</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">131820</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"remote_transaction_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12132"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"organization"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"200.0000"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BXC"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"phonenumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+254722000000"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"payment_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-09-21T08:55:54Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"reference"</span><span class="p">:</span><span class="w"> </span><span class="s2">"98989"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"successful"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-09-21T08:56:18Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-09-21T09:07:13Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"updated_by"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"collection_request"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"organization"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"200.0000"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BXC"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"phonenumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+254722000000"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test payment"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
-        </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-09-21T08:52:54Z"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-09-21T09:04:14Z"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"updated_by"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"collection"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"success_message"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"instructions"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"send_instructions"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"successful"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"error_message"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"error_details"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
-    </span><span class="p">}</span><span class="w">
+   </span><span class="nt">"remote_transaction_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"a9011942a8a9b669be6a05da411d9da2"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"created"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-07-26T09:28:25Z"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"organization"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"reference"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"transaction"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"fee_transaction"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"account"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nt">"author"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"low_balance_threshold"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"organization"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"status"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"created"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-08-06T17:09:13Z"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"updated_by"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"label"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Test currency"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"description"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Test currency"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"low_balance_notification_last_send_time"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">2874303</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"modified"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-08-06T17:09:13Z"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"currency"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"created"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-07-26T09:28:24.993743Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"description"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Incoming payment from +80000000011"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">2797147</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"amount"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1000.0000"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"type"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"mobile_collection"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"currency"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"BXC"</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="nt">"modified"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-07-26T09:28:25Z"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"payment_date"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-07-26T09:28:25Z"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"collection_request"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"subscription_settings"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"instructions"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Thank you for making a test credit purchase request. Please check your credit balance in 'Payment Options' menu on the app after completing your purchase."</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"created"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-07-26T09:28:24Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"success_message"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1000 test credit successfully purchased"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"organization"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"retry_interval_minutes"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"send_instructions"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"modified"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-07-26T09:28:25Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"max_attempts"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"start_date"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-11 21:11:13.702766+00:00"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"error_details"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"phonenumber"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"+80000000011"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"updated_by"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">134</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"account"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"status"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"successful"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"expiry_date"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-10-03 06:15:55.722862+00:00"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"collection"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">131820</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"author"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">134</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"currency"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"BXC"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"error_message"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"reason"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"contact"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nt">"email"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"phone_number"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"+80000000011"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"last_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Doe"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"modified"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-26T08:21:15Z"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"type"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"employee"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"organization"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"network_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"created"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-06-17T14:43:57Z"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"phone_is_mm_registered"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"yes"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"metadata"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"s_contact4partner_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"s_contact4gender"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"s_contact4age"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+         </span><span class="p">},</span><span class="w">
+         </span><span class="nt">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">219912</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"phone_is_supported"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"yes"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"first_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"John"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"author"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">134</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"name_on_network"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"John Doe"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"status"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"updated_by"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">134</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"name_matches_network_score"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"name_matches_network_status"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"checked"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"metadata"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nt">"amount"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1000"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"user_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"212407165802199720"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">86296</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"amount"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1000.0000"</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="nt">"phonenumber"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"+80000000011"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"updated_by"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"status"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"successful"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"author"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"currency"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"BXC"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"contact"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"name_matches_network_status"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"checked"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"status"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"updated_by"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">134</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"name_matches_network_score"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"name_on_network"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"John Doe"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"author"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">134</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"first_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"John"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">219912</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"metadata"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nt">"s_contact4gender"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"s_contact4partner_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"s_contact4age"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"phone_is_supported"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"yes"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"phone_is_mm_registered"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"yes"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"network_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"created"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-06-17T14:43:57Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"organization"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"type"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"employee"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"modified"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-26T08:21:15Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"last_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Doe"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"email"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"phone_number"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"+80000000011"</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="nt">"amount"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1000.0000"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">131820</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>To retrieve a single collection object, provide the collection id and a collection object will be returned.</p>
@@ -2696,8 +2903,8 @@ REJECT ASCD1234 Wrong Account Number.
 </tr>
 <tr>
 <td>phone_nos</td>
-<td>list</td>
-<td>A list of phone numbers that this payment was sent to</td>
+<td>dictionary</td>
+<td>A dictionary of phone numbers that this payment was sent to and the amounts sent to each number <strong>New in v5</strong> Before v5, this was a list of phone numbers only</td>
 </tr>
 <tr>
 <td>start_date</td>
@@ -2923,32 +3130,48 @@ REJECT ASCD1234 Wrong Account Number.
 <blockquote>
 <p>Sample Response (JSON) - if you use one of the development libraries, this is automatically converted into a native object for you:</p>
 </blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3620</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"organization"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BXC"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"account"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"payment_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"money"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lucy"</span><span class="p">},</span><span class="w">
-    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Per diem payment"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"phone_nos"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"+80000000001"</span><span class="p">],</span><span class="w">
-    </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"new"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"last_error"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"rejected_reason"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"rejected_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"rejected_time"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"cancelled_reason"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"cancelled_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"cancelled_time"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.017Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.018Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"updated_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.018Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"remote_transaction_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"charged_fee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-</span><span class="p">}</span><span class="w">
+<pre class="highlight json"><code><span class="w">
+   </span><span class="s2">"cancelled_time"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="kc">null</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"start_date"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="s2">"2016-03-31T08:08:01Z"</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"id"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="mi">22744</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"modified"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="s2">"2018-02-13T06:02:20Z"</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"phone_nos"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+         </span><span class="nt">"metadata"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"amount"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1200.0000"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"last_error"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Recipient mobile money readiness checks failed.+256773712831"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"state"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"error"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"contact"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2978"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"batch_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">437751</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"description"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Per diem"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"phonenumber"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"+80000000001"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"payment_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">123209</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+   </span><span class="p">]</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"organization"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="mi">4</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"author"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="mi">134</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"created"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="s2">"2016-03-31T08:08:01Z"</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"send_sms_message"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="kc">false</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"updated_by"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="mi">134</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"rejected_time"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="kc">null</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"metadata"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"s_batchpaymentschedule4123"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+   </span><span class="p">}</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"remote_transaction_id"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="kc">null</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"cancelled_by"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="kc">null</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"charged_fee"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="mi">0</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"account"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="mi">48</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"cancelled_reason"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="kc">null</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"transactions"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="p">[]</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"rejected_by"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="kc">null</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"description"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="s2">"Per diem"</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"currency"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="s2">"UGX"</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"amount"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="s2">"1200.00"</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"rejected_reason"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="kc">null</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"payment_type"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="s2">"money"</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"last_error"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="s2">"Last Error: System error. - Recipient mobile money readiness checks failed.+256773712831"</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"state"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="s2">"processed_with_errors"</span><span class="w">
+</span><span class="err">}</span><span class="w">
 </span></code></pre>
 <p>To create a new payment, make a POST to the end point above, with the attributes below.</p>
 
@@ -3171,37 +3394,52 @@ The rest of the fields are optional.</p>
 
 <blockquote>
 <p>The following is a sample response
-&ldquo;`json
-{
-    &quot;account&rdquo;: 98,
-    &ldquo;amount&rdquo;: &ldquo;0.00&rdquo;,
-    &ldquo;author&rdquo;: 13289,
-    &ldquo;cancelled_by&rdquo;: None,
-    &ldquo;cancelled_reason&rdquo;: None,
-    &ldquo;cancelled_time&rdquo;: None,
-    &ldquo;charged_fee&rdquo;: 0,
-    &ldquo;created&rdquo;: &ldquo;2019-07-08T22:12:39.173057Z&rdquo;,
-    &ldquo;currency&rdquo;: &ldquo;KES&rdquo;,
-    &ldquo;description&rdquo;: &ldquo;Test response on mutiples&rdquo;,
-    &ldquo;id&rdquo;: 3837303,
-    &ldquo;last_error&rdquo;: &ldquo;&rdquo;,
-     &ldquo;metadata&rdquo;: {},
-     &ldquo;modified&rsquo;: &quot;2019-07-08T22:12:39.173119Z&rdquo;,
-     &ldquo;organization&rdquo;: 1,
-     &ldquo;payment_type&rdquo;: &ldquo;money&rdquo;,
-     &ldquo;phone_nos&rdquo;: [&ldquo;+254739936708&rdquo;, &ldquo;+254727447101&rdquo;],
-     &ldquo;rejected_by&rdquo;: None,
-     &ldquo;rejected_reason&rdquo;: None,
-     &ldquo;rejected_time&rdquo;: None,
-     &ldquo;remote_transaction_id&rdquo;: None,
-     &ldquo;send_sms_message&rdquo;: False,
-     &ldquo;start_date&rdquo;: &ldquo;2019-07-08T22:12:39.161414Z&rdquo;,
-     &ldquo;state&rdquo;: &ldquo;new&rdquo;,
-     &ldquo;transactions&rdquo;: [],
-     &ldquo;updated_by&rdquo;: 13289,
- }</p>
+&ldquo;`json</p>
 </blockquote>
+
+<p>&quot;cancelled_time&rdquo; : null,
+   &ldquo;start_date&rdquo; : &ldquo;2016-03-31T08:08:01Z&rdquo;,
+   &ldquo;id&rdquo; : 22744,
+   &ldquo;modified&rdquo; : &ldquo;2018-02-13T06:02:20Z&rdquo;,
+   &ldquo;phone_nos&rdquo; : [
+      {
+         &ldquo;metadata&rdquo; : null,
+         &ldquo;amount&rdquo; : &ldquo;1200.0000&rdquo;,
+         &ldquo;last_error&rdquo; : &ldquo;Recipient mobile money readiness checks failed.+256773712831&rdquo;,
+         &ldquo;state&rdquo; : &ldquo;error&rdquo;,
+         &ldquo;contact&rdquo; : &ldquo;2978&rdquo;,
+         &ldquo;batch_id&rdquo; : 437751,
+         &ldquo;description&rdquo; : &ldquo;Per diem&rdquo;,
+         &ldquo;phonenumber&rdquo; : &ldquo;+256773712831&rdquo;,
+         &ldquo;payment_id&rdquo; : 123209
+      }
+   ],
+   &ldquo;organization&rdquo; : 4,
+   &ldquo;author&rdquo; : 134,
+   &ldquo;created&rdquo; : &ldquo;2016-03-31T08:08:01Z&rdquo;,
+   &ldquo;send_sms_message&rdquo; : false,
+   &ldquo;updated_by&rdquo; : 134,
+   &ldquo;rejected_time&rdquo; : null,
+   &ldquo;metadata&rdquo; : {
+      &ldquo;s_batchpaymentschedule4123&rdquo; : null
+   },
+   &ldquo;remote_transaction_id&rdquo; : null,
+   &ldquo;cancelled_by&rdquo; : null,
+   &ldquo;charged_fee&rdquo; : 0,
+   &ldquo;account&rdquo; : 48,
+   &ldquo;cancelled_reason&rdquo; : null,
+   &ldquo;transactions&rdquo; : [],
+   &ldquo;rejected_by&rdquo; : null,
+   &ldquo;description&rdquo; : &ldquo;Per diem&rdquo;,
+   &ldquo;currency&rdquo; : &ldquo;UGX&rdquo;,
+   &ldquo;amount&rdquo; : &ldquo;1200.00&rdquo;,
+   &ldquo;rejected_reason&rdquo; : null,
+   &ldquo;payment_type&rdquo; : &ldquo;money&rdquo;,
+   &ldquo;last_error&rdquo; : &ldquo;Last Error: System error. - Recipient mobile money readiness checks failed.+256773712831&rdquo;,
+   &ldquo;state&rdquo; : &ldquo;processed_with_errors&rdquo;
+}</p>
 <pre class="highlight plaintext"><code>
+
 ## Retrieving a single Payment
 
 &gt; Sample Request:
@@ -3279,31 +3517,48 @@ curl https://app.beyonic.com/api/payments/22744 -H "Authorization: Token ab594c1
 <blockquote>
 <p>Sample Response (JSON) - if you use one of the development libraries, this is automatically converted into a native object for you:</p>
 </blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">22744</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"organization"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1200.0000"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BXC"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"account"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"payment_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"money"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lucy"</span><span class="p">},</span><span class="w">
-    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Per diem payment"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"phone_nos"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"+80000000001"</span><span class="p">],</span><span class="w">
-    </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"new"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"last_error"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"rejected_reason"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"rejected_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"rejected_time"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"cancelled_reason"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"cancelled_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"cancelled_time"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"created"</span><span class="p">:</span><span class="s2">"2016-03-31T08:08:01Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"author"</span><span class="p">:</span><span class="mi">134</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"modified"</span><span class="p">:</span><span class="s2">"2016-03-31T08:08:45Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"updated_by"</span><span class="p">:</span><span class="mi">134</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"start_date"</span><span class="p">:</span><span class="s2">"2016-03-31T08:08:01Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"charged_fee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-</span><span class="p">}</span><span class="w">
+<pre class="highlight json"><code><span class="w">
+   </span><span class="s2">"cancelled_time"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="kc">null</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"start_date"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="s2">"2016-03-31T08:08:01Z"</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"id"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="mi">22744</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"modified"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="s2">"2018-02-13T06:02:20Z"</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"phone_nos"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+         </span><span class="nt">"metadata"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"amount"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1200.0000"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"last_error"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Recipient mobile money readiness checks failed.+256773712831"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"state"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"error"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"contact"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2978"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"batch_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">437751</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"description"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Per diem"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"phonenumber"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"+256773712831"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"payment_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">123209</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+   </span><span class="p">]</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"organization"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="mi">4</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"author"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="mi">134</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"created"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="s2">"2016-03-31T08:08:01Z"</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"send_sms_message"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="kc">false</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"updated_by"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="mi">134</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"rejected_time"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="kc">null</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"metadata"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"s_batchpaymentschedule4123"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+   </span><span class="p">}</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"remote_transaction_id"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="kc">null</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"cancelled_by"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="kc">null</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"charged_fee"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="mi">0</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"account"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="mi">48</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"cancelled_reason"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="kc">null</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"transactions"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="p">[]</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"rejected_by"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="kc">null</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"description"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="s2">"Per diem"</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"currency"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="s2">"UGX"</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"amount"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="s2">"1200.00"</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"rejected_reason"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="kc">null</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"payment_type"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="s2">"money"</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"last_error"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="s2">"Last Error: System error. - Recipient mobile money readiness checks failed.+256773712831"</span><span class="err">,</span><span class="w">
+   </span><span class="s2">"state"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="s2">"processed_with_errors"</span><span class="w">
+</span><span class="err">}</span><span class="w">
 </span></code></pre>
 <p>To retrieve a single payment object, provide the payment id and a payment object will be returned.</p>
 
