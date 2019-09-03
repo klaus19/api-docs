@@ -2832,31 +2832,46 @@ REJECT ASCD1234 Wrong Account Number.
 <p>Sample Payment Object (JSON):</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3620</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"organization"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BXC"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"account"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"payment_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"money"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lucy"</span><span class="p">},</span><span class="w">
-    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Per diem payment"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"phone_nos"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"+80000000001"</span><span class="p">],</span><span class="w">
-    </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"new"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"last_error"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"rejected_reason"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"rejected_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"rejected_time"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"cancelled_reason"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"cancelled_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"cancelled_time"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.017Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.018Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"updated_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-22T20:57:04.018Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"remote_transaction_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"send_sms_message"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"charged_fee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+   </span><span class="nt">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">22744</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"cancelled_time"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"start_date"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-03-31T08:08:01Z"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"modified"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-13T06:02:20Z"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"phone_nos"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+         </span><span class="nt">"metadata"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"amount"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1200.0000"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"last_error"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Recipient mobile money readiness checks failed.+256773712831"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"state"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"error"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"contact"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2978"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"batch_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">437751</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"description"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Per diem"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"phonenumber"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"+256773712831"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"payment_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">123209</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+   </span><span class="p">],</span><span class="w">
+   </span><span class="nt">"organization"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"author"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">134</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"created"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-03-31T08:08:01Z"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"send_sms_message"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"updated_by"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">134</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"rejected_time"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"metadata"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"s_batchpaymentschedule4123"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="nt">"remote_transaction_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"cancelled_by"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"charged_fee"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"account"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">48</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"cancelled_reason"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"transactions"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+   </span><span class="nt">"rejected_by"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"description"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Per diem"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"currency"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"UGX"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"amount"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1200.00"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"rejected_reason"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"payment_type"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"money"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"last_error"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Last Error: System error. - Recipient mobile money readiness checks failed.+256773712831"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"state"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"processed_with_errors"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <table><thead>
@@ -3130,12 +3145,12 @@ REJECT ASCD1234 Wrong Account Number.
 <blockquote>
 <p>Sample Response (JSON) - if you use one of the development libraries, this is automatically converted into a native object for you:</p>
 </blockquote>
-<pre class="highlight json"><code><span class="w">
-   </span><span class="s2">"cancelled_time"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="kc">null</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"start_date"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="s2">"2016-03-31T08:08:01Z"</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"id"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="mi">22744</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"modified"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="s2">"2018-02-13T06:02:20Z"</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"phone_nos"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+   </span><span class="nt">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">22744</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"cancelled_time"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"start_date"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-03-31T08:08:01Z"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"modified"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-13T06:02:20Z"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"phone_nos"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
       </span><span class="p">{</span><span class="w">
          </span><span class="nt">"metadata"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
          </span><span class="nt">"amount"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1200.0000"</span><span class="p">,</span><span class="w">
@@ -3144,34 +3159,34 @@ REJECT ASCD1234 Wrong Account Number.
          </span><span class="nt">"contact"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2978"</span><span class="p">,</span><span class="w">
          </span><span class="nt">"batch_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">437751</span><span class="p">,</span><span class="w">
          </span><span class="nt">"description"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Per diem"</span><span class="p">,</span><span class="w">
-         </span><span class="nt">"phonenumber"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"+80000000001"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"phonenumber"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"+256773712831"</span><span class="p">,</span><span class="w">
          </span><span class="nt">"payment_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">123209</span><span class="w">
       </span><span class="p">}</span><span class="w">
-   </span><span class="p">]</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"organization"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="mi">4</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"author"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="mi">134</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"created"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="s2">"2016-03-31T08:08:01Z"</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"send_sms_message"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="kc">false</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"updated_by"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="mi">134</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"rejected_time"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="kc">null</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"metadata"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+   </span><span class="p">],</span><span class="w">
+   </span><span class="nt">"organization"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"author"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">134</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"created"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-03-31T08:08:01Z"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"send_sms_message"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"updated_by"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">134</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"rejected_time"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"metadata"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nt">"s_batchpaymentschedule4123"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
-   </span><span class="p">}</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"remote_transaction_id"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="kc">null</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"cancelled_by"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="kc">null</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"charged_fee"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="mi">0</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"account"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="mi">48</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"cancelled_reason"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="kc">null</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"transactions"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="p">[]</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"rejected_by"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="kc">null</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"description"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="s2">"Per diem"</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"currency"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="s2">"UGX"</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"amount"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="s2">"1200.00"</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"rejected_reason"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="kc">null</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"payment_type"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="s2">"money"</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"last_error"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="s2">"Last Error: System error. - Recipient mobile money readiness checks failed.+256773712831"</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"state"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="s2">"processed_with_errors"</span><span class="w">
-</span><span class="err">}</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="nt">"remote_transaction_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"cancelled_by"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"charged_fee"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"account"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">48</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"cancelled_reason"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"transactions"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+   </span><span class="nt">"rejected_by"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"description"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Per diem"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"currency"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"UGX"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"amount"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1200.00"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"rejected_reason"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"payment_type"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"money"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"last_error"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Last Error: System error. - Recipient mobile money readiness checks failed.+256773712831"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"state"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"processed_with_errors"</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>To create a new payment, make a POST to the end point above, with the attributes below.</p>
 
@@ -3394,58 +3409,58 @@ The rest of the fields are optional.</p>
 
 <blockquote>
 <p>The following is a sample response
-&ldquo;`json</p>
-</blockquote>
-
-<p>&quot;cancelled_time&rdquo; : null,
-   &ldquo;start_date&rdquo; : &ldquo;2016-03-31T08:08:01Z&rdquo;,
-   &ldquo;id&rdquo; : 22744,
-   &ldquo;modified&rdquo; : &ldquo;2018-02-13T06:02:20Z&rdquo;,
-   &ldquo;phone_nos&rdquo; : [
+<code class="prettyprint">json
+{
+   &quot;id&quot; : 22744,
+   &quot;cancelled_time&quot; : null,
+   &quot;start_date&quot; : &quot;2016-03-31T08:08:01Z&quot;,
+   &quot;modified&quot; : &quot;2018-02-13T06:02:20Z&quot;,
+   &quot;phone_nos&quot; : [
       {
-         &ldquo;metadata&rdquo; : null,
-         &ldquo;amount&rdquo; : &ldquo;1200.0000&rdquo;,
-         &ldquo;last_error&rdquo; : &ldquo;Recipient mobile money readiness checks failed.+256773712831&rdquo;,
-         &ldquo;state&rdquo; : &ldquo;error&rdquo;,
-         &ldquo;contact&rdquo; : &ldquo;2978&rdquo;,
-         &ldquo;batch_id&rdquo; : 437751,
-         &ldquo;description&rdquo; : &ldquo;Per diem&rdquo;,
-         &ldquo;phonenumber&rdquo; : &ldquo;+256773712831&rdquo;,
-         &ldquo;payment_id&rdquo; : 123209
+         &quot;metadata&quot; : null,
+         &quot;amount&quot; : &quot;1200.0000&quot;,
+         &quot;last_error&quot; : &quot;Recipient mobile money readiness checks failed.+256773712831&quot;,
+         &quot;state&quot; : &quot;error&quot;,
+         &quot;contact&quot; : &quot;2978&quot;,
+         &quot;batch_id&quot; : 437751,
+         &quot;description&quot; : &quot;Per diem&quot;,
+         &quot;phonenumber&quot; : &quot;+256773712831&quot;,
+         &quot;payment_id&quot; : 123209
       }
    ],
-   &ldquo;organization&rdquo; : 4,
-   &ldquo;author&rdquo; : 134,
-   &ldquo;created&rdquo; : &ldquo;2016-03-31T08:08:01Z&rdquo;,
-   &ldquo;send_sms_message&rdquo; : false,
-   &ldquo;updated_by&rdquo; : 134,
-   &ldquo;rejected_time&rdquo; : null,
-   &ldquo;metadata&rdquo; : {
-      &ldquo;s_batchpaymentschedule4123&rdquo; : null
+   &quot;organization&quot; : 4,
+   &quot;author&quot; : 134,
+   &quot;created&quot; : &quot;2016-03-31T08:08:01Z&quot;,
+   &quot;send_sms_message&quot; : false,
+   &quot;updated_by&quot; : 134,
+   &quot;rejected_time&quot; : null,
+   &quot;metadata&quot; : {
+      &quot;s_batchpaymentschedule4123&quot; : null
    },
-   &ldquo;remote_transaction_id&rdquo; : null,
-   &ldquo;cancelled_by&rdquo; : null,
-   &ldquo;charged_fee&rdquo; : 0,
-   &ldquo;account&rdquo; : 48,
-   &ldquo;cancelled_reason&rdquo; : null,
-   &ldquo;transactions&rdquo; : [],
-   &ldquo;rejected_by&rdquo; : null,
-   &ldquo;description&rdquo; : &ldquo;Per diem&rdquo;,
-   &ldquo;currency&rdquo; : &ldquo;UGX&rdquo;,
-   &ldquo;amount&rdquo; : &ldquo;1200.00&rdquo;,
-   &ldquo;rejected_reason&rdquo; : null,
-   &ldquo;payment_type&rdquo; : &ldquo;money&rdquo;,
-   &ldquo;last_error&rdquo; : &ldquo;Last Error: System error. - Recipient mobile money readiness checks failed.+256773712831&rdquo;,
-   &ldquo;state&rdquo; : &ldquo;processed_with_errors&rdquo;
-}</p>
-<pre class="highlight plaintext"><code>
+   &quot;remote_transaction_id&quot; : null,
+   &quot;cancelled_by&quot; : null,
+   &quot;charged_fee&quot; : 0,
+   &quot;account&quot; : 48,
+   &quot;cancelled_reason&quot; : null,
+   &quot;transactions&quot; : [],
+   &quot;rejected_by&quot; : null,
+   &quot;description&quot; : &quot;Per diem&quot;,
+   &quot;currency&quot; : &quot;UGX&quot;,
+   &quot;amount&quot; : &quot;1200.00&quot;,
+   &quot;rejected_reason&quot; : null,
+   &quot;payment_type&quot; : &quot;money&quot;,
+   &quot;last_error&quot; : &quot;Last Error: System error. - Recipient mobile money readiness checks failed.+256773712831&quot;,
+   &quot;state&quot; : &quot;processed_with_errors&quot;
+}
+</code></p>
+</blockquote>
 
-## Retrieving a single Payment
+<h2 id="retrieving-a-single-payment">Retrieving a single Payment</h2>
 
-&gt; Sample Request:
-
-```shell
-curl https://app.beyonic.com/api/payments/22744 -H "Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"
+<blockquote>
+<p>Sample Request:</p>
+</blockquote>
+<pre class="highlight shell"><code>curl https://app.beyonic.com/api/payments/22744 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
@@ -3517,12 +3532,12 @@ curl https://app.beyonic.com/api/payments/22744 -H "Authorization: Token ab594c1
 <blockquote>
 <p>Sample Response (JSON) - if you use one of the development libraries, this is automatically converted into a native object for you:</p>
 </blockquote>
-<pre class="highlight json"><code><span class="w">
-   </span><span class="s2">"cancelled_time"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="kc">null</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"start_date"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="s2">"2016-03-31T08:08:01Z"</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"id"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="mi">22744</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"modified"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="s2">"2018-02-13T06:02:20Z"</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"phone_nos"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+   </span><span class="nt">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">22744</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"cancelled_time"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"start_date"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-03-31T08:08:01Z"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"modified"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-13T06:02:20Z"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"phone_nos"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
       </span><span class="p">{</span><span class="w">
          </span><span class="nt">"metadata"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
          </span><span class="nt">"amount"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1200.0000"</span><span class="p">,</span><span class="w">
@@ -3534,31 +3549,31 @@ curl https://app.beyonic.com/api/payments/22744 -H "Authorization: Token ab594c1
          </span><span class="nt">"phonenumber"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"+256773712831"</span><span class="p">,</span><span class="w">
          </span><span class="nt">"payment_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">123209</span><span class="w">
       </span><span class="p">}</span><span class="w">
-   </span><span class="p">]</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"organization"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="mi">4</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"author"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="mi">134</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"created"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="s2">"2016-03-31T08:08:01Z"</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"send_sms_message"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="kc">false</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"updated_by"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="mi">134</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"rejected_time"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="kc">null</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"metadata"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+   </span><span class="p">],</span><span class="w">
+   </span><span class="nt">"organization"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"author"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">134</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"created"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-03-31T08:08:01Z"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"send_sms_message"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"updated_by"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">134</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"rejected_time"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"metadata"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nt">"s_batchpaymentschedule4123"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
-   </span><span class="p">}</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"remote_transaction_id"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="kc">null</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"cancelled_by"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="kc">null</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"charged_fee"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="mi">0</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"account"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="mi">48</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"cancelled_reason"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="kc">null</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"transactions"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="p">[]</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"rejected_by"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="kc">null</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"description"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="s2">"Per diem"</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"currency"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="s2">"UGX"</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"amount"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="s2">"1200.00"</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"rejected_reason"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="kc">null</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"payment_type"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="s2">"money"</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"last_error"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="s2">"Last Error: System error. - Recipient mobile money readiness checks failed.+256773712831"</span><span class="err">,</span><span class="w">
-   </span><span class="s2">"state"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="s2">"processed_with_errors"</span><span class="w">
-</span><span class="err">}</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="nt">"remote_transaction_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"cancelled_by"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"charged_fee"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"account"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">48</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"cancelled_reason"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"transactions"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+   </span><span class="nt">"rejected_by"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"description"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Per diem"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"currency"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"UGX"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"amount"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1200.00"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"rejected_reason"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"payment_type"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"money"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"last_error"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Last Error: System error. - Recipient mobile money readiness checks failed.+256773712831"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"state"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"processed_with_errors"</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>To retrieve a single payment object, provide the payment id and a payment object will be returned.</p>
 
