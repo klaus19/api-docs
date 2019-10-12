@@ -1367,14 +1367,14 @@ payments or collection requests.</p>
 <td>NO</td>
 <td>Integer</td>
 <td>40</td>
-<td>Used to retry a collection request after certain interval in minutes if a collection request isn’t yet handled or failed or expired.<strong>Note:</strong>: The retry is upto a maximum of five times and value for retry_interval_minutes cannot be less than 30.</td>
+<td>Used to retry a collection request after certain interval in minutes if a collection request isn’t yet handled or failed or expired.<strong>Note:</strong>: The value for retry_interval_minutes cannot be less than 10.</td>
 </tr>
 <tr>
 <td>max_attempts</td>
 <td>NO</td>
 <td>Integer</td>
 <td>3</td>
-<td>Used to specify how many times a retry should be attempted. Defaults to 5. Max allowed value is 5 times. Set to 0 to disable these configurable retries. (Note that Beyonic also does automatic retries in some cases, that are not configurable)</td>
+<td>Used to specify how many times a retry should be attempted. Defaults to 3. Max allowed value is 3 times. Set to 0 to disable these configurable retries. (Note that Beyonic also does automatic retries in some cases, that are not configurable)</td>
 </tr>
 <tr>
 <td>subscription_settings</td>
