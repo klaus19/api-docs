@@ -847,6 +847,17 @@ payments or collection requests.</p>
 
 <p>By clicking on &ldquo;Recent Events&rdquo;, you will be able to see events and notification attempts, including the responses that Beyonic is getting from your notification server.</p>
 
+<h2 id="testing-in-postman">Testing in Postman</h2>
+
+<p><img src="https://www.getpostman.com/img/v2/logo-glyph.png" alt="Slate: API Documentation Generator" width="15"> <a href="https://app.getpostman.com/run-collection/4ca03f438eaff7e617f9">Run in postman</a></p>
+
+<p>A postman collection will be created with sample Beyonic API requests. Create an environment on postman by navigating to New &gt; Environment then create the variables below in the environment</p>
+
+<p><aside class="notice">api_url: https://app.beyonic.com/api</aside>
+    <aside class="notice">api_key: Your api token </aside></p>
+
+<p>Proceed to test the api requests in your postman collection.</p>
+
           <h1 id="changelog">Changelog</h1>
 
 <p>This section lists new versions and the changes made in those versions. Review these changes to decide whether you need to upgrade to the new version. Note that only backward incompatible changes are shown. See the <a href="#versioning">Versioning</a> section for more information on how to upgrade to a new version.</p>
@@ -3196,6 +3207,7 @@ REJECT ASCD1234 Wrong Account Number.
 <li>A contact is created for each new phone number you send payments to. This gives you the benefits of the pre-verification checks that are done prior to payment processing.</li>
 <li>If the contact isn&rsquo;t registered for mobile money, then the payment will not be sent.</li>
 <li><strong>Important</strong>: One of the pre-verification checks does a name match check to make sure that the contact name is right. This check can cause your payments to fail if the names that you are sending are not the same as the names in the telecom database. If you want to by-pass this check, go into your settings in your account and uncheck the checkbox that says &ldquo;Name match affects payment&rdquo;.</li>
+<li><strong>Important</strong>: For Kenyan payments, the verification is done using the national id of the contact. if you have the &ldquo;Name match affects payment&rdquo; setting turned on and you add national_id and national_id_type in your request, the telecom will use those to verify if you are paying the right recipient.</li>
 <li><strong>Important</strong>: The account and currency parameters are both optional but you must provide one of them. If you provide both them then the account&rsquo;s currency must match the currency parameter.</li>
 </ul>
 
@@ -3277,6 +3289,20 @@ REJECT ASCD1234 Wrong Account Number.
 <td>String</td>
 <td>Doe</td>
 <td>If this payment is to a new contact, you can include their last name. This name will only be used if the phone number is new.</td>
+</tr>
+<tr>
+<td>national_id</td>
+<td>No</td>
+<td>Integer</td>
+<td>1234</td>
+<td>The national id used to register the phone number with the telecom.You can include the national id for new and existing contacts.You must also set the national_id_type field if you include national_id field.</td>
+</tr>
+<tr>
+<td>national_id_type</td>
+<td>No</td>
+<td>String</td>
+<td>passport</td>
+<td>Please specify one of the following national_id_type for every national_id added:&#39;passport&rsquo; for passport type, &#39;military&rsquo; for military type or &#39;national&rsquo; for national id type.</td>
 </tr>
 <tr>
 <td>recipient_data</td>
@@ -3392,18 +3418,21 @@ https://app.beyonic.com/api/payments
 <span class="n">response</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Payment</span><span class="o">().</span><span class="na">create</span><span class="o">(</span><span class="n">mutiplePayments</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
 <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">response</span><span class="o">);</span>
 </code></pre>
-<p>Beyonic now supports creation of multiple payments via API. When multiple payments are created via one API call, they will all be part of the same payment schedule, making it easier for you to perform bulk operations such as approval. </p>
+<p>Beyonic now supports creation of multiple payments via API. When multiple payments are created via one API call, they will all be part of the same payment schedule, making it easier for you to perform bulk operations such as approval.</p>
 
-<p>To create a bulk payment, you have to include an extra field called &ldquo;recipient_data&rdquo; in the request payload. </p>
+<p>To create a bulk payment, you have to include an extra field called &ldquo;recipient_data&rdquo; in the request payload.</p>
 
-<p>recipient_data should be a list of dictionaries, each containing the following fields :
-    * first_name, 
+<p>recipient_data should be a list of dictionaries, each containing the following fields :</p>
+
+<p>* first_name, 
     * last_name, 
+    * national_id,
+    * national_id_type,
     * phonenumber, 
-    * amount 
+    * amount,
     * description</p>
 
-<p>Phonenumber is a mandatory field. 
+<p>Phonenumber is a mandatory field.
 Amount can be nullable, but if missing then it must be set in the main payload. In this case each user will be paid the same amount in the payload. If provided in the recipient_data dictionaries then each user will be paid the amounts specified in the recipient_data.
 The rest of the fields are optional.</p>
 
@@ -3464,6 +3493,39 @@ The rest of the fields are optional.</p>
    </span><span class="nt">"state"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"processed_with_errors"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
+<h2 id="sending-a-bank-payment">Sending a bank payment</h2>
+
+<p>To send a bank payment, you will have to include extra fields Below</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account_number</td>
+<td>long integer</td>
+<td>Account number of the customer in the bank</td>
+</tr>
+<tr>
+<td>account_name</td>
+<td>string</td>
+<td>The name of the account in the banks</td>
+</tr>
+<tr>
+<td>bank</td>
+<td>int</td>
+<td>The id of the bank in Beyonic. Retrieve it from the banks section above.</td>
+</tr>
+</tbody></table>
+
+<p>If the contact already exists just use the field below alone
+Field | Type | Description
+&mdash;&ndash; | &mdash;&ndash;| &mdash;-
+contact_bank_account | long integer | The id of the contact bank account in Beyonic. This can be retrieved from the contact object.</p>
+
 <h2 id="retrieving-a-single-payment">Retrieving a single Payment</h2>
 
 <blockquote>
@@ -4399,6 +4461,62 @@ The rest of the fields are optional.</p>
 <h2 id="filtering-networks">Filtering Networks</h2>
 
 <p>The network api doesn&rsquo;t currently support filtering</p>
+
+          <h1 id="banks">Banks</h1>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>This api allows the users to check which banks are supported by the Beyonic API.
+The API endpoint is <aside class="notice">https://app.beyonic.com/api/banks</aside></p>
+
+<h2 id="the-bank-object">The bank object</h2>
+
+<p>A sample bank object looks like This
+<code class="prettyprint">json
+{
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;BANK OF AFRICA-UGANDA LTD&quot;,
+            &quot;country&quot;: {
+                &quot;iso&quot;: &quot;UG&quot;,
+                &quot;iso3&quot;: &quot;&quot;,
+                &quot;iso_numeric&quot;: null,
+                &quot;name&quot;: &quot;Uganda&quot;,
+                &quot;printable_name&quot;: &quot;Uganda&quot;,
+                &quot;phone_prefix&quot;: &quot;+256&quot;,
+                &quot;supported&quot;: true
+            },
+            &quot;swift_code&quot;: null
+        }
+</code></p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>long integer</td>
+<td>Unique object identifier</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>The bank name</td>
+</tr>
+<tr>
+<td>country</td>
+<td>object</td>
+<td>Expanded country object</td>
+</tr>
+<tr>
+<td>swift_code</td>
+<td>string</td>
+<td>International swift code</td>
+</tr>
+</tbody></table>
 
           <h1 id="accounts">Accounts</h1>
 
