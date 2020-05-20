@@ -527,3 +527,22 @@ You can search or filter contacts on the following fields. Simply add them to yo
 * phone_number - the contact's phone number. Note that the phonenumber will be matched in international format, starting with a '+' sign. If the '+' sign isn't included in your request, it will be appended before attempting to match your request.
 * created_after - only return contacts created after this date (E.g. 2017-01-01 00:00)
 * created_before - only return contacts created before this date (E.g. 2017-01-01 00:00)
+
+## Instant contact verification - Synchronous
+> Sample Request:
+
+```shell
+curl https://app.beyonic.com/api/contacts -H "Authorization: Token ab594c14986612f6167a975e1c369e71edab6900" \
+-d first_name='John' \
+-d last_name='Doe' \
+-d phone_number='+80000000001' \
+-d email='john.doe@beyonic.com' \
+-d metadata.sync='1'
+```
+
+Instant contact verification API can be used to verify if a contact is the rightful owner. The API currently supports name verification for Uganda only, but we're working on national ID verification (available async at the moment for Kenya only) and various forms of biometric verification - in particular: fingerprint and facial recognition (not available yet even on async).
+
+To use this API:
+1) Add the keyword "sync" with a value of 1 or "1" to your contact metadata.
+1) Verification is done instantly, so when the API call returns, you'll have the validation data
+2) Verification data will include the full names + scoring information even if there is no match w/ the one you provided.
