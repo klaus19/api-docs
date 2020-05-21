@@ -540,9 +540,51 @@ curl https://app.beyonic.com/api/contacts -H "Authorization: Token ab594c1498661
 -d metadata.sync='1'
 ```
 
-Instant contact verification API can be used to verify if a contact is the rightful owner. The API currently supports name verification for Uganda only, but we're working on national ID verification (available async at the moment for Kenya only) and various forms of biometric verification - in particular: fingerprint and facial recognition (not available yet even on async).
+Sample Response (JSON)  
 
-To use this API:
+```json
+{
+    "id": 5523949,
+    "organization": 4,
+    "first_name": "John",
+    "last_name": "Doe",
+    "email": "john.doe@beyonic.com",
+    "phone_number": "+80000000001",
+    "type": "employee",
+    "status": "active",
+    "metadata": {
+        "sync": "1",
+        "s_contact4gender": null,
+        "s_contact4age": null,
+        "s_contact4partner_id": null,
+        "s_contact4tester": null,
+        "s_contact4another_one": null,
+        "s_contact4tested": null
+    },
+    "phone_is_supported": "yes",
+    "phone_is_mm_registered": "yes",
+    "name_on_network": "James Doe",
+    "name_matches_network_status": "checked",
+    "name_matches_network_score": 34.0,
+    "network_name": "",
+    "created": "2020-05-21T09:46:07Z",
+    "author": 4926,
+    "modified": "2020-05-21T09:46:10Z",
+    "updated_by": 4926,
+    "national_id": null,
+    "national_id_type": "national"
+}
+```
+
+Instant contact verification API can be used to verify the names of a contact from our third party connections.
+
+To use the API:
 1) Add the keyword "sync" with a value of 1 or "1" to your contact metadata.
-1) Verification is done instantly, so when the API call returns, you'll have the validation data
-2) Verification data will include the full names + scoring information even if there is no match w/ the one you provided.
+2) Use the contact read API if a contact already exists and  the contact creation API if it's a new contact.
+2) Verification is done instantly, so when the API call returns, you'll have the validation data.
+3) Verification data will include the full names + scoring information even if there is no match with the one you provided.
+
+**Note**: 
+* The API carries a charge, please contact support@beyonic.com for more info.
+* The api is available for Uganda only.
+* The sample requests provided won't work because +800 aren't real phone numbers. Please test with real phone numbers.
