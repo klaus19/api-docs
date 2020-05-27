@@ -528,7 +528,7 @@ You can search or filter contacts on the following fields. Simply add them to yo
 * created_after - only return contacts created after this date (E.g. 2017-01-01 00:00)
 * created_before - only return contacts created before this date (E.g. 2017-01-01 00:00)
 
-## Instant contact verification - Synchronous
+## Instant contact verification 
 > Sample Request:
 
 ```shell
@@ -578,13 +578,15 @@ Sample Response (JSON)
 
 Instant contact verification API can be used to verify the names of a contact from our third party connections.
 
+**Note**: 
+* The API carries a charge, please contact support@beyonic.com for more info.
+* The API is only supported in Uganda for the following networks: Airtel, Mtn and Msente.
+* The sample requests provided won't work because +800 aren't real phone numbers. Please test with real phone numbers.
+
 To use the API:
 1) Add the keyword "sync" with a value of 1 or "1" to your contact metadata.
 2) Use the contact read API if a contact already exists and  the contact creation API if it's a new contact.
-2) Verification is done instantly, so when the API call returns, you'll have the validation data.
-3) Verification data will include the full names + scoring information even if there is no match with the one you provided.
+3) Verification is done instantly, so when the API call returns, you'll have the validation data.
+4) Verification data will include the full names + scoring information even if there is no match with the one you provided.
 
-**Note**: 
-* The API carries a charge, please contact support@beyonic.com for more info.
-* The api is available for Uganda only.
-* The sample requests provided won't work because +800 aren't real phone numbers. Please test with real phone numbers.
+
