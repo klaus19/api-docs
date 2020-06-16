@@ -5839,6 +5839,64 @@ transactions.</p>
 <li>created_before - only return contacts created before this date (E.g. 2017-01-01 00:00)</li>
 </ul>
 
+<h2 id="instant-contact-verification">Instant contact verification</h2>
+
+<blockquote>
+<p>Sample Request:</p>
+</blockquote>
+<pre class="highlight shell"><code>curl https://app.beyonic.com/api/contacts -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span> <span class="se">\</span>
+-d <span class="nv">first_name</span><span class="o">=</span><span class="s1">'John'</span> <span class="se">\</span>
+-d <span class="nv">last_name</span><span class="o">=</span><span class="s1">'Doe'</span> <span class="se">\</span>
+-d <span class="nv">phone_number</span><span class="o">=</span><span class="s1">'+80000000001'</span> <span class="se">\</span>
+-d <span class="nv">email</span><span class="o">=</span><span class="s1">'john.doe@beyonic.com'</span> <span class="se">\</span>
+-d metadata.sync<span class="o">=</span><span class="s1">'1'</span>
+</code></pre>
+<p>Sample Response (JSON)  </p>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">5523949</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"organization"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Doe"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john.doe@beyonic.com"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"phone_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+80000000001"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"employee"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"sync"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"s_contact4gender"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"s_contact4age"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"s_contact4partner_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"s_contact4tester"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"s_contact4another_one"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"s_contact4tested"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"phone_is_supported"</span><span class="p">:</span><span class="w"> </span><span class="s2">"yes"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"phone_is_mm_registered"</span><span class="p">:</span><span class="w"> </span><span class="s2">"yes"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name_on_network"</span><span class="p">:</span><span class="w"> </span><span class="s2">"James Doe"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name_matches_network_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"checked"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name_matches_network_score"</span><span class="p">:</span><span class="w"> </span><span class="mf">34.0</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"network_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-05-21T09:46:07Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="mi">4926</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"modified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-05-21T09:46:10Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"updated_by"</span><span class="p">:</span><span class="w"> </span><span class="mi">4926</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"national_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"national_id_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"national"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Instant contact verification API can be used to verify the names of a contact from our third party connections.</p>
+
+<p><strong>Note</strong>: 
+* The API carries a charge, please contact support@beyonic.com for more info.
+* The API is only supported in Uganda for the following networks: Airtel, Mtn and Msente.
+* The sample requests provided won&rsquo;t work because +800 aren&rsquo;t real phone numbers. Please test with real phone numbers.</p>
+
+<p>To use the API:
+1) Add the keyword &ldquo;sync&rdquo; with a value of 1 or &ldquo;1&rdquo; to your contact metadata.
+2) Use the contact read API if a contact already exists and  the contact creation API if it&rsquo;s a new contact.
+3) Verification is done instantly, so when the API call returns, you&rsquo;ll have the validation data.
+4) Verification data will include the full names + scoring information even if there is no match with the one you provided.</p>
+
           <h1 id="events">Events</h1>
 
 <h2 id="introduction">Introduction</h2>
