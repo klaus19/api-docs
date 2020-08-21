@@ -159,7 +159,7 @@
 <li><a href="https://app.beyonic.com/signup/">Sign Up</a> for a Beyonic account.</li>
 <li><a href="https://app.beyonic.com/">Login</a> and get your API Token by clicking your user name on the bottom left of the left sidebar menu and selecting &lsquo;Manage my account&rsquo; from the dropdown menu. The API Token is shown at the very bottom of the page.</li>
 <li>Download the appropriate client library from links in the &ldquo;Libraries&rdquo; section of this reference.</li>
-<li>Using your API token and the library, connect to the API endpoint: https://app.beyonic.com/api</li>
+<li>Using your API token and the library, connect to the API endpoint: https://api.beyonic.com/api</li>
 <li>Identify the methods you need to use. See the &ldquo;Methods&rdquo; section of this reference.</li>
 <li>Profit!</li>
 </ol>
@@ -179,7 +179,7 @@
           <h1 id="api-endpoint">API Endpoint</h1>
 
 <p>You access Beyonic’s API at the following endpoint:
-    <aside class="notice">https://app.beyonic.com/api</aside></p>
+    <aside class="notice">https://api.beyonic.com/api</aside></p>
 
 <p>This endpoint uses your saved API version (see below). If you’d like to make sure that your application always accesses the same version, you can specify a specific version as shown in the versioning section.</p>
 
@@ -188,7 +188,7 @@
 <blockquote>
 <p>Example Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl -H <span class="s2">"Beyonic-Version: v1"</span> https://app.beyonic.com/api
+<pre class="highlight shell"><code>curl -H <span class="s2">"Beyonic-Version: v1"</span> https://api.beyonic.com/api
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_version</span> <span class="o">=</span> <span class="s1">'v1'</span>
 </code></pre><pre class="highlight php"><code><span class="cp">&lt;?php</span>
@@ -208,7 +208,7 @@
 <p>You can temporarily override the API version for a specific request in 2 ways:</p>
 
 <ul>
-<li>Use version specific URLS like: https://app.beyonic.com/api/v1</li>
+<li>Use version specific URLS like: https://api.beyonic.com/api/v1</li>
 <li>Include the Beyonic-Version header in your request as shown in the examples to the right.</li>
 </ul>
 
@@ -221,7 +221,7 @@
 <blockquote>
 <p>Example Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+<pre class="highlight shell"><code>curl https://api.beyonic.com/api -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 </code></pre><pre class="highlight php"><code><span class="cp">&lt;?php</span>
@@ -249,7 +249,7 @@
 <blockquote>
 <p>Example Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api -H <span class="s2">"Duplicate-Check-Key: ab594c14986612f6167a975e1c369e71edab6900"</span>
+<pre class="highlight shell"><code>curl https://api.beyonic.com/api -H <span class="s2">"Duplicate-Check-Key: ab594c14986612f6167a975e1c369e71edab6900"</span>
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
@@ -464,7 +464,7 @@ And when a request fails, Beyonic returns an HTTP response code in the <em>4XX</
 <blockquote>
 <p>Pagination Example Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/v2/contacts?limit<span class="o">=</span>10&amp;offset<span class="o">=</span>5 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+<pre class="highlight shell"><code>curl https://api.beyonic.com/api/v2/contacts?limit<span class="o">=</span>10&amp;offset<span class="o">=</span>5 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_vesion</span> <span class="o">=</span> <span class="s1">'v2'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
@@ -525,7 +525,7 @@ And when a request fails, Beyonic returns an HTTP response code in the <em>4XX</
 <blockquote>
 <p>Ordering Example:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/contacts?ordering<span class="o">=</span>-created -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+<pre class="highlight shell"><code>curl https://api.beyonic.com/api/contacts?ordering<span class="o">=</span>-created -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
@@ -574,7 +574,7 @@ And when a request fails, Beyonic returns an HTTP response code in the <em>4XX</
 <blockquote>
 <p>Filtering Example:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/contacts?first_name<span class="o">=</span>tom -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+<pre class="highlight shell"><code>curl https://api.beyonic.com/api/contacts?first_name<span class="o">=</span>tom -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
@@ -615,7 +615,7 @@ And when a request fails, Beyonic returns an HTTP response code in the <em>4XX</
 <blockquote>
 <p>Example showing how to create a new payment with Metadata:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/payments -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span> <span class="se">\</span>
+<pre class="highlight shell"><code>curl https://api.beyonic.com/api/payments -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span> <span class="se">\</span>
 -d <span class="nv">phonenumber</span><span class="o">=</span>+256778122118 <span class="se">\</span>
 -d <span class="nv">currency</span><span class="o">=</span>UGX <span class="se">\</span>
 -d <span class="nv">amount</span><span class="o">=</span>30 <span class="se">\</span>
@@ -853,7 +853,7 @@ payments or collection requests.</p>
 
 <p>A postman collection will be created with sample Beyonic API requests. Create an environment on postman by navigating to New &gt; Environment then create the variables below in the environment</p>
 
-<p><aside class="notice">api_url: https://app.beyonic.com/api</aside>
+<p><aside class="notice">api_url: https://api.beyonic.com/api</aside>
     <aside class="notice">api_key: Your api token </aside></p>
 
 <p>Proceed to test the api requests in your postman collection.</p>
@@ -932,7 +932,7 @@ payments or collection requests.</p>
 <p>On some supported networks, collection requests actually &ldquo;pull&rdquo; the funds from the recipient&rsquo;s mobile money wallet, and all they have to do is enter their PIN code to approve the transaction. This greatly improves the customer experience.</p>
 
 <p>The collection requests api endpoint is:
-    <aside class="notice">https://app.beyonic.com/api/collectionrequests</aside></p>
+    <aside class="notice">https://api.beyonic.com/api/collectionrequests</aside></p>
 
 <h2 id="the-collection-request-object">The Collection Request object</h2>
 
@@ -1108,7 +1108,7 @@ payments or collection requests.</p>
 <blockquote>
 <p>Sample Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/collectionrequests -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span> <span class="se">\</span>
+<pre class="highlight shell"><code>curl https://api.beyonic.com/api/collectionrequests -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span> <span class="se">\</span>
 -d <span class="nv">phonenumber</span><span class="o">=</span>+80000000001 <span class="se">\</span>
 -d <span class="nv">currency</span><span class="o">=</span>BXC <span class="se">\</span>
 -d <span class="nv">amount</span><span class="o">=</span>3000 <span class="se">\</span>
@@ -1349,7 +1349,7 @@ payments or collection requests.</p>
 <blockquote>
 <p>Sample Request : The recurrence for this collection  request is every week from 24th May 2019 until 24th June 2019</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/collectionrequests -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span> <span class="se">\</span>
+<pre class="highlight shell"><code>curl https://api.beyonic.com/api/collectionrequests -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span> <span class="se">\</span>
 -d <span class="nv">phonenumber</span><span class="o">=</span>+80000000001 <span class="se">\</span>
 -d <span class="nv">currency</span><span class="o">=</span>BXC <span class="se">\</span>
 -d <span class="nv">amount</span><span class="o">=</span>3000 <span class="se">\</span>
@@ -1406,7 +1406,7 @@ payments or collection requests.</p>
 <blockquote>
 <p>Sample Request : The recurrence for this collection request is in the month of July, August and December.</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/collectionrequests -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span> <span class="se">\</span>
+<pre class="highlight shell"><code>curl https://api.beyonic.com/api/collectionrequests -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span> <span class="se">\</span>
 -d <span class="nv">phonenumber</span><span class="o">=</span>+80000000001 <span class="se">\</span>
 -d <span class="nv">currency</span><span class="o">=</span>BXC <span class="se">\</span>
 -d <span class="nv">amount</span><span class="o">=</span>3000 <span class="se">\</span>
@@ -1475,7 +1475,7 @@ payments or collection requests.</p>
 <blockquote>
 <p>Sample Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/collectionrequests/427737 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+<pre class="highlight shell"><code>curl https://api.beyonic.com/api/collectionrequests/427737 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
@@ -1585,7 +1585,7 @@ payments or collection requests.</p>
 <blockquote>
 <p>Sample Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/collectionrequests -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+<pre class="highlight shell"><code>curl https://api.beyonic.com/api/collectionrequests -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
@@ -1629,7 +1629,7 @@ payments or collection requests.</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
     </span><span class="nt">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">31271</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://app.beyonic.com/api/collectionrequests?limit=10&amp;offset=10"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.beyonic.com/api/collectionrequests?limit=10&amp;offset=10"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"previous"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="nt">"results"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
         </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">427737</span><span class="p">,</span><span class="w">
@@ -1727,7 +1727,7 @@ payments or collection requests.</p>
 <blockquote>
 <p>Sample Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl <span class="s2">"https://app.beyonic.com/api/collectionrequests?phonenumber=%2B80000000001&amp;amount=500"</span> -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+<pre class="highlight shell"><code>curl <span class="s2">"https://api.beyonic.com/api/collectionrequests?phonenumber=%2B80000000001&amp;amount=500"</span> -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
@@ -1799,7 +1799,7 @@ payments or collection requests.</p>
 <p>When the user sends in a payment, it will create a collection object that you can access via the Collections API using the methods shown below.</p>
 
 <p>The collections api endpoint is:
-  <aside class="notice">https://app.beyonic.com/api/collections</aside></p>
+  <aside class="notice">https://api.beyonic.com/api/collections</aside></p>
 
 <p><strong>NOTE: If you want to initiate new collections, use the [Collection Requests API](#collection-requests. The collections api only allows you to view funds that have already been sent to you.</strong></p>
 
@@ -2118,7 +2118,7 @@ REJECT ASCD1234 Wrong Account Number.
 <blockquote>
 <p>Sample Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/collections/131820 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+<pre class="highlight shell"><code>curl https://api.beyonic.com/api/collections/131820 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
@@ -2297,7 +2297,7 @@ REJECT ASCD1234 Wrong Account Number.
 <blockquote>
 <p>Sample Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/collections -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+<pre class="highlight shell"><code>curl https://api.beyonic.com/api/collections -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
@@ -2336,7 +2336,7 @@ REJECT ASCD1234 Wrong Account Number.
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
     </span><span class="nt">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://app.beyonic.com/api/collections?offset=10"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.beyonic.com/api/collections?offset=10"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"previous"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="nt">"results"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
@@ -2394,7 +2394,7 @@ REJECT ASCD1234 Wrong Account Number.
 <blockquote>
 <p>Sample Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/collections?phonenumber<span class="o">=</span>%2B80000000001&amp;remote_transaction_id<span class="o">=</span>SS12312 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+<pre class="highlight shell"><code>curl https://api.beyonic.com/api/collections?phonenumber<span class="o">=</span>%2B80000000001&amp;remote_transaction_id<span class="o">=</span>SS12312 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
@@ -2482,7 +2482,7 @@ REJECT ASCD1234 Wrong Account Number.
 <blockquote>
 <p>Sample Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/collections?phonenumber<span class="o">=</span>%2B80000000001&amp;remote_transaction_id<span class="o">=</span>SS12312&amp;claim<span class="o">=</span>True&amp;amount<span class="o">=</span>200 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+<pre class="highlight shell"><code>curl https://api.beyonic.com/api/collections?phonenumber<span class="o">=</span>%2B80000000001&amp;remote_transaction_id<span class="o">=</span>SS12312&amp;claim<span class="o">=</span>True&amp;amount<span class="o">=</span>200 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
@@ -2596,7 +2596,7 @@ REJECT ASCD1234 Wrong Account Number.
 <p>To send payments (mobile money or prepaid airtime credit) to a mobile subscriber, you create a new payment object using the payments API. You can also use the payments API to retrieve individual payments or list all payments, as shown in the sections below.</p>
 
 <p>The payments api endpoint is:
-    <aside class="notice">https://app.beyonic.com/api/payments</aside></p>
+    <aside class="notice">https://api.beyonic.com/api/payments</aside></p>
 
 <h2 id="the-payment-object">The Payment object</h2>
 
@@ -2785,7 +2785,7 @@ REJECT ASCD1234 Wrong Account Number.
 <blockquote>
 <p>Sample Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/payments -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span> <span class="se">\</span>
+<pre class="highlight shell"><code>curl https://api.beyonic.com/api/payments -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span> <span class="se">\</span>
 -d <span class="nv">phonenumber</span><span class="o">=</span>+80000000001 <span class="se">\</span>
 -d <span class="nv">first_name</span><span class="o">=</span>Kennedy<span class="se">\</span>
 -d <span class="nv">last_name</span><span class="o">=</span>Amani<span class="se">\</span>
@@ -3048,7 +3048,7 @@ REJECT ASCD1234 Wrong Account Number.
 <pre class="highlight shell"><code>curl -d <span class="s1">'{"currency": "BXC", "description": "Test response on mutiples", "callback_url": "https://my.url.com/callback", "payment_type": "money", "account": 1, "recipient_data": "[\\n {\\n  \\"amount\\": 1,\\n \\"phonenumber\\": \\"+80000000001\\",\\n \\"first_name\\": \\"Jerry\\",\\n  \\"last_name\\": \\"Airtel\\",\\n \\"description\\": \\"This is a payment to {first_name}. This desc is in child obj.\\"\\n\\n  },\\n {\\n  \\"phonenumber\\": \\"+80000000002\\",\\n \\"description\\": \\"What the response?\\",\\n  \\"amount\\":5\\n }\\n ]\\n "}'</span> <span class="se">\</span>
 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span> <span class="se">\</span>
 -H <span class="s2">"Content-type : application/json"</span> <span class="se">\</span>
-https://app.beyonic.com/api/payments
+https://api.beyonic.com/api/payments
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
@@ -3256,7 +3256,7 @@ The rest of the fields are optional.</p>
 <blockquote>
 <p>Sample Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/payments/22744 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+<pre class="highlight shell"><code>curl https://api.beyonic.com/api/payments/22744 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
@@ -3361,7 +3361,7 @@ The rest of the fields are optional.</p>
 <blockquote>
 <p>Sample Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/payments -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+<pre class="highlight shell"><code>curl https://api.beyonic.com/api/payments -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
@@ -3407,7 +3407,7 @@ The rest of the fields are optional.</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
     </span><span class="nt">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://app.beyonic.com/api/payments?offset=10"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://api.beyonic.com/api/payments?offset=10"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"previous"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="nt">"results"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
@@ -3474,7 +3474,7 @@ The rest of the fields are optional.</p>
 <blockquote>
 <p>Sample Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/payments?amount<span class="o">=</span>500 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+<pre class="highlight shell"><code>curl https://api.beyonic.com/api/payments?amount<span class="o">=</span>500 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
@@ -3543,7 +3543,7 @@ The rest of the fields are optional.</p>
 
 <p>The currency api endpoint is:</p>
 
-<p><aside class="notice">https://app.beyonic.com/api/currencies</aside></p>
+<p><aside class="notice">https://api.beyonic.com/api/currencies</aside></p>
 
 <h2 id="the-currency-object">The Currency object</h2>
 
@@ -3605,7 +3605,7 @@ The rest of the fields are optional.</p>
 <blockquote>
 <p>Sample Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/currencies/7 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+<pre class="highlight shell"><code>curl https://api.beyonic.com/api/currencies/7 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
@@ -3681,7 +3681,7 @@ The rest of the fields are optional.</p>
 <blockquote>
 <p>Sample Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/currencies -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+<pre class="highlight shell"><code>curl https://api.beyonic.com/api/currencies -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
@@ -3769,7 +3769,7 @@ The rest of the fields are optional.</p>
 
 <p>The network api endpoint is:</p>
 
-<p><aside class="notice">https://app.beyonic.com/api/networks</aside></p>
+<p><aside class="notice">https://api.beyonic.com/api/networks</aside></p>
 
 <h2 id="the-network-object">The Network object</h2>
 
@@ -3825,7 +3825,7 @@ The rest of the fields are optional.</p>
 <blockquote>
 <p>Sample Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/networks/15 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+<pre class="highlight shell"><code>curl https://api.beyonic.com/api/networks/15 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
@@ -3900,7 +3900,7 @@ The rest of the fields are optional.</p>
 <blockquote>
 <p>Sample Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/networks -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+<pre class="highlight shell"><code>curl https://api.beyonic.com/api/networks -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
@@ -3983,7 +3983,7 @@ The rest of the fields are optional.</p>
 <h2 id="introduction">Introduction</h2>
 
 <p>This api allows the users to check which banks are supported by the Beyonic API.
-The API endpoint is <aside class="notice">https://app.beyonic.com/api/banks</aside></p>
+The API endpoint is <aside class="notice">https://api.beyonic.com/api/banks</aside></p>
 
 <h2 id="the-bank-object">The bank object</h2>
 
@@ -4040,7 +4040,7 @@ The API endpoint is <aside class="notice">https://app.beyonic.com/api/banks</asi
 
 <p>The accounts api endpoint is:</p>
 
-<p><aside class="notice">https://app.beyonic.com/api/accounts</aside></p>
+<p><aside class="notice">https://api.beyonic.com/api/accounts</aside></p>
 
 <h2 id="the-account-object">The Account object</h2>
 
@@ -4118,7 +4118,7 @@ The API endpoint is <aside class="notice">https://app.beyonic.com/api/banks</asi
 <blockquote>
 <p>Sample Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/accounts/12 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+<pre class="highlight shell"><code>curl https://api.beyonic.com/api/accounts/12 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
@@ -4190,7 +4190,7 @@ The API endpoint is <aside class="notice">https://app.beyonic.com/api/banks</asi
 <blockquote>
 <p>Sample Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/accounts -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+<pre class="highlight shell"><code>curl https://api.beyonic.com/api/accounts -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
@@ -4228,7 +4228,7 @@ The API endpoint is <aside class="notice">https://app.beyonic.com/api/banks</asi
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
     </span><span class="nt">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://app.beyonic.com/api/accounts?offset=10"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.beyonic.com/api/accounts?offset=10"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"previous"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="nt">"results"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
@@ -4263,7 +4263,7 @@ The API endpoint is <aside class="notice">https://app.beyonic.com/api/banks</asi
 <blockquote>
 <p>Sample Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/accounts?currency<span class="o">=</span>KES -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+<pre class="highlight shell"><code>curl https://api.beyonic.com/api/accounts?currency<span class="o">=</span>KES -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
@@ -4321,7 +4321,7 @@ transactions.</p>
 
 <p>The transactions api endpoint is:</p>
 
-<p><aside class="notice">https://app.beyonic.com/api/transactions</aside></p>
+<p><aside class="notice">https://api.beyonic.com/api/transactions</aside></p>
 
 <h2 id="the-transaction-object">The Transaction object</h2>
 
@@ -4381,7 +4381,7 @@ transactions.</p>
 <blockquote>
 <p>Sample Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/transactions/12 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+<pre class="highlight shell"><code>curl https://api.beyonic.com/api/transactions/12 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
@@ -4450,7 +4450,7 @@ transactions.</p>
 <blockquote>
 <p>Sample Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/transactions -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+<pre class="highlight shell"><code>curl https://api.beyonic.com/api/transactions -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
@@ -4488,7 +4488,7 @@ transactions.</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://app.beyonic.com/api/transactions?limit=10&amp;offset=10"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.beyonic.com/api/transactions?limit=10&amp;offset=10"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"previous"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
   </span><span class="nt">"results"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
@@ -4517,7 +4517,7 @@ transactions.</p>
 <blockquote>
 <p>Sample Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/transactions?type<span class="o">=</span>mobile_payment -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+<pre class="highlight shell"><code>curl https://api.beyonic.com/api/transactions?type<span class="o">=</span>mobile_payment -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
@@ -4574,7 +4574,7 @@ transactions.</p>
 <p>Contacts represent people whom you can send payments to, or receive payments from. The contacts api method allows you to add, retrieve, list and update contacts in your Beyonic account. Contacts are also added automatically whenever you send a payment to a new phone number.</p>
 
 <p>The contacts api endpoint is:
-    <aside class="notice">https://app.beyonic.com/api/contacts</aside></p>
+    <aside class="notice">https://api.beyonic.com/api/contacts</aside></p>
 
 <h2 id="the-contact-object">The Contact object</h2>
 
@@ -4676,7 +4676,7 @@ transactions.</p>
 <blockquote>
 <p>Sample Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/contacts -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span> <span class="se">\</span>
+<pre class="highlight shell"><code>curl https://api.beyonic.com/api/contacts -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span> <span class="se">\</span>
 -d <span class="nv">first_name</span><span class="o">=</span><span class="s1">'John'</span> <span class="se">\</span>
 -d <span class="nv">last_name</span><span class="o">=</span><span class="s1">'Doe'</span> <span class="se">\</span>
 -d <span class="nv">phone_number</span><span class="o">=</span><span class="s1">'+80000000001'</span> <span class="se">\</span>
@@ -4809,7 +4809,7 @@ transactions.</p>
 <blockquote>
 <p>Sample Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/contacts/44702 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+<pre class="highlight shell"><code>curl https://api.beyonic.com/api/contacts/44702 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
@@ -4886,7 +4886,7 @@ transactions.</p>
 <blockquote>
 <p>Sample Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/contacts -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+<pre class="highlight shell"><code>curl https://api.beyonic.com/api/contacts -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
@@ -4924,7 +4924,7 @@ transactions.</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
     </span><span class="nt">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://app.beyonic.com/api/contacts?offset=10"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.beyonic.com/api/contacts?offset=10"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"previous"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="nt">"results"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
@@ -4967,7 +4967,7 @@ transactions.</p>
 <blockquote>
 <p>Sample Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/contacts?first_name<span class="o">=</span>luke -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+<pre class="highlight shell"><code>curl https://api.beyonic.com/api/contacts?first_name<span class="o">=</span>luke -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
@@ -5022,7 +5022,7 @@ transactions.</p>
 <blockquote>
 <p>Sample Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/contacts -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span> <span class="se">\</span>
+<pre class="highlight shell"><code>curl https://api.beyonic.com/api/contacts -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span> <span class="se">\</span>
 -d <span class="nv">first_name</span><span class="o">=</span><span class="s1">'John'</span> <span class="se">\</span>
 -d <span class="nv">last_name</span><span class="o">=</span><span class="s1">'Doe'</span> <span class="se">\</span>
 -d <span class="nv">phone_number</span><span class="o">=</span><span class="s1">'+80000000001'</span> <span class="se">\</span>
@@ -5084,7 +5084,7 @@ transactions.</p>
 <p>You can use the events API to retrieve information about recent events. Events are saved for at least 30 days. After that, they may be discarded.</p>
 
 <p>The events api endpoint is:
-        <aside class="notice">https://app.beyonic.com/api/events</aside></p>
+        <aside class="notice">https://api.beyonic.com/api/events</aside></p>
 
 <p>You can also set up your account to automatically notify you as event occur. See the <a href="#webhooks">Webhooks API</a> for more information about setting up automatic notification for events.</p>
 
@@ -5205,7 +5205,7 @@ transactions.</p>
 <blockquote>
 <p>Sample Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/events/12 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+<pre class="highlight shell"><code>curl https://api.beyonic.com/api/events/12 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
@@ -5291,7 +5291,7 @@ transactions.</p>
 <blockquote>
 <p>Sample Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/events -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+<pre class="highlight shell"><code>curl https://api.beyonic.com/api/events -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
@@ -5329,7 +5329,7 @@ transactions.</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
     </span><span class="nt">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://app.beyonic.com/api/events?offset=10"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.beyonic.com/api/events?offset=10"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"previous"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="nt">"results"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
@@ -5362,7 +5362,7 @@ transactions.</p>
 <blockquote>
 <p>Sample Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/events?type<span class="o">=</span>contact.created -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+<pre class="highlight shell"><code>curl https://api.beyonic.com/api/events?type<span class="o">=</span>contact.created -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
@@ -5415,7 +5415,7 @@ transactions.</p>
 
 <p>The webhooks api endpoint is:</p>
 
-<p><aside class="notice">https://app.beyonic.com/api/webhooks</aside></p>
+<p><aside class="notice">https://api.beyonic.com/api/webhooks</aside></p>
 
 <p><strong>Note:</strong></p>
 
@@ -5580,7 +5580,7 @@ transactions.</p>
 <blockquote>
 <p>Sample Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl http://app.beyonic.com/api/webhooks -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span> <span class="se">\</span>
+<pre class="highlight shell"><code>curl http://api.beyonic.com/api/webhooks -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span> <span class="se">\</span>
 -d <span class="s2">"payment.status.changed"</span> <span class="se">\</span>
 -d <span class="nv">target</span><span class="o">=</span><span class="s2">"https://my.callback.url/"</span>
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
@@ -5676,7 +5676,7 @@ transactions.</p>
 <blockquote>
 <p>Sample Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/webhooks/23 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+<pre class="highlight shell"><code>curl https://api.beyonic.com/api/webhooks/23 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
@@ -5748,7 +5748,7 @@ transactions.</p>
 <blockquote>
 <p>Sample Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/webhooks -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+<pre class="highlight shell"><code>curl https://api.beyonic.com/api/webhooks -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
@@ -5831,7 +5831,7 @@ transactions.</p>
 <blockquote>
 <p>Sample Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>ccurl http://app.beyonic.com/api/webhooks/1 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span> <span class="se">\</span>
+<pre class="highlight shell"><code>ccurl http://api.beyonic.com/api/webhooks/1 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span> <span class="se">\</span>
 -d <span class="nv">event</span><span class="o">=</span><span class="s2">"payment.status.changed"</span> <span class="se">\</span>
 -d <span class="nv">target</span><span class="o">=</span><span class="s2">"https://my.callback.url/"</span> <span class="se">\</span>
 -X PUT
@@ -5895,7 +5895,7 @@ transactions.</p>
 <blockquote>
 <p>Sample Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl http://app.beyonic.com/api/webhooks/1 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span> -X DELETE
+<pre class="highlight shell"><code>curl http://api.beyonic.com/api/webhooks/1 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span> -X DELETE
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
@@ -5935,7 +5935,7 @@ transactions.</p>
 <blockquote>
 <p>Sample Request:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl https://app.beyonic.com/api/webhooks?user<span class="o">=</span>1 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
+<pre class="highlight shell"><code>curl https://api.beyonic.com/api/webhooks?user<span class="o">=</span>1 -H <span class="s2">"Authorization: Token ab594c14986612f6167a975e1c369e71edab6900"</span>
 </code></pre><pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'beyonic'</span>
 <span class="no">Beyonic</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s1">'ab594c14986612f6167a975e1c369e71edab6900'</span>
 
